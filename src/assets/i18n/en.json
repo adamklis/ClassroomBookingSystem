@@ -1,0 +1,43 @@
+{
+    "TITLE": "Classroom booking system",
+    "MENU": {
+        "HOME": "Home",
+        "LOGIN": "Log In",
+        "REGISTER": "Sign Up",
+        "RESERVATIONS": "Reservations",
+        "NEW_RESERVATION": "New reservation",
+        "ROOMS": "Rooms",
+        "APPLIANCES": "Appliances",
+        "SOFTWARE": "Software",
+        "USERS": "Users"
+    },
+    "HOME": {
+        "WELCOME": "Welcome to Classroom booking system",
+        "PLEASE_LOG_IN": "Please log in."
+    },
+    "LOGIN": {
+        "HEADER": "Log in",
+        "EMAIL_LOGIN": "Email / Login",
+        "PASSWORD": "Password",
+        "LOG_IN": "Log in",
+        "VALIDATION": {
+          "LOGIN_REQUIRED": "Email or login required.",
+          "PASSWORD_REQUIRED": "Password required."
+        }
+
+    },
+    "REGISTER": {
+        "HEADER": "Sign Up",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "FORENAME": "Forename",
+        "SURNAME": "Surname",
+        "CONTACT": "Contact",
+        "ROLE": "Role",
+        "SIGN_UP": "Sign Up",
+        "VALIDATION": {
+          "FIELD_REQUIRED": "Field is required."
+        }
+    }
+}

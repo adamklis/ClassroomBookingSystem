@@ -1,0 +1,28 @@
+<h3>{{ 'LOGIN.HEADER' | translate }}</h3>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="login">{{ 'LOGIN.EMAIL_LOGIN' | translate }}</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="!loginControl.valid && loginControl.touched"
+      [class.is-valid]="loginControl.valid"
+      id="login"
+      formControlName="login"
+      required>
+      <small *ngIf="!loginControl.valid && loginControl.touched" id="loginHelp" class="form-text text-muted">{{ 'LOGIN.VALIDATION.LOGIN_REQUIRED' | translate }}</small>
+  </div>
+  <div class="form-group">
+    <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
+    <input
+      type="password"
+      class="form-control"
+      [class.is-invalid]="!passwordControl.valid && passwordControl.touched"
+      [class.is-valid]="passwordControl.valid"
+      id="password"
+      formControlName="password"
+      required>
+      <small *ngIf="!passwordControl.valid && passwordControl.touched" id="passwordHelp" class="form-text text-muted">{{ 'LOGIN.VALIDATION.PASSWORD_REQUIRED' | translate }}</small>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">{{ 'LOGIN.LOG_IN' | translate }}</button>
+</form>

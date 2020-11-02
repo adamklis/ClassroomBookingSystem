@@ -1,0 +1,43 @@
+{
+    "TITLE": "System rezerwacji sal lekcyjnych",
+    "MENU": {
+        "HOME": "Start",
+        "LOGIN": "Logowanie",
+        "REGISTER": "Rejestracja",
+        "NEW_RESERVATION": "Nowa rezerwacja",
+        "RESERVATIONS": "Rezerwacje",
+        "ROOMS": "Pokoje",
+        "APPLIANCES": "Sprzęt",
+        "SOFTWARE": "Oprogramowanie",
+        "USERS": "Użytkownicy"
+    },
+    "HOME": {
+        "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
+        "PLEASE_LOG_IN": "Proszę się zalogować."
+    },
+    "LOGIN": {
+        "HEADER": "Logowanie",
+        "EMAIL_LOGIN": "Email / Login",
+        "PASSWORD": "Hasło",
+        "LOG_IN": "Zaloguj",
+        "VALIDATION": {
+          "LOGIN_REQUIRED": "Proszę uzupełnić login lub email.",
+          "PASSWORD_REQUIRED": "Proszę uzupełnić hasło."
+        }
+
+    },
+    "REGISTER": {
+        "HEADER": "Rejestracja",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "PASSWORD": "Hasło",
+        "FORENAME": "Imię",
+        "SURNAME": "Nazwisko",
+        "CONTACT": "Kontakt",
+        "ROLE": "Rola",
+        "SIGN_UP": "Zarejestruj",
+        "VALIDATION": {
+          "FIELD_REQUIRED": "Pole jest wymagane."
+        }
+    }
+}
