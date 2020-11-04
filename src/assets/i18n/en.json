@@ -39,5 +39,31 @@
         "VALIDATION": {
           "FIELD_REQUIRED": "Field is required."
         }
+    },
+    "USER": {
+      "HEADER": "Users",
+      "TABLE": {
+        "SURNAME": "Surname",
+        "FORENAME": "Forename",
+        "CONTACT": "Contact",
+        "ROLE": "Role",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "EMPTY": "List is empty."
+      },
+      "DETAILS": {
+        "SURNAME": "Surname",
+        "FORENAME": "Forename",
+        "CONTACT": "Contact",
+        "ROLE": "Role",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "ADD": "Add user",
+        "SAVE": "Save changes",
+        "DELETE": "Delete user",
+        "CLEAR": "Clear form",
+        "RESTORE": "Restore form",
+        "NEW": "New user"
+      }
     }
 }

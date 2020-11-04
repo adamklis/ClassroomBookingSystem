@@ -1,0 +1,36 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{{ 'USER.TABLE.LOGIN' | translate }}</th>
+      <th>{{ 'USER.TABLE.SURNAME' | translate }}</th>
+      <th>{{ 'USER.TABLE.FORENAME' | translate }}</th>
+      <th>{{ 'USER.TABLE.ROLE' | translate }}</th>
+      <th>{{ 'USER.TABLE.CONTACT' | translate }}</th>
+      <th>{{ 'USER.TABLE.EMAIL' | translate }}</th>
+      <th>
+        <button routerLink="/users/0" class="btn btn-sm btn-success">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!users || users.length === 0">
+      <td colspan="7">{{ 'USER.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td>{{ user.login }}</td>
+      <td>{{ user.surename }}</td>
+      <td>{{ user.forename }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.contact }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <button routerLink="/users/{{user.uuid}}" class="btn btn-sm btn-primary">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+
+</table>

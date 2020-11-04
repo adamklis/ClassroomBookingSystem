@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { StartComponent } from './modules/feature/home/start/start.component';
 import { LoginComponent } from './modules/feature/home/login/login.component';
 import { RegisterComponent } from './modules/feature/home/register/register.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -23,6 +24,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: StartComponent },
@@ -49,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     HomeModule
   ],
-  providers: [],
+  providers: [TranslateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

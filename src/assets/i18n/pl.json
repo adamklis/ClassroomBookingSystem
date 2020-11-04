@@ -39,5 +39,31 @@
         "VALIDATION": {
           "FIELD_REQUIRED": "Pole jest wymagane."
         }
+    },
+    "USER": {
+      "HEADER": "Użytkownicy",
+      "TABLE": {
+        "SURNAME": "Nazwisko",
+        "FORENAME": "Imię",
+        "CONTACT": "Kontakt",
+        "ROLE": "Rola",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "EMPTY": "Lista jest pusta."
+      },
+      "DETAILS": {
+        "SURNAME": "Nazwisko",
+        "FORENAME": "Imię",
+        "CONTACT": "Kontakt",
+        "ROLE": "Rola",
+        "LOGIN": "Login",
+        "EMAIL": "Email",
+        "ADD": "Dodaj użytkownika",
+        "SAVE": "Zapisz zmiany",
+        "DELETE": "Usuń użytkownika",
+        "CLEAR": "Wyczyść formularz",
+        "RESTORE": "Przywróć formularz",
+        "NEW": "Nowy użytkownik"
+      }
     }
 }

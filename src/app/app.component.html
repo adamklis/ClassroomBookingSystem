@@ -1,7 +1,12 @@
 <div class="jumbotron">
-  <h1 class="display-4">{{ 'TITLE' | translate }}</h1>
+    <h1 class="display-4">{{ 'TITLE' | translate }}</h1>
 </div>
 <div class="container">
+  <div class="row justify-content-end">
+    <select (change)="onLanguageChange($event)" class="form-control-sm" id="languageSelect">
+      <option *ngFor="let language of languages"> {{ language }} </option>
+    </select>
+  </div>
   <div class="row">
     <div class="col-12 col-md-3">
       <cbs-menu></cbs-menu>
