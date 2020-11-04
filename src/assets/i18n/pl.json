@@ -1,69 +1,81 @@
 {
-    "TITLE": "System rezerwacji sal lekcyjnych",
-    "MENU": {
-        "HOME": "Start",
-        "LOGIN": "Logowanie",
-        "REGISTER": "Rejestracja",
-        "NEW_RESERVATION": "Nowa rezerwacja",
-        "RESERVATIONS": "Rezerwacje",
-        "ROOMS": "Pokoje",
-        "APPLIANCES": "Sprzęt",
-        "SOFTWARE": "Oprogramowanie",
-        "USERS": "Użytkownicy"
-    },
-    "HOME": {
-        "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
-        "PLEASE_LOG_IN": "Proszę się zalogować."
-    },
-    "LOGIN": {
-        "HEADER": "Logowanie",
-        "EMAIL_LOGIN": "Email / Login",
-        "PASSWORD": "Hasło",
-        "LOG_IN": "Zaloguj",
-        "VALIDATION": {
-          "LOGIN_REQUIRED": "Proszę uzupełnić login lub email.",
-          "PASSWORD_REQUIRED": "Proszę uzupełnić hasło."
-        }
-
-    },
-    "REGISTER": {
-        "HEADER": "Rejestracja",
-        "LOGIN": "Login",
-        "EMAIL": "Email",
-        "PASSWORD": "Hasło",
-        "FORENAME": "Imię",
-        "SURNAME": "Nazwisko",
-        "CONTACT": "Kontakt",
-        "ROLE": "Rola",
-        "SIGN_UP": "Zarejestruj",
-        "VALIDATION": {
-          "FIELD_REQUIRED": "Pole jest wymagane."
-        }
-    },
-    "USER": {
-      "HEADER": "Użytkownicy",
-      "TABLE": {
-        "SURNAME": "Nazwisko",
-        "FORENAME": "Imię",
-        "CONTACT": "Kontakt",
-        "ROLE": "Rola",
-        "LOGIN": "Login",
-        "EMAIL": "Email",
-        "EMPTY": "Lista jest pusta."
-      },
-      "DETAILS": {
-        "SURNAME": "Nazwisko",
-        "FORENAME": "Imię",
-        "CONTACT": "Kontakt",
-        "ROLE": "Rola",
-        "LOGIN": "Login",
-        "EMAIL": "Email",
-        "ADD": "Dodaj użytkownika",
-        "SAVE": "Zapisz zmiany",
-        "DELETE": "Usuń użytkownika",
-        "CLEAR": "Wyczyść formularz",
-        "RESTORE": "Przywróć formularz",
-        "NEW": "Nowy użytkownik"
+  "TITLE": "System rezerwacji sal lekcyjnych",
+  "MENU": {
+      "HOME": "Start",
+      "LOGIN": "Logowanie",
+      "REGISTER": "Rejestracja",
+      "NEW_RESERVATION": "Nowa rezerwacja",
+      "RESERVATIONS": "Rezerwacje",
+      "ROOMS": "Pokoje",
+      "APPLIANCES": "Sprzęt",
+      "SOFTWARE": "Oprogramowanie",
+      "USERS": "Użytkownicy"
+  },
+  "HOME": {
+      "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
+      "PLEASE_LOG_IN": "Proszę się zalogować."
+  },
+  "LOGIN": {
+      "HEADER": "Logowanie",
+      "EMAIL_LOGIN": "Email / Login",
+      "PASSWORD": "Hasło",
+      "LOG_IN": "Zaloguj",
+      "VALIDATION": {
+        "LOGIN_REQUIRED": "Proszę uzupełnić login lub email.",
+        "PASSWORD_REQUIRED": "Proszę uzupełnić hasło."
       }
+
+  },
+  "REGISTER": {
+      "HEADER": "Rejestracja",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "PASSWORD": "Hasło",
+      "FORENAME": "Imię",
+      "SURNAME": "Nazwisko",
+      "CONTACT": "Kontakt",
+      "ROLE": "Rola",
+      "SIGN_UP": "Zarejestruj",
+      "VALIDATION": {
+        "FIELD_REQUIRED": "Pole jest wymagane."
+      }
+  },
+  "USER": {
+    "HEADER": "Użytkownicy",
+    "TABLE": {
+      "SURNAME": "Nazwisko",
+      "FORENAME": "Imię",
+      "CONTACT": "Kontakt",
+      "ROLE": "Rola",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "EMPTY": "Lista jest pusta."
+    },
+    "DETAILS": {
+      "SURNAME": "Nazwisko",
+      "FORENAME": "Imię",
+      "CONTACT": "Kontakt",
+      "ROLE": "Rola",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "ADD": "Dodaj użytkownika",
+      "SAVE": "Zapisz zmiany",
+      "DELETE": "Usuń użytkownika",
+      "CLEAR": "Wyczyść formularz",
+      "RESTORE": "Przywróć formularz",
+      "NEW": "Nowy użytkownik"
+    },
+    "MODAL": {
+      "DELETE_USER_TITLE": "Usuwanie użytkownika",
+      "DELETE_USER_MESSAGE": "Czy na pewno usunac użytkownika: {{forename}} {{surname}}?",
+      "DELETE_USER_SUCCESS_TITLE": "Usuwanie użytkownika",
+      "DELETE_USER_SUCCESS_MESSAGE": "Usunięto użytkownika.",
+      "ADD_USER_SUCCESS_TITLE": "Dodawanie użytkownika",
+      "ADD_USER_SUCCESS_MESSAGE": "Uzytkownik {{forename}} {{surname}} dodany.",
+      "SAVE_USER_SUCCESS_TITLE": "Zapisywanie",
+      "SAVE_USER_SUCCESS_MESSAGE": "Zapisano zmiany.",
+      "RESTORE_USER_TITLE": "Przywracanie zmian",
+      "RESTORE_USER_MESSAGE": "Czy na pewno wyczyścić zmiany?"
     }
+  }
 }

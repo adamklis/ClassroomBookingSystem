@@ -1,5 +1,5 @@
-export interface User {
-  uuid: string;
+export interface IUser {
+  uuid?: string;
   forename: string;
   surename: string;
   contact: string;

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as uuid from 'uuid';
-import { User } from '../interface/user.interface';
+import { IUser } from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private USERS: Array<User> = [
+  private USERS: Array<IUser> = [
     {
       uuid: '1',
       forename: 'Adam',
@@ -40,22 +40,22 @@ export class UserService {
 
   constructor() { }
 
-  public getUsers(): Observable<User[]> {
+  public getUsers(): Observable<IUser[]> {
     return of(this.USERS);
   }
 
-  public getUser(uuid: string): Observable<User> {
+  public getUser(uuid: string): Observable<IUser> {
     return of(this.USERS.find(user => user.uuid === uuid));
   }
 
-  public addUser(user: User): void {
+  public addUser(user: IUser): void {
     user.uuid = uuid.v4();
     console.log('Add user:');
     console.log(user);
     this.USERS.push(user);
   }
 
-  public saveUser(user: User): void {
+  public saveUser(user: IUser): void {
     console.log('Save user:');
     console.log(user);
     const userIndex = this.USERS.findIndex(oldUser => oldUser.uuid === user.uuid);

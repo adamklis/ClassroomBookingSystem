@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../interface/user.interface';
+import { IUser } from '../../interface/user.interface';
 import { faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   faPlus = faPlus;
 
   @Input()
-  users: Array<User>;
+  users: Array<IUser>;
 
   constructor() { }
 

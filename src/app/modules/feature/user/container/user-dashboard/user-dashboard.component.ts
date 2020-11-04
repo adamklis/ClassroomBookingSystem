@@ -1,7 +1,7 @@
 import { UserService } from './../../service/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../interface/user.interface';
+import { IUser } from '../../interface/user.interface';
 
 @Component({
   selector: 'cbs-user-dashboard',
@@ -10,7 +10,7 @@ import { User } from '../../interface/user.interface';
 })
 export class UserDashboardComponent implements OnInit {
 
-  public users: User[];
+  public users: IUser[];
 
   constructor(private userService: UserService) { }
 

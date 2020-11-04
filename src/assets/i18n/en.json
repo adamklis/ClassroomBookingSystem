@@ -64,6 +64,18 @@
         "CLEAR": "Clear form",
         "RESTORE": "Restore form",
         "NEW": "New user"
+      },
+      "MODAL": {
+        "DELETE_USER_TITLE": "Delete user",
+        "DELETE_USER_MESSAGE": "Are you sure to delete user: {{forename}} {{surname}}?",
+        "DELETE_USER_SUCCESS_TITLE": "Delete user",
+        "DELETE_USER_SUCCESS_MESSAGE": "Delete success.",
+        "ADD_USER_SUCCESS_TITLE": "Add user",
+        "ADD_USER_SUCCESS_MESSAGE": "User {{forename}} {{surname}} added.",
+        "SAVE_USER_SUCCESS_TITLE": "Save user",
+        "SAVE_USER_SUCCESS_MESSAGE": "Changes saved.",
+        "RESTORE_USER_TITLE": "Discard changes",
+        "RESTORE_USER_MESSAGE": "Are you sure to discard changes?"
       }
     }
 }

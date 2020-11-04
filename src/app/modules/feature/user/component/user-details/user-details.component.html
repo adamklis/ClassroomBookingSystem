@@ -1,4 +1,9 @@
-<h3>{{ 'USER.HEADER' | translate }} -> {{user ? user.forename + ' ' + user.surename : 'USER.DETAILS.NEW' | translate }}</h3>
+<h3>
+  <span routerLink="users">
+    <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'USER.HEADER' | translate }}
+  </span>
+  / {{user ? user.forename + ' ' + user.surename : 'USER.DETAILS.NEW' | translate }}
+</h3>
 <form [formGroup]="registerForm">
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -50,9 +55,9 @@
   </div>
   <div class="form-row">
     <ng-container *ngIf="user">
-    <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onRestoreClick()">{{ 'USER.DETAILS.RESTORE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="registerForm.pristine" (click)="onRestoreClick()">{{ 'USER.DETAILS.RESTORE' | translate }}</button>
     <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'USER.DETAILS.DELETE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!registerForm.valid" (click)="onSaveClick()">{{ 'USER.DETAILS.SAVE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!registerForm.valid || registerForm.untouched" (click)="onSaveClick()">{{ 'USER.DETAILS.SAVE' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="!user">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'USER.DETAILS.CLEAR' | translate }}</button>

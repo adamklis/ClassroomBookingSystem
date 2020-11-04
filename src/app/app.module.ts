@@ -1,3 +1,4 @@
+import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { HomeModule } from './modules/feature/home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -49,7 +50,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   }),
     NgbModule,
     CoreModule,
-    HomeModule
+    HomeModule,
+    SharedModule
   ],
   providers: [TranslateService],
   bootstrap: [AppComponent]
