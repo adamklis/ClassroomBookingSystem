@@ -60,7 +60,7 @@ export class SoftwareService {
   }
 
   public getSoftware(uuid: string): Observable<ISoftware> {
-    return of(this.SOFTWARE.find(user => user.uuid === uuid));
+    return of(this.SOFTWARE.find(software => software.uuid === uuid));
   }
 
   public addSoftware(software: ISoftware): void {

@@ -30,7 +30,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule.forRoot([
       { path: '', component: StartComponent },
       { path: '', children: [
-        { path: 'reservations', loadChildren: () => import('./modules/feature/reservation/reservation.module').then(m => m.ReservationModule) },
+        { path: 'reservations',
+          loadChildren: () => import('./modules/feature/reservation/reservation.module').then(m => m.ReservationModule) },
         { path: 'rooms', loadChildren: () => import('./modules/feature/room/room.module').then(m => m.RoomModule) },
         { path: 'appliances', loadChildren: () => import('./modules/feature/appliance/appliance.module').then(m => m.ApplianceModule) },
         { path: 'software', loadChildren: () => import('./modules/feature/software/software.module').then(m => m.SoftwareModule) },

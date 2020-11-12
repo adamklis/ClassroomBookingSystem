@@ -1,3 +1,5 @@
+import { ApplianceService } from './../../service/appliance.service';
+import { IAppliance } from './../../interface/appliance.interface';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplianceDashboardComponent implements OnInit {
 
-  constructor() { }
+  public appliances: IAppliance[];
+
+  constructor(private applianceService: ApplianceService) { }
 
   ngOnInit(): void {
+    this.applianceService.getAppliances().subscribe(appliances => this.appliances = appliances);
   }
 
 }

@@ -1,120 +1,144 @@
 {
-    "TITLE": "Classroom booking system",
-    "SHARED": {
-      "TABLE": {
-        "EMPTY":"List is empty."
-      },
-      "VALIDATION": {
-        "FIELD_REQUIRED": "Field is required.",
-        "MIN_VALUE_0": "Value must be greater than 0.",
-        "DATE_PERIOD": "Invalid date period."
-      },
-      "BUTTON": {
-        "ADD": "Add",
-        "SAVE": "Save",
-        "DELETE": "Delete",
-        "CLEAR": "Clear",
-        "RESTORE": "Restore",
-        "DISMISS": "Dismiss",
-        "CONFIRM": "Confirm",
-        "OK": "OK"
-      }
+  "TITLE": "Classroom booking system",
+  "SHARED": {
+    "TABLE": {
+      "EMPTY":"List is empty."
     },
-    "MENU": {
-        "HOME": "Home",
-        "LOGIN": "Log In",
-        "REGISTER": "Sign Up",
-        "RESERVATIONS": "Reservations",
-        "NEW_RESERVATION": "New reservation",
-        "ROOMS": "Rooms",
-        "APPLIANCES": "Appliances",
-        "SOFTWARE": "Software",
-        "USERS": "Users"
+    "VALIDATION": {
+      "FIELD_REQUIRED": "Field is required.",
+      "MIN_VALUE_0": "Value must be greater than 0.",
+      "DATE_PERIOD": "Invalid date period."
     },
-    "HOME": {
-        "WELCOME": "Welcome to Classroom booking system",
-        "PLEASE_LOG_IN": "Please log in."
-    },
-    "LOGIN": {
-        "HEADER": "Log in",
-        "EMAIL_LOGIN": "Email / Login",
-        "PASSWORD": "Password",
-        "LOG_IN": "Log in",
-        "VALIDATION": {
-          "LOGIN_REQUIRED": "Email or login required.",
-          "PASSWORD_REQUIRED": "Password required."
-        }
-
-    },
-    "REGISTER": {
-        "HEADER": "Sign Up",
-        "LOGIN": "Login",
-        "EMAIL": "Email",
-        "PASSWORD": "Password",
-        "FORENAME": "Forename",
-        "SURNAME": "Surname",
-        "CONTACT": "Contact",
-        "ROLE": "Role",
-        "SIGN_UP": "Sign Up"
-    },
-    "USER": {
-      "HEADER": "Users",
-      "TABLE": {
-        "SURNAME": "Surname",
-        "FORENAME": "Forename",
-        "CONTACT": "Contact",
-        "ROLE": "Role",
-        "LOGIN": "Login",
-        "EMAIL": "Email"
-      },
-      "DETAILS": {
-        "SURNAME": "Surname",
-        "FORENAME": "Forename",
-        "CONTACT": "Contact",
-        "ROLE": "Role",
-        "LOGIN": "Login",
-        "EMAIL": "Email",
-        "NEW": "New user"
-      },
-      "MODAL": {
-        "DELETE_USER_TITLE": "Delete user",
-        "DELETE_USER_MESSAGE": "Are you sure to delete user: {{forename}} {{surname}}?",
-        "DELETE_USER_SUCCESS_TITLE": "Delete user",
-        "DELETE_USER_SUCCESS_MESSAGE": "Delete success.",
-        "ADD_USER_SUCCESS_TITLE": "Add user",
-        "ADD_USER_SUCCESS_MESSAGE": "User {{forename}} {{surname}} added.",
-        "SAVE_USER_SUCCESS_TITLE": "Save user",
-        "SAVE_USER_SUCCESS_MESSAGE": "Changes saved.",
-        "RESTORE_USER_TITLE": "Discard changes",
-        "RESTORE_USER_MESSAGE": "Are you sure to discard changes?"
-      }
-    },
-    "SOFTWARE": {
-      "HEADER": "Software",
-      "TABLE": {
-        "NAME": "Name",
-        "QUANTITY": "Quantity",
-        "VALID_FROM": "Valid from",
-        "VALID_TO": "Valid to"
-      },
-      "DETAILS": {
-        "NAME": "Name",
-        "QUANTITY": "Quantity",
-        "VALID_FROM": "Valid from",
-        "VALID_TO": "Valid to",
-        "NEW": "New software"
-      },
-      "MODAL": {
-        "DELETE_SOFTWARE_TITLE": "Delete software",
-        "DELETE_SOFTWARE_MESSAGE": "Are you sure to delete software: {{name}}?",
-        "DELETE_SOFTWARE_SUCCESS_TITLE": "Delete software",
-        "DELETE_SOFTWARE_SUCCESS_MESSAGE": "Delete success.",
-        "ADD_SOFTWARE_SUCCESS_TITLE": "Add software",
-        "ADD_SOFTWARE_SUCCESS_MESSAGE": "Software {{name}} added.",
-        "SAVE_SOFTWARE_SUCCESS_TITLE": "Save software",
-        "SAVE_SOFTWARE_SUCCESS_MESSAGE": "Changes saved.",
-        "RESTORE_SOFTWARE_TITLE": "Discard changes",
-        "RESTORE_SOFTWARE_MESSAGE": "Are you sure to discard changes?"
-      }
+    "BUTTON": {
+      "ADD": "Add",
+      "SAVE": "Save",
+      "DELETE": "Delete",
+      "CLEAR": "Clear",
+      "RESTORE": "Restore",
+      "DISMISS": "Dismiss",
+      "CONFIRM": "Confirm",
+      "OK": "OK"
     }
+  },
+  "MENU": {
+      "HOME": "Home",
+      "LOGIN": "Log In",
+      "REGISTER": "Sign Up",
+      "RESERVATIONS": "Reservations",
+      "NEW_RESERVATION": "New reservation",
+      "ROOMS": "Rooms",
+      "APPLIANCES": "Appliances",
+      "SOFTWARE": "Software",
+      "USERS": "Users"
+  },
+  "HOME": {
+      "WELCOME": "Welcome to Classroom booking system",
+      "PLEASE_LOG_IN": "Please log in."
+  },
+  "LOGIN": {
+      "HEADER": "Log in",
+      "EMAIL_LOGIN": "Email / Login",
+      "PASSWORD": "Password",
+      "LOG_IN": "Log in",
+      "VALIDATION": {
+        "LOGIN_REQUIRED": "Email or login required.",
+        "PASSWORD_REQUIRED": "Password required."
+      }
+
+  },
+  "REGISTER": {
+      "HEADER": "Sign Up",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "FORENAME": "Forename",
+      "SURNAME": "Surname",
+      "CONTACT": "Contact",
+      "ROLE": "Role",
+      "SIGN_UP": "Sign Up"
+  },
+  "USER": {
+    "HEADER": "Users",
+    "TABLE": {
+      "SURNAME": "Surname",
+      "FORENAME": "Forename",
+      "CONTACT": "Contact",
+      "ROLE": "Role",
+      "LOGIN": "Login",
+      "EMAIL": "Email"
+    },
+    "DETAILS": {
+      "SURNAME": "Surname",
+      "FORENAME": "Forename",
+      "CONTACT": "Contact",
+      "ROLE": "Role",
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "NEW": "New user"
+    },
+    "MODAL": {
+      "DELETE_USER_TITLE": "Delete user",
+      "DELETE_USER_MESSAGE": "Are you sure to delete user: {{forename}} {{surname}}?",
+      "DELETE_USER_SUCCESS_TITLE": "Delete user",
+      "DELETE_USER_SUCCESS_MESSAGE": "Delete success.",
+      "ADD_USER_SUCCESS_TITLE": "Add user",
+      "ADD_USER_SUCCESS_MESSAGE": "User {{forename}} {{surname}} added.",
+      "SAVE_USER_SUCCESS_TITLE": "Save user",
+      "SAVE_USER_SUCCESS_MESSAGE": "Changes saved.",
+      "RESTORE_USER_TITLE": "Discard changes",
+      "RESTORE_USER_MESSAGE": "Are you sure to discard changes?"
+    }
+  },
+  "SOFTWARE": {
+    "HEADER": "Software",
+    "TABLE": {
+      "NAME": "Name",
+      "QUANTITY": "Quantity",
+      "VALID_FROM": "Valid from",
+      "VALID_TO": "Valid to"
+    },
+    "DETAILS": {
+      "NAME": "Name",
+      "QUANTITY": "Quantity",
+      "VALID_FROM": "Valid from",
+      "VALID_TO": "Valid to",
+      "NEW": "New software"
+    },
+    "MODAL": {
+      "DELETE_SOFTWARE_TITLE": "Delete software",
+      "DELETE_SOFTWARE_MESSAGE": "Are you sure to delete software: {{name}}?",
+      "DELETE_SOFTWARE_SUCCESS_TITLE": "Delete software",
+      "DELETE_SOFTWARE_SUCCESS_MESSAGE": "Delete success.",
+      "ADD_SOFTWARE_SUCCESS_TITLE": "Add software",
+      "ADD_SOFTWARE_SUCCESS_MESSAGE": "Software {{name}} added.",
+      "SAVE_SOFTWARE_SUCCESS_TITLE": "Save software",
+      "SAVE_SOFTWARE_SUCCESS_MESSAGE": "Changes saved.",
+      "RESTORE_SOFTWARE_TITLE": "Discard changes",
+      "RESTORE_SOFTWARE_MESSAGE": "Are you sure to discard changes?"
+    }
+  },
+  "APPLIANCE": {
+    "HEADER": "Appliances",
+    "TABLE": {
+      "NAME": "Name",
+      "QUANTITY": "Quantity"
+    },
+    "DETAILS": {
+      "NAME": "Name",
+      "QUANTITY": "Quantity",
+      "NEW": "New appliance"
+    },
+    "MODAL": {
+      "DELETE_APPLIANCE_TITLE": "Delete appliance",
+      "DELETE_APPLIANCE_MESSAGE": "Are you sure to delete appliance: {{name}}?",
+      "DELETE_APPLIANCE_SUCCESS_TITLE": "Delete appliance",
+      "DELETE_APPLIANCE_SUCCESS_MESSAGE": "Delete success.",
+      "ADD_APPLIANCE_SUCCESS_TITLE": "Add appliance",
+      "ADD_APPLIANCE_SUCCESS_MESSAGE": "Appliance {{name}} added.",
+      "SAVE_APPLIANCE_SUCCESS_TITLE": "Save appliance",
+      "SAVE_APPLIANCE_SUCCESS_MESSAGE": "Changes saved.",
+      "RESTORE_APPLIANCE_TITLE": "Discard changes",
+      "RESTORE_APPLIANCE_MESSAGE": "Are you sure to discard changes?"
+    }
+  }
 }

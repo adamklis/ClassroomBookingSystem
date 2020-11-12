@@ -71,8 +71,6 @@ export class SoftwareDetailsComponent implements OnInit {
   }
 
   public onDeleteClick(){
-    const modalBody: IModalBody = {};
-
     this.translateService
     .get([
       'SOFTWARE.MODAL.DELETE_SOFTWARE_TITLE',

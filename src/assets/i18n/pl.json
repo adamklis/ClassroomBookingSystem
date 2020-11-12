@@ -2,12 +2,12 @@
   "TITLE": "System rezerwacji sal lekcyjnych",
   "SHARED": {
     "TABLE": {
-      "EMPTY":"List is empty."
+      "EMPTY":"Lista jest pusta."
     },
     "VALIDATION": {
-      "FIELD_REQUIRED": "Field is required.",
-      "MIN_VALUE_0": "Value must be greater than 0.",
-      "DATE_PERIOD": "Invalid date period."
+      "FIELD_REQUIRED": "Pole jest wymagane.",
+      "MIN_VALUE_0": "Wartość musi być większa od 0.",
+      "DATE_PERIOD": "Niepoprawny zakres czasu."
     },
     "BUTTON": {
       "ADD": "Dodaj",
@@ -105,16 +105,40 @@
       "NEW": "Nowe oprogramowanie"
     },
     "MODAL": {
-      "DELETE_SOFTWARE_TITLE": "Usuń oprogramowanie",
+      "DELETE_SOFTWARE_TITLE": "Usuwanie oprogramowania",
       "DELETE_SOFTWARE_MESSAGE": "Czy na pewno chcesz usunąć oprogramowanie: {{name}}?",
-      "DELETE_SOFTWARE_SUCCESS_TITLE": "Usuń oprogramowanie",
+      "DELETE_SOFTWARE_SUCCESS_TITLE": "Usuwanie oprogramowania",
       "DELETE_SOFTWARE_SUCCESS_MESSAGE": "Usunięto oprogramowanie",
-      "ADD_SOFTWARE_SUCCESS_TITLE": "Dodaj oprogramowanie",
+      "ADD_SOFTWARE_SUCCESS_TITLE": "Dodawanie oprogramowania",
       "ADD_SOFTWARE_SUCCESS_MESSAGE": "Oprogramowanie {{name}} dodane.",
-      "SAVE_SOFTWARE_SUCCESS_TITLE": "Zapisz oprogramowanie",
+      "SAVE_SOFTWARE_SUCCESS_TITLE": "Zapisywanie",
       "SAVE_SOFTWARE_SUCCESS_MESSAGE": "Zapisano zmiany.",
       "RESTORE_SOFTWARE_TITLE": "Przywracanie zmian",
       "RESTORE_SOFTWARE_MESSAGE": "Czy na pewno wyczyścić zmiany?"
+    }
+  },
+  "APPLIANCE": {
+    "HEADER": "Sprzęt",
+    "TABLE": {
+      "NAME": "Nazwa",
+      "QUANTITY": "Ilość"
+    },
+    "DETAILS": {
+      "NAME": "Nazwa",
+      "QUANTITY": "Ilość",
+      "NEW": "Nowy sprzęt"
+    },
+    "MODAL": {
+      "DELETE_APPLIANCE_TITLE": "Usuwanie sprzętu",
+      "DELETE_APPLIANCE_MESSAGE": "Czy na pewno chcesz usunąć sprzęt: {{name}}?",
+      "DELETE_APPLIANCE_SUCCESS_TITLE": "Usuwanie sprzętu",
+      "DELETE_APPLIANCE_SUCCESS_MESSAGE": "Usunięto sprzęt.",
+      "ADD_APPLIANCE_SUCCESS_TITLE": "Dodawanie sprzętu",
+      "ADD_APPLIANCE_SUCCESS_MESSAGE": "Sprzęt {{name}} dodany.",
+      "SAVE_APPLIANCE_SUCCESS_TITLE": "Zapisywanie",
+      "SAVE_APPLIANCE_SUCCESS_MESSAGE": "Zapisano zmiany.",
+      "RESTORE_APPPLIANCE_TITLE": "Przywracanie zmian",
+      "RESTORE_APPLIANCE_MESSAGE": "Czy na pewno wyczyścić zmiany?"
     }
   }
 }

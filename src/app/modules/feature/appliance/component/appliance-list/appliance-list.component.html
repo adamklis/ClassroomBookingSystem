@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{{ 'APPLIANCE.TABLE.NAME' | translate }}</th>
+      <th>{{ 'APPLIANCE.TABLE.QUANTITY' | translate }}</th>
+      <th>
+        <button routerLink="/appliances/0" class="btn btn-sm btn-success">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!appliances || appliances.length === 0">
+      <td colspan="5">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr *ngFor="let appliance of appliances">
+      <td>{{ appliance.name }}</td>
+      <td>{{ appliance.quantity }}</td>
+      <td>
+        <button routerLink="/appliances/{{appliance.uuid}}" class="btn btn-sm btn-primary">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
