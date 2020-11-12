@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseModalComponent } from './modal/component/base-modal/base-modal.component';
@@ -7,7 +8,8 @@ import { BaseModalComponent } from './modal/component/base-modal/base-modal.comp
 @NgModule({
   declarations: [BaseModalComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    TranslateModule
   ]
 })
 export class SharedModule { }

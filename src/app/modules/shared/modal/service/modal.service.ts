@@ -12,8 +12,6 @@ export class ModalService {
   constructor(private ngbModal: NgbModal) { }
 
   public showDeleteModal(modalBody: IModalBody): Promise<any> {
-    console.log('modalBody');
-    console.log(modalBody);
     return this.show({
       title: modalBody.title ? modalBody.title : '',
       message: modalBody.message ? modalBody.message : '',

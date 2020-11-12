@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{{ 'SOFTWARE.TABLE.NAME' | translate }}</th>
+      <th>{{ 'SOFTWARE.TABLE.QUANTITY' | translate }}</th>
+      <th>{{ 'SOFTWARE.TABLE.VALID_FROM' | translate }}</th>
+      <th>{{ 'SOFTWARE.TABLE.VALID_TO' | translate }}</th>
+      <th>
+        <button routerLink="/software/0" class="btn btn-sm btn-success">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!softwareList || softwareList.length === 0">
+      <td colspan="5">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr *ngFor="let software of softwareList">
+      <td>{{ software.name }}</td>
+      <td>{{ software.quantity }}</td>
+      <td>{{ software.validFrom | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ software.validTo | date: 'yyyy-MM-dd' }}</td>
+      <td>
+        <button routerLink="/software/{{software.uuid}}" class="btn btn-sm btn-primary">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+
+</table>

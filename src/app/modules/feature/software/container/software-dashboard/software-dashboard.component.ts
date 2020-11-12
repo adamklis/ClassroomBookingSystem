@@ -1,3 +1,5 @@
+import { SoftwareService } from '../../service/software.service';
+import { ISoftware } from '../../interface/software.interface';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SoftwareDashboardComponent implements OnInit {
 
-  constructor() { }
+  public softwareList: ISoftware[];
+
+  constructor(private softwareService: SoftwareService) { }
 
   ngOnInit(): void {
+    this.softwareService.getSoftwareList().subscribe(softwareList => this.softwareList = softwareList);
   }
 
 }

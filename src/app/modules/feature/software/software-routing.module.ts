@@ -1,3 +1,4 @@
+import { SoftwareDetailsComponent } from './container/software-details/software-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SoftwareDashboardComponent } from './container/software-dashboard/software-dashboard.component';
@@ -5,6 +6,7 @@ import { SoftwareDashboardComponent } from './container/software-dashboard/softw
 
 const routes: Routes = [
   { path: '', component: SoftwareDashboardComponent },
+  { path: ':uuid', component: SoftwareDetailsComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -1,5 +1,25 @@
 {
     "TITLE": "Classroom booking system",
+    "SHARED": {
+      "TABLE": {
+        "EMPTY":"List is empty."
+      },
+      "VALIDATION": {
+        "FIELD_REQUIRED": "Field is required.",
+        "MIN_VALUE_0": "Value must be greater than 0.",
+        "DATE_PERIOD": "Invalid date period."
+      },
+      "BUTTON": {
+        "ADD": "Add",
+        "SAVE": "Save",
+        "DELETE": "Delete",
+        "CLEAR": "Clear",
+        "RESTORE": "Restore",
+        "DISMISS": "Dismiss",
+        "CONFIRM": "Confirm",
+        "OK": "OK"
+      }
+    },
     "MENU": {
         "HOME": "Home",
         "LOGIN": "Log In",
@@ -35,10 +55,7 @@
         "SURNAME": "Surname",
         "CONTACT": "Contact",
         "ROLE": "Role",
-        "SIGN_UP": "Sign Up",
-        "VALIDATION": {
-          "FIELD_REQUIRED": "Field is required."
-        }
+        "SIGN_UP": "Sign Up"
     },
     "USER": {
       "HEADER": "Users",
@@ -48,8 +65,7 @@
         "CONTACT": "Contact",
         "ROLE": "Role",
         "LOGIN": "Login",
-        "EMAIL": "Email",
-        "EMPTY": "List is empty."
+        "EMAIL": "Email"
       },
       "DETAILS": {
         "SURNAME": "Surname",
@@ -58,11 +74,6 @@
         "ROLE": "Role",
         "LOGIN": "Login",
         "EMAIL": "Email",
-        "ADD": "Add user",
-        "SAVE": "Save changes",
-        "DELETE": "Delete user",
-        "CLEAR": "Clear form",
-        "RESTORE": "Restore form",
         "NEW": "New user"
       },
       "MODAL": {
@@ -76,6 +87,34 @@
         "SAVE_USER_SUCCESS_MESSAGE": "Changes saved.",
         "RESTORE_USER_TITLE": "Discard changes",
         "RESTORE_USER_MESSAGE": "Are you sure to discard changes?"
+      }
+    },
+    "SOFTWARE": {
+      "HEADER": "Software",
+      "TABLE": {
+        "NAME": "Name",
+        "QUANTITY": "Quantity",
+        "VALID_FROM": "Valid from",
+        "VALID_TO": "Valid to"
+      },
+      "DETAILS": {
+        "NAME": "Name",
+        "QUANTITY": "Quantity",
+        "VALID_FROM": "Valid from",
+        "VALID_TO": "Valid to",
+        "NEW": "New software"
+      },
+      "MODAL": {
+        "DELETE_SOFTWARE_TITLE": "Delete software",
+        "DELETE_SOFTWARE_MESSAGE": "Are you sure to delete software: {{name}}?",
+        "DELETE_SOFTWARE_SUCCESS_TITLE": "Delete software",
+        "DELETE_SOFTWARE_SUCCESS_MESSAGE": "Delete success.",
+        "ADD_SOFTWARE_SUCCESS_TITLE": "Add software",
+        "ADD_SOFTWARE_SUCCESS_MESSAGE": "Software {{name}} added.",
+        "SAVE_SOFTWARE_SUCCESS_TITLE": "Save software",
+        "SAVE_SOFTWARE_SUCCESS_MESSAGE": "Changes saved.",
+        "RESTORE_SOFTWARE_TITLE": "Discard changes",
+        "RESTORE_SOFTWARE_MESSAGE": "Are you sure to discard changes?"
       }
     }
 }

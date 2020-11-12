@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import * as uuid from 'uuid';
+import * as uuidGen from 'uuid';
 import { IUser } from '../interface/user.interface';
 
 @Injectable({
@@ -49,7 +49,7 @@ export class UserService {
   }
 
   public addUser(user: IUser): void {
-    user.uuid = uuid.v4();
+    user.uuid = uuidGen.v4();
     console.log('Add user:');
     console.log(user);
     this.USERS.push(user);

@@ -1,5 +1,25 @@
 {
   "TITLE": "System rezerwacji sal lekcyjnych",
+  "SHARED": {
+    "TABLE": {
+      "EMPTY":"List is empty."
+    },
+    "VALIDATION": {
+      "FIELD_REQUIRED": "Field is required.",
+      "MIN_VALUE_0": "Value must be greater than 0.",
+      "DATE_PERIOD": "Invalid date period."
+    },
+    "BUTTON": {
+      "ADD": "Dodaj",
+      "SAVE": "Zapisz",
+      "DELETE": "Usuń",
+      "CLEAR": "Wyczyść",
+      "RESTORE": "Przywróć",
+      "DISMISS": "Anuluj",
+      "CONFIRM": "Zatwierdź",
+      "OK": "Ok"
+    }
+  },
   "MENU": {
       "HOME": "Start",
       "LOGIN": "Logowanie",
@@ -35,10 +55,7 @@
       "SURNAME": "Nazwisko",
       "CONTACT": "Kontakt",
       "ROLE": "Rola",
-      "SIGN_UP": "Zarejestruj",
-      "VALIDATION": {
-        "FIELD_REQUIRED": "Pole jest wymagane."
-      }
+      "SIGN_UP": "Zarejestruj"
   },
   "USER": {
     "HEADER": "Użytkownicy",
@@ -48,8 +65,7 @@
       "CONTACT": "Kontakt",
       "ROLE": "Rola",
       "LOGIN": "Login",
-      "EMAIL": "Email",
-      "EMPTY": "Lista jest pusta."
+      "EMAIL": "Email"
     },
     "DETAILS": {
       "SURNAME": "Nazwisko",
@@ -58,11 +74,6 @@
       "ROLE": "Rola",
       "LOGIN": "Login",
       "EMAIL": "Email",
-      "ADD": "Dodaj użytkownika",
-      "SAVE": "Zapisz zmiany",
-      "DELETE": "Usuń użytkownika",
-      "CLEAR": "Wyczyść formularz",
-      "RESTORE": "Przywróć formularz",
       "NEW": "Nowy użytkownik"
     },
     "MODAL": {
@@ -76,6 +87,34 @@
       "SAVE_USER_SUCCESS_MESSAGE": "Zapisano zmiany.",
       "RESTORE_USER_TITLE": "Przywracanie zmian",
       "RESTORE_USER_MESSAGE": "Czy na pewno wyczyścić zmiany?"
+    }
+  },
+  "SOFTWARE": {
+    "HEADER": "Oprogramowanie",
+    "TABLE": {
+      "NAME": "Nazwa",
+      "QUANTITY": "Ilość",
+      "VALID_FROM": "Ważne od",
+      "VALID_TO": "Ważne do"
+    },
+    "DETAILS": {
+      "NAME": "Nazwa",
+      "QUANTITY": "Ilość",
+      "VALID_FROM": "Ważne od",
+      "VALID_TO": "Ważne do",
+      "NEW": "Nowe oprogramowanie"
+    },
+    "MODAL": {
+      "DELETE_SOFTWARE_TITLE": "Usuń oprogramowanie",
+      "DELETE_SOFTWARE_MESSAGE": "Czy na pewno chcesz usunąć oprogramowanie: {{name}}?",
+      "DELETE_SOFTWARE_SUCCESS_TITLE": "Usuń oprogramowanie",
+      "DELETE_SOFTWARE_SUCCESS_MESSAGE": "Usunięto oprogramowanie",
+      "ADD_SOFTWARE_SUCCESS_TITLE": "Dodaj oprogramowanie",
+      "ADD_SOFTWARE_SUCCESS_MESSAGE": "Oprogramowanie {{name}} dodane.",
+      "SAVE_SOFTWARE_SUCCESS_TITLE": "Zapisz oprogramowanie",
+      "SAVE_SOFTWARE_SUCCESS_MESSAGE": "Zapisano zmiany.",
+      "RESTORE_SOFTWARE_TITLE": "Przywracanie zmian",
+      "RESTORE_SOFTWARE_MESSAGE": "Czy na pewno wyczyścić zmiany?"
     }
   }
 }

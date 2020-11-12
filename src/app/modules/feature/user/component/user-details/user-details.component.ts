@@ -1,6 +1,5 @@
-import { IModalBody } from './../../../../shared/modal/interface/modal-body';
+import { IModalBody } from 'src/app/modules/shared/modal/interface/modal-body';
 import { TranslateService } from '@ngx-translate/core';
-import { translate } from '@angular/localize/src/utils';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
 import { UserService } from '../../service/user.service';
 import { Component, OnInit } from '@angular/core';

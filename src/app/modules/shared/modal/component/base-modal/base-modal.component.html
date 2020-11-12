@@ -5,8 +5,8 @@
   {{ message }}
 </div>
 <div class="modal-footer">
-  <button *ngIf="isButtonTypeSelected(buttonTypes.DISMISS)" type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss(buttonTypes.DISMISS)">Dismiss</button>
-  <button *ngIf="isButtonTypeSelected(buttonTypes.DELETE)" type="button" class="btn btn-danger" (click)="activeModal.close(buttonTypes.DELETE)">Delete</button>
-  <button *ngIf="isButtonTypeSelected(buttonTypes.CONFIRM)" type="button" class="btn btn-success" (click)="activeModal.close(buttonTypes.CONFIRM)">Confirm</button>
-  <button *ngIf="isButtonTypeSelected(buttonTypes.OK)" type="button" class="btn btn-primary" (click)="activeModal.close(buttonTypes.OK)">OK</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.DISMISS)" type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss(buttonTypes.DISMISS)">{{ "SHARED.BUTTON.DISMISS" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.DELETE)" type="button" class="btn btn-danger" (click)="activeModal.close(buttonTypes.DELETE)">{{ "SHARED.BUTTON.DELETE" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.CONFIRM)" type="button" class="btn btn-success" (click)="activeModal.close(buttonTypes.CONFIRM)">{{ "SHARED.BUTTON.CONFIRM" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.OK)" type="button" class="btn btn-primary" (click)="activeModal.close(buttonTypes.OK)">{{ "SHARED.BUTTON.OK" | translate }}</button>
 </div>
