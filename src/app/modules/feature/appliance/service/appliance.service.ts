@@ -1,63 +1,59 @@
-import { IAppliance } from './../interface/appliance.interface';
+import { IAppliance, IApplianceUse } from './../interface/appliance.interface';
 import { Injectable } from '@angular/core';
-import * as uuidGen from 'uuid';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
+import { ISort } from 'src/app/modules/shared/interface/sort.interface';
+import { Filter } from 'src/app/modules/shared/model/filter';
+import { Sort } from 'src/app/modules/shared/model/sort';
+
+const APIEndpoint = environment.APIEndpoint;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplianceService {
 
-  private APPLIANCES: Array<IAppliance> = [
-    {
-      uuid: '1',
-      name: 'Notebook Lenovo L560',
-      quantity: 100
-    },
-    {
-      uuid: '2',
-      name: 'Projektor Dell',
-      quantity: 10
-    },
-    {
-      uuid: '3',
-      name: 'Monitor Samsung 28"',
-      quantity: 50
-    },
-    {
-      uuid: '4',
-      name: 'Tablica interaktywna',
-      quantity: 5
-    }
-  ];
+  constructor(private httpClient: HttpClient) { }
 
-  constructor() { }
+  public getApplianceUseList(filter?: IFilter[], sort?: ISort[]): Observable<IApplianceUse[]> {
+    return this.httpClient
+      .get(APIEndpoint + '/appliance/use?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)) as Observable<IApplianceUse[]>;
+  }
 
   public getAppliances(): Observable<IAppliance[]> {
-    return of(this.APPLIANCES);
+    return this.httpClient.get(APIEndpoint + '/appliance') as Observable<IAppliance[]>;
   }
 
   public getAppliance(uuid: string): Observable<IAppliance> {
-    return of(this.APPLIANCES.find(appliance => appliance.uuid === uuid));
+    return this.httpClient.get(`${APIEndpoint}/appliance/${uuid}`).pipe(
+      map((item: IAppliance) => {
+        return {
+          uuid: item.uuid,
+          name: item.name,
+          quantity: item.quantity
+        };
+      })
+    );
   }
 
-  public addAppliance(appliance: IAppliance): void {
-    appliance.uuid = uuidGen.v4();
+  public addAppliance(appliance: IAppliance): Promise<any> {
     console.log('Add appliance:');
     console.log(appliance);
-    this.APPLIANCES.push(appliance);
+    return this.httpClient.post(APIEndpoint + '/appliance', appliance).toPromise();
   }
 
-  public saveAppliance(appliance: IAppliance): void {
+  public saveAppliance(appliance: IAppliance): Promise<any> {
     console.log('Save appliance:');
     console.log(appliance);
-    const applianceIndex = this.APPLIANCES.findIndex(oldAppliance => oldAppliance.uuid === appliance.uuid);
-    this.APPLIANCES[applianceIndex] = appliance;
+    return this.httpClient.put(`${APIEndpoint}/appliance/${appliance.uuid}`, appliance).toPromise();
   }
 
-  public deleteAppliance(uuid: string): void {
+  public deleteAppliance(uuid: string): Promise<any> {
     console.log('Delete appliance:');
     console.log(uuid);
-    this.APPLIANCES = this.APPLIANCES.filter(appliance => appliance.uuid !== uuid);
+    return this.httpClient.delete(`${APIEndpoint}/appliance/${uuid}`).toPromise();
   }
 }

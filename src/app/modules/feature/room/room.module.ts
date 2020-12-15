@@ -1,15 +1,24 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomDashboardComponent } from './container/room-dashboard/room-dashboard.component';
+import { RoomDetailsComponent } from './container/room-details/room-details.component';
+import { RoomListComponent } from './component/room-list/room-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UseListComponent } from './component/use-list/use-list.component';
 
 
 @NgModule({
-  declarations: [RoomDashboardComponent],
+  declarations: [RoomDashboardComponent, RoomDetailsComponent, RoomListComponent, UseListComponent],
   imports: [
     CommonModule,
-    RoomRoutingModule
+    RoomRoutingModule,
+    TranslateModule,
+    FontAwesomeModule,
+    ReactiveFormsModule
   ]
 })
 export class RoomModule { }

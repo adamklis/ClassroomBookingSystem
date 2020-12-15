@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr class="d-flex">
+      <th class="col-5">{{ 'SOFTWARE.TABLE.NAME' | translate }}</th>
+      <th class="col-2">{{ 'SOFTWARE.TABLE.MAX_QUANTITY' | translate }}</th>
+      <th class="col-3">{{ 'SOFTWARE.TABLE.QUANTITY' | translate }}</th>
+      <th class="col-2">Selected</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!uses || uses.length === 0">
+      <td colspan="4">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr class="d-flex" *ngFor="let use of uses">
+      <td class="col-5">{{ use.name }}</td>
+      <td class="col-2">{{ use.maxQuantity }}</td>
+      <td class="col-3"><input class="form-control" type="number" min="0" [max]="use.maxQuantity" step="1"  pattern="\d+" [(ngModel)]="use.quantity" (input)="trimDecimal($event, use.maxQuantity); onQuantityChange(use);"></td>
+      <td class="col-2">
+        <button class="btn btn-sm select-button" [class.btn-success]="use.quantity" [class.btn-danger]="!use.quantity" disabled>
+          <fa-icon *ngIf="use.quantity" [icon]="faCheck"></fa-icon>
+          <fa-icon *ngIf="!use.quantity" [icon]="faTimes"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

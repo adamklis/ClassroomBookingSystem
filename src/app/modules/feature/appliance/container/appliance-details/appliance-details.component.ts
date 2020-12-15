@@ -36,11 +36,7 @@ export class ApplianceDetailsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const applianceUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
-    this.applianceService.getAppliance(applianceUuid).subscribe(appliance => {
-      this.appliance = appliance;
-      this.resetForm();
-    });
+    this.resetForm();
   }
 
   public onRestoreClick(){
@@ -75,23 +71,35 @@ export class ApplianceDetailsComponent implements OnInit {
         message: translation['APPLIANCE.MODAL.DELETE_APPLIANCE_MESSAGE']
       })
       .then(() => {
-        this.applianceService.deleteAppliance(this.appliance.uuid);
-        this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.DELETE_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.DELETE_APPLIANCE_SUCCESS_MESSAGE']})
-        .then(() => this.router.navigate(['appliances']));
+        this.applianceService.deleteAppliance(this.appliance.uuid)
+        .then(() => {
+          this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.DELETE_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.DELETE_APPLIANCE_SUCCESS_MESSAGE']})
+          .then(() => this.router.navigate(['appliances']));
+        })
+        .catch(err => {
+          this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+            this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+        });
       })
       .catch(error => {});
     });
   }
 
   public onSaveClick(){
-    this.applianceService.saveAppliance(this.getFormApplianceObject());
-    this.translateService.get([
-      'APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_TITLE',
-      'APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_MESSAGE'
-    ])
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_MESSAGE']});
+    this.applianceService.saveAppliance(this.getFormApplianceObject())
+    .then(() => {
+      this.translateService.get([
+        'APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_TITLE',
+        'APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_MESSAGE']});
+      });
+    })
+    .catch(err => {
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
   }
 
@@ -112,27 +120,37 @@ export class ApplianceDetailsComponent implements OnInit {
 
   public onAddClick(){
     this.appliance = this.getFormApplianceObject();
-    this.applianceService.addAppliance(this.appliance);
-
-    this.translateService.get([
-      'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE',
-      'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE'
-    ],
-    {name: this.appliance.name})
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE']})
-      .then(() => {
-        this.appliance = null;
-        this.resetForm();
+    this.applianceService.addAppliance(this.appliance)
+    .then(() => {
+      this.translateService.get([
+        'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE',
+        'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE'
+      ],
+      {name: this.appliance.name})
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE']})
+        .then(() => {
+          this.appliance = null;
+          this.resetForm();
+        });
       });
+    })
+    .catch(err => {
+      this.appliance = null;
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
   }
 
   private resetForm(): void{
-    if (this.appliance) {
-      this.nameControl.setValue(this.appliance.name);
-      this.quantityControl.setValue(this.appliance.quantity);
+    const applianceUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
+    if (applianceUuid && applianceUuid !== '0') {
+      this.applianceService.getAppliance(applianceUuid).subscribe(appliance => {
+        this.appliance = appliance;
+        this.nameControl.setValue(this.appliance.name);
+        this.quantityControl.setValue(this.appliance.quantity);
+      });
     } else {
       this.applianceForm.reset();
     }

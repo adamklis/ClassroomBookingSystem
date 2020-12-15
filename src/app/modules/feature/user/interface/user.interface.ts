@@ -7,3 +7,8 @@ export interface IUser {
   email: string;
   login: string;
 }
+
+export interface IUserRef {
+  uuid?: string;
+  name: string;
+}

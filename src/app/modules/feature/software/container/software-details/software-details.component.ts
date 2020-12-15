@@ -8,7 +8,6 @@ import { faArrowLeft, faCalendar, faEraser } from '@fortawesome/free-solid-svg-i
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { IModalBody } from 'src/app/modules/shared/modal/interface/modal-body';
 
 @Component({
   selector: 'cbs-software-details',
@@ -47,11 +46,7 @@ export class SoftwareDetailsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const softwareUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
-    this.softwareService.getSoftware(softwareUuid).subscribe(software => {
-      this.software = software;
-      this.resetForm();
-    });
+    this.resetForm();
   }
 
   public onRestoreClick(){
@@ -86,23 +81,35 @@ export class SoftwareDetailsComponent implements OnInit {
         message: translation['SOFTWARE.MODAL.DELETE_SOFTWARE_MESSAGE']
       })
       .then(() => {
-        this.softwareService.deleteSoftware(this.software.uuid);
-        this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.DELETE_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.DELETE_SOFTWARE_SUCCESS_MESSAGE']})
-        .then(() => this.router.navigate(['software']));
+        this.softwareService.deleteSoftware(this.software.uuid)
+        .then(() => {
+          this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.DELETE_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.DELETE_SOFTWARE_SUCCESS_MESSAGE']})
+          .then(() => this.router.navigate(['software']));
+        })
+        .catch(err => {
+          this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+            this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+        });
       })
       .catch(error => {});
     });
   }
 
   public onSaveClick(){
-    this.softwareService.saveSoftware(this.getFormsoftwareObject());
-    this.translateService.get([
-      'SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_TITLE',
-      'SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_MESSAGE'
-    ])
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_MESSAGE']});
+    this.softwareService.saveSoftware(this.getFormSoftwareObject())
+    .then(() => {
+      this.translateService.get([
+        'SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_TITLE',
+        'SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_MESSAGE']});
+      });
+    })
+    .catch(err => {
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
   }
 
@@ -122,36 +129,46 @@ export class SoftwareDetailsComponent implements OnInit {
   }
 
   public onAddClick(){
-    this.software = this.getFormsoftwareObject();
-    this.softwareService.addSoftware(this.software);
-
-    this.translateService.get([
-      'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE',
-      'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE'
-    ],
-    {name: this.software.name})
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE']})
-      .then(() => {
-        this.software = null;
-        this.resetForm();
+    this.software = this.getFormSoftwareObject();
+    this.softwareService.addSoftware(this.software)
+    .then(() => {
+      this.translateService.get([
+        'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE',
+        'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE'
+      ],
+      {name: this.software.name})
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE']})
+        .then(() => {
+          this.software = null;
+          this.resetForm();
+        });
       });
+    })
+    .catch(err => {
+      this.software = null;
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
   }
 
   private resetForm(): void{
-    if (this.software) {
-      this.nameControl.setValue(this.software.name);
-      this.quantityControl.setValue(this.software.quantity);
-      this.validFromControl.setValue(this.dateAdapter.fromModel(this.software.validFrom));
-      this.validToControl.setValue((this.dateAdapter.fromModel(this.software.validTo)));
+    const softwareUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
+    if (softwareUuid && softwareUuid !== '0') {
+      this.softwareService.getSoftware(softwareUuid).subscribe(software => {
+        this.software = software;
+        this.nameControl.setValue(this.software.name);
+        this.quantityControl.setValue(this.software.quantity);
+        this.validFromControl.setValue(this.dateAdapter.fromModel(this.software.validFrom));
+        this.validToControl.setValue((this.dateAdapter.fromModel(this.software.validTo)));
+      });
     } else {
       this.softwareForm.reset();
     }
   }
 
-  private getFormsoftwareObject(): ISoftware {
+  private getFormSoftwareObject(): ISoftware {
     return {
       uuid: this.software ? this.software.uuid : null,
       name: this.nameControl.value,

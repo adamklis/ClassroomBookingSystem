@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DateAdapter } from './date.adapter';
+import { RoomService } from './room.service';
 
-describe('DateAdapterService', () => {
-  let service: DateAdapter;
+describe('RoomService', () => {
+  let service: RoomService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DateAdapter);
+    service = TestBed.inject(RoomService);
   });
 
   it('should be created', () => {

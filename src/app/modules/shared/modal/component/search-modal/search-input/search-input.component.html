@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="searchText">Search text</label>
+  <div class="input-group">
+    <input class="form-control mr-2 col-11" id="searchText" name="searchText" (input)="inputEvent($event)" [(ngModel)]="searchTextValue">
+    <div class="input-group-append">
+      <div *ngIf="busy" class="spinner-border text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>

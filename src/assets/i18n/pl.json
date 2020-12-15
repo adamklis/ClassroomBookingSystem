@@ -5,6 +5,7 @@
       "EMPTY":"Lista jest pusta."
     },
     "VALIDATION": {
+      "ERROR": "Błąd!",
       "FIELD_REQUIRED": "Pole jest wymagane.",
       "MIN_VALUE_0": "Wartość musi być większa od 0.",
       "DATE_PERIOD": "Niepoprawny zakres czasu."
@@ -139,6 +140,31 @@
       "SAVE_APPLIANCE_SUCCESS_MESSAGE": "Zapisano zmiany.",
       "RESTORE_APPPLIANCE_TITLE": "Przywracanie zmian",
       "RESTORE_APPLIANCE_MESSAGE": "Czy na pewno wyczyścić zmiany?"
+    }
+  },
+  "ROOM": {
+    "HEADER": "Pokoje",
+    "TABLE": {
+      "NAME": "Nazwa",
+      "NUMBER_OF_SEATS": "Liczba miejsc"
+    },
+    "DETAILS": {
+      "NAME": "Nazwa",
+      "NUMBER_OF_SEATS": "Liczba miejsc",
+      "SOFTWARE": "Oprogramowanie",
+      "APPLIANCES": "Sprzęt"
+    },
+    "MODAL": {
+      "DELETE_ROOM_TITLE": "Usuwanie pokoju",
+      "DELETE_ROOM_MESSAGE": "Czy na pewno chcesz usunąć pokój: {{name}}?",
+      "DELETE_ROOM_SUCCESS_TITLE": "Usuwanie pokoju",
+      "DELETE_ROOM_SUCCESS_MESSAGE": "Usunięto pokój.",
+      "ADD_ROOM_SUCCESS_TITLE": "Dodawanie pokoju",
+      "ADD_ROOM_SUCCESS_MESSAGE": "Pokój {{name}} dodany.",
+      "SAVE_ROOM_SUCCESS_TITLE": "Zapisywanie",
+      "SAVE_ROOM_SUCCESS_MESSAGE": "Zapisano zmiany.",
+      "RESTORE_ROOM_TITLE": "Przywracanie zmian",
+      "RESTORE_ROOM_MESSAGE": "Czy na pewno wyczyścić zmiany?"
     }
   }
 }

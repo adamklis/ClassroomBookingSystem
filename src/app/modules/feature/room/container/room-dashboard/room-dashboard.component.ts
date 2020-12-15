@@ -1,3 +1,5 @@
+import { RoomService } from './../../service/room.service';
+import { IRoom } from './../../interface/room.interface';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomDashboardComponent implements OnInit {
 
-  constructor() { }
+  public rooms: IRoom[];
+
+  constructor(private roomService: RoomService) { }
 
   ngOnInit(): void {
+    this.roomService.getRooms().subscribe(rooms => this.rooms = rooms);
   }
 
 }

@@ -5,6 +5,7 @@
       "EMPTY":"List is empty."
     },
     "VALIDATION": {
+      "ERROR": "Error!",
       "FIELD_REQUIRED": "Field is required.",
       "MIN_VALUE_0": "Value must be greater than 0.",
       "DATE_PERIOD": "Invalid date period."
@@ -94,6 +95,7 @@
     "TABLE": {
       "NAME": "Name",
       "QUANTITY": "Quantity",
+      "MAX_QUANTITY": "Max",
       "VALID_FROM": "Valid from",
       "VALID_TO": "Valid to"
     },
@@ -139,6 +141,31 @@
       "SAVE_APPLIANCE_SUCCESS_MESSAGE": "Changes saved.",
       "RESTORE_APPLIANCE_TITLE": "Discard changes",
       "RESTORE_APPLIANCE_MESSAGE": "Are you sure to discard changes?"
+    }
+  },
+  "ROOM": {
+    "HEADER": "Rooms",
+    "TABLE": {
+      "NAME": "Name",
+      "NUMBER_OF_SEATS": "Number of seats"
+    },
+    "DETAILS": {
+      "NAME": "Name",
+      "NUMBER_OF_SEATS": "Number of seats",
+      "SOFTWARE": "Software",
+      "APPLIANCES": "Appliances"
+    },
+    "MODAL": {
+      "DELETE_ROOM_TITLE": "Delete room",
+      "DELETE_ROOM_MESSAGE": "Are you sure to delete room: {{name}}?",
+      "DELETE_ROOM_SUCCESS_TITLE": "Delete room",
+      "DELETE_ROOM_SUCCESS_MESSAGE": "Delete success.",
+      "ADD_ROOM_SUCCESS_TITLE": "Add room",
+      "ADD_ROOM_SUCCESS_MESSAGE": "Appliance {{name}} added.",
+      "SAVE_ROOM_SUCCESS_TITLE": "Save room",
+      "SAVE_ROOM_SUCCESS_MESSAGE": "Changes saved.",
+      "RESTORE_ROOM_TITLE": "Discard changes",
+      "RESTORE_ROOM_MESSAGE": "Are you sure to discard changes?"
     }
   }
 }

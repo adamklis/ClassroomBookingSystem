@@ -1,3 +1,4 @@
+import { RoomDetailsComponent } from './container/room-details/room-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoomDashboardComponent } from './container/room-dashboard/room-dashboard.component';
@@ -5,6 +6,7 @@ import { RoomDashboardComponent } from './container/room-dashboard/room-dashboar
 
 const routes: Routes = [
   { path: '', component: RoomDashboardComponent },
+  { path: ':uuid', component: RoomDetailsComponent },
   { path: '**', redirectTo: '' },
 ];
 

@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ title }}</h4>
+</div>
+<div class="modal-body">
+  <cbs-search-input [busy]="searchBusy" (searchEvent)="inputChanged($event)"></cbs-search-input>
+  <cbs-result-list [uses]="displayedUses" (quantityChanged)="quantityChanged($event)"></cbs-result-list>
+</div>
+<div class="modal-footer">
+  <button *ngIf="isButtonTypeSelected(buttonTypes.DISMISS)" type="button" class="btn btn-outline-secondary" (click)="closeAction(buttonTypes.DISMISS)">{{ "SHARED.BUTTON.DISMISS" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.DELETE)" type="button" class="btn btn-danger" (click)="closeAction(buttonTypes.DELETE)">{{ "SHARED.BUTTON.DELETE" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.CONFIRM)" type="button" class="btn btn-success" (click)="closeAction(buttonTypes.CONFIRM)">{{ "SHARED.BUTTON.CONFIRM" | translate }}</button>
+  <button *ngIf="isButtonTypeSelected(buttonTypes.OK)" type="button" class="btn btn-primary" (click)="closeAction(buttonTypes.OK)">{{ "SHARED.BUTTON.OK" | translate }}</button>
+</div>

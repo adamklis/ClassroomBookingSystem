@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{{ 'ROOM.TABLE.NAME' | translate }}</th>
+      <th>{{ 'ROOM.TABLE.NUMBER_OF_SEATS' | translate }}</th>
+      <th>
+        <button routerLink="/rooms/0" class="btn btn-sm btn-success">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!rooms || rooms.length === 0">
+      <td colspan="3">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr *ngFor="let room of rooms">
+      <td>{{ room.name }}</td>
+      <td>{{ room.numberOfSeats }}</td>
+      <td>
+        <button routerLink="/rooms/{{room.uuid}}" class="btn btn-sm btn-primary">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
