@@ -38,11 +38,11 @@
   },
   "LOGIN": {
       "HEADER": "Logowanie",
-      "EMAIL_LOGIN": "Email / Login",
+      "EMAIL": "Email",
       "PASSWORD": "Hasło",
       "LOG_IN": "Zaloguj",
       "VALIDATION": {
-        "LOGIN_REQUIRED": "Proszę uzupełnić login lub email.",
+        "LOGIN_REQUIRED": "Proszę uzupełnić email.",
         "PASSWORD_REQUIRED": "Proszę uzupełnić hasło."
       }
 
@@ -65,7 +65,6 @@
       "FORENAME": "Imię",
       "CONTACT": "Kontakt",
       "ROLE": "Rola",
-      "LOGIN": "Login",
       "EMAIL": "Email"
     },
     "DETAILS": {
@@ -73,8 +72,8 @@
       "FORENAME": "Imię",
       "CONTACT": "Kontakt",
       "ROLE": "Rola",
-      "LOGIN": "Login",
       "EMAIL": "Email",
+      "PASSWORD": "Hasło",
       "NEW": "Nowy użytkownik"
     },
     "MODAL": {

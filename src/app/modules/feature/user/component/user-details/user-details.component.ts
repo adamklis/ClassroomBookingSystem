@@ -19,8 +19,8 @@ export class UserDetailsComponent implements OnInit {
 
   public user: IUser;
 
-  public loginControl = new FormControl('', [Validators.required]);
   public emailControl = new FormControl('', [Validators.required]);
+  public passwordControl = new FormControl('', []);
   public forenameControl = new FormControl('', [Validators.required]);
   public surnameControl = new FormControl('', [Validators.required]);
   public contactControl = new FormControl('', [Validators.required]);
@@ -28,8 +28,8 @@ export class UserDetailsComponent implements OnInit {
 
 
   public registerForm = new FormGroup({
-    login: this.loginControl,
     email: this.emailControl,
+    password: this.passwordControl,
     forename: this.forenameControl,
     surname: this.surnameControl,
     contact: this.contactControl,
@@ -142,8 +142,8 @@ export class UserDetailsComponent implements OnInit {
 
   private resetForm(): void{
     if (this.user) {
-      this.loginControl.setValue(this.user.login);
       this.emailControl.setValue(this.user.email);
+      this.passwordControl.setValue('');
       this.forenameControl.setValue(this.user.forename);
       this.surnameControl.setValue(this.user.surename);
       this.contactControl.setValue(this.user.contact);
@@ -161,7 +161,7 @@ export class UserDetailsComponent implements OnInit {
       contact: this.contactControl.value,
       role: this.roleControl.value,
       email: this.emailControl.value,
-      login: this.loginControl.value
+      password: this.passwordControl.value
     };
   }
 

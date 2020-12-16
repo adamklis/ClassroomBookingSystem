@@ -6,19 +6,18 @@
 </h3>
 <form [formGroup]="registerForm">
   <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="login">{{ 'USER.DETAILS.LOGIN' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!loginControl.valid && loginControl.touched"
-        [class.is-valid]="loginControl.valid" id="login" formControlName="login" required>
-      <small *ngIf="!loginControl.valid && loginControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
-    </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="email">{{ 'USER.DETAILS.EMAIL' | translate }}</label>
       <input type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
         [class.is-valid]="emailControl.valid" id="email" formControlName="email" required>
       <small *ngIf="!emailControl.valid && emailControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="password">{{ 'USER.DETAILS.PASSWORD' | translate }}</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
     </div>
   </div>
   <div class="form-row">

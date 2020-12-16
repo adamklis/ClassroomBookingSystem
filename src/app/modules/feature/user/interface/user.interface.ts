@@ -5,7 +5,7 @@ export interface IUser {
   contact: string;
   role: string;
   email: string;
-  login: string;
+  password: string;
 }
 
 export interface IUserRef {

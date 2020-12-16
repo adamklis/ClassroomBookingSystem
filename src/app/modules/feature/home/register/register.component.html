@@ -1,14 +1,7 @@
 <h3>{{ 'REGISTER.HEADER' | translate }}</h3>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="login">{{ 'REGISTER.LOGIN' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!loginControl.valid && loginControl.touched"
-        [class.is-valid]="loginControl.valid" id="login" formControlName="login" required>
-      <small *ngIf="!loginControl.valid && loginControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
-    </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="email">{{ 'REGISTER.EMAIL' | translate }}</label>
       <input type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
         [class.is-valid]="emailControl.valid" id="email" formControlName="email" required>

@@ -1,7 +1,11 @@
+import { IUser } from './../interface/user.interface';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as uuidGen from 'uuid';
-import { IUser } from '../interface/user.interface';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+
+const APIEndpoint = environment.APIEndpoint;
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +20,7 @@ export class UserService {
       contact: '691202553',
       role: 'admin',
       email: 'klis.adam.0807@gmail.com',
-      login: 'aklis'
+      password: 'aklis'
     },
     {
       uuid: '2',
@@ -25,7 +29,7 @@ export class UserService {
       contact: '123456789',
       role: 'student',
       email: 'klisiu94@onet.eu',
-      login: 'jkowa'
+      password: 'jkowa'
     },
     {
       uuid: '3',
@@ -34,37 +38,35 @@ export class UserService {
       contact: '987654321',
       role: 'tech',
       email: 'nowakmateusz@interia.pl',
-      login: 'mnowa'
+      password: 'mnowa'
     }
   ];
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   public getUsers(): Observable<IUser[]> {
-    return of(this.USERS);
+    return this.httpClient.get(APIEndpoint + '/user') as Observable<IUser[]>;
   }
 
   public getUser(uuid: string): Observable<IUser> {
-    return of(this.USERS.find(user => user.uuid === uuid));
+    return this.httpClient.get(`${APIEndpoint}/user/${uuid}`) as Observable<IUser>;
   }
 
-  public addUser(user: IUser): void {
-    user.uuid = uuidGen.v4();
+  public addUser(user: IUser): Promise<any> {
     console.log('Add user:');
     console.log(user);
-    this.USERS.push(user);
+    return this.httpClient.post(APIEndpoint + '/user', user).toPromise();
   }
 
-  public saveUser(user: IUser): void {
+  public saveUser(user: IUser): Promise<any> {
     console.log('Save user:');
     console.log(user);
-    const userIndex = this.USERS.findIndex(oldUser => oldUser.uuid === user.uuid);
-    this.USERS[userIndex] = user;
+    return this.httpClient.put(`${APIEndpoint}/user/${user.uuid}`, user).toPromise();
   }
 
-  public deleteUser(uuid: string): void {
+  public deleteUser(uuid: string): Promise<any> {
     console.log('Delete user:');
     console.log(uuid);
-    this.USERS = this.USERS.filter(user => user.uuid !== uuid);
+    return this.httpClient.delete(`${APIEndpoint}/user/${uuid}`).toPromise();
   }
 }

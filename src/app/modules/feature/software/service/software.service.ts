@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ISoftware, ISoftwareUse } from './../interface/software.interface';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 const APIEndpoint = environment.APIEndpoint;

@@ -38,18 +38,17 @@
   },
   "LOGIN": {
       "HEADER": "Log in",
-      "EMAIL_LOGIN": "Email / Login",
+      "EMAIL": "Email",
       "PASSWORD": "Password",
       "LOG_IN": "Log in",
       "VALIDATION": {
-        "LOGIN_REQUIRED": "Email or login required.",
+        "LOGIN_REQUIRED": "Email required.",
         "PASSWORD_REQUIRED": "Password required."
       }
 
   },
   "REGISTER": {
       "HEADER": "Sign Up",
-      "LOGIN": "Login",
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "FORENAME": "Forename",
@@ -65,7 +64,6 @@
       "FORENAME": "Forename",
       "CONTACT": "Contact",
       "ROLE": "Role",
-      "LOGIN": "Login",
       "EMAIL": "Email"
     },
     "DETAILS": {
@@ -73,8 +71,8 @@
       "FORENAME": "Forename",
       "CONTACT": "Contact",
       "ROLE": "Role",
-      "LOGIN": "Login",
       "EMAIL": "Email",
+      "PASSWORD": "Password",
       "NEW": "New user"
     },
     "MODAL": {
