@@ -77,8 +77,8 @@ export class ApplianceDetailsComponent implements OnInit {
           .then(() => this.router.navigate(['appliances']));
         })
         .catch(err => {
-          this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
-            this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+          this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(errorTranslation =>
+            this.modalService.showInfoModal({title: errorTranslation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
         });
       })
       .catch(error => {});

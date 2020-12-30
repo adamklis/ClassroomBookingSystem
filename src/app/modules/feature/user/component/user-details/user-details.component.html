@@ -2,7 +2,7 @@
   <span routerLink="users">
     <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'USER.HEADER' | translate }}
   </span>
-  / {{user ? user.forename + ' ' + user.surename : 'USER.DETAILS.NEW' | translate }}
+  / {{user ? user.forename + ' ' + user.surname : 'USER.DETAILS.NEW' | translate }}
 </h3>
 <form [formGroup]="registerForm">
   <div class="form-row">

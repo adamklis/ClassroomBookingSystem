@@ -22,6 +22,7 @@
     }
   },
   "MENU": {
+      "LOGOUT": "Wyloguj",
       "HOME": "Start",
       "LOGIN": "Logowanie",
       "REGISTER": "Rejestracja",
@@ -34,7 +35,8 @@
   },
   "HOME": {
       "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
-      "PLEASE_LOG_IN": "Proszę się zalogować."
+      "PLEASE_LOG_IN": "Proszę się zalogować.",
+      "LOGGED_IN_AS": "Zalogowano jako"
   },
   "LOGIN": {
       "HEADER": "Logowanie",

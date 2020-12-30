@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../../core/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -16,13 +18,19 @@ export class LoginComponent implements OnInit {
     password: this.passwordControl
   });
 
-  constructor() {}
+  public loginError: string;
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
   }
 
   onSubmit(){
-    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value.login, this.loginForm.value.password)
+    .then(() => {this.router.navigate(['home']); } )
+    .catch(err => {
+      this.loginError = err.error;
+    });
   }
 
 }

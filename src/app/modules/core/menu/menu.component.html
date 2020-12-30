@@ -1,4 +1,5 @@
 <nav class="nav flex-column nav-pills">
+    <a *ngIf="authService.checkCredentials()" (click)="authService.logout()" class="nav-link" routerLink="home">{{ 'MENU.LOGOUT' | translate }}</a>
     <a class="nav-link" routerLinkActive="active" routerLink="home">{{ 'MENU.HOME' | translate }}</a>
     <a class="nav-link" routerLinkActive="active" routerLink="login">{{ 'MENU.LOGIN' | translate }}</a>
     <a class="nav-link" routerLinkActive="active" routerLink="register">{{ 'MENU.REGISTER' | translate }}</a>

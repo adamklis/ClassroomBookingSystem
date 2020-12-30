@@ -1,7 +1,6 @@
 import { IUser } from './../interface/user.interface';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import * as uuidGen from 'uuid';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,36 +10,6 @@ const APIEndpoint = environment.APIEndpoint;
   providedIn: 'root'
 })
 export class UserService {
-
-  private USERS: Array<IUser> = [
-    {
-      uuid: '1',
-      forename: 'Adam',
-      surename: 'Kliś',
-      contact: '691202553',
-      role: 'admin',
-      email: 'klis.adam.0807@gmail.com',
-      password: 'aklis'
-    },
-    {
-      uuid: '2',
-      forename: 'Jan',
-      surename: 'Kowalski',
-      contact: '123456789',
-      role: 'student',
-      email: 'klisiu94@onet.eu',
-      password: 'jkowa'
-    },
-    {
-      uuid: '3',
-      forename: 'Mateusz',
-      surename: 'Nowak',
-      contact: '987654321',
-      role: 'tech',
-      email: 'nowakmateusz@interia.pl',
-      password: 'mnowa'
-    }
-  ];
 
   constructor(private httpClient: HttpClient) { }
 

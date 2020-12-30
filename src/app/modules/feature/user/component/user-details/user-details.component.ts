@@ -78,7 +78,7 @@ export class UserDetailsComponent implements OnInit {
       'USER.MODAL.DELETE_USER_SUCCESS_TITLE',
       'USER.MODAL.DELETE_USER_SUCCESS_MESSAGE'
     ],
-    {forename: this.user.forename, surname: this.user.surename})
+    {forename: this.user.forename, surname: this.user.surname})
     .toPromise()
     .then(translation => {
       this.modalService.showDeleteModal({
@@ -129,7 +129,7 @@ export class UserDetailsComponent implements OnInit {
       'USER.MODAL.ADD_USER_SUCCESS_TITLE',
       'USER.MODAL.ADD_USER_SUCCESS_MESSAGE'
     ],
-    {forename: this.user.forename, surname: this.user.surename})
+    {forename: this.user.forename, surname: this.user.surname})
     .toPromise()
     .then(translation => {
       this.modalService.showInfoModal({title: translation['USER.MODAL.ADD_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.ADD_USER_SUCCESS_MESSAGE']})
@@ -145,7 +145,7 @@ export class UserDetailsComponent implements OnInit {
       this.emailControl.setValue(this.user.email);
       this.passwordControl.setValue('');
       this.forenameControl.setValue(this.user.forename);
-      this.surnameControl.setValue(this.user.surename);
+      this.surnameControl.setValue(this.user.surname);
       this.contactControl.setValue(this.user.contact);
       this.roleControl.setValue(this.user.role);
     } else {
@@ -157,7 +157,7 @@ export class UserDetailsComponent implements OnInit {
     return {
       uuid: this.user ? this.user.uuid : null,
       forename: this.forenameControl.value,
-      surename: this.surnameControl.value,
+      surname: this.surnameControl.value,
       contact: this.contactControl.value,
       role: this.roleControl.value,
       email: this.emailControl.value,

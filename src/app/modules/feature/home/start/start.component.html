@@ -1,2 +1,3 @@
 <h3>{{'HOME.WELCOME' | translate }}</h3>
-<h4>{{'HOME.PLEASE_LOG_IN' | translate }}</h4>
+<h4 *ngIf="!authService.checkCredentials()">{{'HOME.PLEASE_LOG_IN' | translate }}</h4>
+<h4 *ngIf="authService.checkCredentials()">{{'HOME.LOGGED_IN_AS' | translate }} {{userName}}</h4>

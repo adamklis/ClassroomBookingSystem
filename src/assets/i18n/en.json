@@ -22,6 +22,7 @@
     }
   },
   "MENU": {
+      "LOGOUT": "Log out",
       "HOME": "Home",
       "LOGIN": "Log In",
       "REGISTER": "Sign Up",
@@ -34,7 +35,8 @@
   },
   "HOME": {
       "WELCOME": "Welcome to Classroom booking system",
-      "PLEASE_LOG_IN": "Please log in."
+      "PLEASE_LOG_IN": "Please log in.",
+      "LOGGED_IN_AS": "Logged in as"
   },
   "LOGIN": {
       "HEADER": "Log in",

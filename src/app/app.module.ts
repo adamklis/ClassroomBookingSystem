@@ -14,6 +14,7 @@ import { StartComponent } from './modules/feature/home/start/start.component';
 import { LoginComponent } from './modules/feature/home/login/login.component';
 import { RegisterComponent } from './modules/feature/home/register/register.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CookieService } from 'ngx-cookie-service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -28,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FontAwesomeModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: StartComponent },
+      // { path: '', redirectTo: '/home' },
       { path: '', children: [
         { path: 'reservations',
           loadChildren: () => import('./modules/feature/reservation/reservation.module').then(m => m.ReservationModule) },
@@ -37,9 +38,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         { path: 'software', loadChildren: () => import('./modules/feature/software/software.module').then(m => m.SoftwareModule) },
         { path: 'users', loadChildren: () => import('./modules/feature/user/user.module').then(m => m.UserModule) }
       ]},
+      { path: 'home', component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: '**', redirectTo: '' },
+      { path: '**', redirectTo: 'home' },
     ]),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -54,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeModule,
     SharedModule
   ],
-  providers: [TranslateService],
+  providers: [TranslateService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,5 +24,10 @@
       required>
       <small *ngIf="!passwordControl.valid && passwordControl.touched" id="passwordHelp" class="form-text text-muted">{{ 'LOGIN.VALIDATION.PASSWORD_REQUIRED' | translate }}</small>
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">{{ 'LOGIN.LOG_IN' | translate }}</button>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary col-md-2" [disabled]="!loginForm.valid">{{ 'LOGIN.LOG_IN' | translate }}</button>
+  </div>
+  <div *ngIf="loginError" class="alert alert-danger mt-3" role="alert">
+    {{loginError}}
+  </div>
 </form>
