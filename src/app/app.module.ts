@@ -1,3 +1,4 @@
+import { HealthCheckComponent } from './modules/core/health-check/health-check.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { HomeModule } from './modules/feature/home/home.module';
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'home', component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'api/health', component: HealthCheckComponent },
       { path: '**', redirectTo: 'home' },
     ]),
     TranslateModule.forRoot({

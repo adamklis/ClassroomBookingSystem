@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { MenuComponent } from './menu/menu.component';
+import { HealthCheckComponent } from './health-check/health-check.component';
 
 @NgModule({
   declarations: [
-    MenuComponent
+    MenuComponent,
+    HealthCheckComponent
   ],
   imports: [
     CommonModule,
