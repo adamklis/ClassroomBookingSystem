@@ -56,8 +56,11 @@
       "FORENAME": "Forename",
       "SURNAME": "Surname",
       "CONTACT": "Contact",
-      "ROLE": "Role",
       "SIGN_UP": "Sign Up"
+  },
+  "UNATHORIZED": {
+    "HEADER": "Unathorized",
+    "MESSAGE": "You have no permissions to see this page."
   },
   "USER": {
     "HEADER": "Users",
@@ -65,14 +68,12 @@
       "SURNAME": "Surname",
       "FORENAME": "Forename",
       "CONTACT": "Contact",
-      "ROLE": "Role",
       "EMAIL": "Email"
     },
     "DETAILS": {
       "SURNAME": "Surname",
       "FORENAME": "Forename",
       "CONTACT": "Contact",
-      "ROLE": "Role",
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "NEW": "New user"

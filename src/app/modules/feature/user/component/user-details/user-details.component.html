@@ -37,18 +37,11 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="contact">{{ 'USER.DETAILS.CONTACT' | translate }}</label>
       <input type="text" class="form-control" [class.is-invalid]="!contactControl.valid && contactControl.touched"
         [class.is-valid]="contactControl.valid" id="contact" formControlName="contact" required>
       <small *ngIf="!contactControl.valid && contactControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
-    </div>
-    <div class="form-group col-md-6">
-      <label for="role">{{ 'USER.DETAILS.ROLE' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!roleControl.valid && roleControl.touched"
-        [class.is-valid]="roleControl.valid" id="role" formControlName="role" required>
-      <small *ngIf="!roleControl.valid && roleControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { AuthService } from './../../../core/auth/auth.service';
+import { AuthenticationService } from '../../../core/authentication/service/authentication.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUser } from '../../user/interface/user.interface';
 import { Subscription, Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class StartComponent implements OnInit, OnDestroy {
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit(): void {
 

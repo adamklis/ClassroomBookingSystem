@@ -24,7 +24,6 @@ export class UserDetailsComponent implements OnInit {
   public forenameControl = new FormControl('', [Validators.required]);
   public surnameControl = new FormControl('', [Validators.required]);
   public contactControl = new FormControl('', [Validators.required]);
-  public roleControl = new FormControl('', [Validators.required]);
 
 
   public registerForm = new FormGroup({
@@ -32,8 +31,7 @@ export class UserDetailsComponent implements OnInit {
     password: this.passwordControl,
     forename: this.forenameControl,
     surname: this.surnameControl,
-    contact: this.contactControl,
-    role: this.roleControl
+    contact: this.contactControl
   });
 
   constructor(
@@ -147,7 +145,6 @@ export class UserDetailsComponent implements OnInit {
       this.forenameControl.setValue(this.user.forename);
       this.surnameControl.setValue(this.user.surname);
       this.contactControl.setValue(this.user.contact);
-      this.roleControl.setValue(this.user.role);
     } else {
       this.registerForm.reset();
     }
@@ -159,9 +156,9 @@ export class UserDetailsComponent implements OnInit {
       forename: this.forenameControl.value,
       surname: this.surnameControl.value,
       contact: this.contactControl.value,
-      role: this.roleControl.value,
       email: this.emailControl.value,
-      password: this.passwordControl.value
+      password: this.passwordControl.value,
+      permissions: []
     };
   }
 

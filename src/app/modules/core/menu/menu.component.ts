@@ -1,4 +1,4 @@
-import { AuthService } from './../auth/auth.service';
+import { AuthenticationService } from '../authentication/service/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,7 +10,7 @@ export class MenuComponent implements OnInit {
 
   public isCollapsed = true;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthenticationService) {
 
    }
 

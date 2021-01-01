@@ -8,7 +8,7 @@ const APIEndpoint = environment.APIEndpoint;
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
