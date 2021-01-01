@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../authorization/service/authorization.service';
 import { Permission } from './../../authorization/enum/permission.enum';
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
@@ -8,18 +9,31 @@ import { AuthenticationService } from '../../authentication/service/authenticati
   providedIn: 'root'
 })
 export class AuthorizationGuard implements CanActivateChild {
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  constructor(private authorizationService: AuthorizationService, private router: Router) { }
 
   canActivateChild(route: ActivatedRouteSnapshot): boolean {
     const expectedPermissions: Permission[] = route.data.expectedPermissions;
     if (!expectedPermissions) { return true; }
 
-    // TODO: check user permissions
-    if (expectedPermissions.findIndex(permission => permission === Permission.RESERVATION_VIEW) === -1) {
-      return true;
-    } else {
-      this.router.navigate(['unathorized']);
+    this.authorizationService.getUserInfo().then( () => {
+      let permissionFound = false;
+      const user = this.authorizationService.currentUser$.getValue();
+      if (user) {
+        const userPermissions = user.permissions;
+        expectedPermissions.forEach(expectedPermission => {
+            if (userPermissions.findIndex(permission => permission === expectedPermission) !== -1) { permissionFound = true; }
+        });
+      }
+      if (permissionFound) {
+        return true;
+      } else {
+        this.router.navigate(['unathorized']);
+        return false;
+      }
+    }).catch(() => {
+      this.router.navigate(['login']);
       return false;
-    }
+    });
+
   }
 }

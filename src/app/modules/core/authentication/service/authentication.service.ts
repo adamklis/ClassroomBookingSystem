@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../authorization/service/authorization.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -12,7 +13,8 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authorizationService: AuthorizationService
   ) { }
 
   public login(clientId: string, clientSecret: string): Promise<any>{
@@ -21,6 +23,7 @@ export class AuthenticationService {
 
   public logout(){
     this.cookieService.delete('access_token', '/');
+    this.authorizationService.clearUserInfo();
   }
 
   public checkCredentials(): boolean {
