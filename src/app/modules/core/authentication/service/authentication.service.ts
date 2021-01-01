@@ -21,7 +21,9 @@ export class AuthenticationService {
     return this.retrieveToken(clientId, clientSecret);
   }
 
-  public logout(){
+  public async logout(){
+    const token = this.cookieService.get('access_token');
+    await this.httpClient.post(APIEndpoint + `/auth/logout?token=${token}`, '').toPromise();
     this.cookieService.delete('access_token', '/');
     this.authorizationService.clearUserInfo();
   }
