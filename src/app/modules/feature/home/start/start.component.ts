@@ -12,14 +12,8 @@ export class StartComponent implements OnInit, OnDestroy {
 
   constructor(public authService: AuthService) { }
 
-  public userName: string;
-
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe({
-      next: user => this.userName = user.email
-    });
 
-    console.log('oninit');
   }
 
   ngOnDestroy(): void {

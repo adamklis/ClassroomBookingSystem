@@ -15,6 +15,7 @@ import { LoginComponent } from './modules/feature/home/login/login.component';
 import { RegisterComponent } from './modules/feature/home/register/register.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthGuardService } from './modules/core/guard/auth-guard/auth-guard.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,7 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         { path: 'appliances', loadChildren: () => import('./modules/feature/appliance/appliance.module').then(m => m.ApplianceModule) },
         { path: 'software', loadChildren: () => import('./modules/feature/software/software.module').then(m => m.SoftwareModule) },
         { path: 'users', loadChildren: () => import('./modules/feature/user/user.module').then(m => m.UserModule) }
-      ]},
+      ], canActivateChild: [AuthGuardService]},
       { path: 'home', component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },

@@ -1,5 +1,3 @@
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { IUser } from './../../feature/user/interface/user.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -12,8 +10,6 @@ const APIEndpoint = environment.APIEndpoint;
 })
 export class AuthService {
 
-  private user = new BehaviorSubject(null);
-
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService
@@ -25,17 +21,10 @@ export class AuthService {
 
   public logout(){
     this.cookieService.delete('access_token', '/');
-    this.user = null;
-    console.log('logout...');
-    // TODO logout request
   }
 
   public checkCredentials(): boolean {
-    return this.cookieService.check('access_token') && !!this.user;
-  }
-
-  public getCurrentUser(): BehaviorSubject<IUser>{
-    return this.user;
+    return this.cookieService.check('access_token');
   }
 
   private retrieveToken(clientId: string, clientSecret: string): Promise<any> {
@@ -48,11 +37,6 @@ export class AuthService {
       .toPromise()
       .then((token) => {
         this.saveToken(token);
-
-        this.httpClient.get(APIEndpoint + '/auth/get_user?token=' + this.cookieService.get('access_token')).toPromise()
-        .then(
-          user => this.user.next(user)
-        );
       });
   }
 
