@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { MenuComponent } from './menu/menu.component';
+import { PermissionsDirective } from './authorization/directive/permissions.directive';
 
 @NgModule({
   declarations: [
-    MenuComponent
+    MenuComponent,
+    PermissionsDirective
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { MenuComponent } from './menu/menu.component';
     TranslateModule
   ],
   exports: [
-    MenuComponent
+    MenuComponent,
+    PermissionsDirective
   ]
 })
 export class CoreModule {

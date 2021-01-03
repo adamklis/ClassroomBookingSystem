@@ -33,7 +33,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FontAwesomeModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: 'home', component: StartComponent },
+      { path: 'home', canActivate:[AuthorizationGuard], component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'unathorized', component: UnathorizedComponent },

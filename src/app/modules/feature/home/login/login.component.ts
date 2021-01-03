@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    this.authService.login(this.loginForm.value.login, this.loginForm.value.password)
+  async onSubmit(){
+    await this.authService.login(this.loginForm.value.login, this.loginForm.value.password)
     .then(() => {this.router.navigate(['home']); } )
     .catch(err => {
       this.loginError = err.error;

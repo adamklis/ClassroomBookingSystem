@@ -18,8 +18,13 @@ export class AuthenticationService {
   ) { }
 
   public async login(clientId: string, clientSecret: string): Promise<any>{
-    await this.retrieveToken(clientId, clientSecret);
-    return await this.authorizationService.getUserInfo();
+    const token = await this.httpClient.post(
+      APIEndpoint + '/auth/get_token',
+      this.getRetriveTokenBody(clientId, clientSecret),
+      { headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded') }
+    ).toPromise();
+    this.saveToken(token);
+    this.authorizationService.getUserInfo();
   }
 
   public async logout(){
@@ -31,17 +36,6 @@ export class AuthenticationService {
 
   public checkCredentials(): boolean {
     return this.cookieService.check('access_token');
-  }
-
-  private async retrieveToken(clientId: string, clientSecret: string): Promise<any> {
-    const token = await this.httpClient
-      .post(
-        APIEndpoint + '/auth/get_token',
-        this.getRetriveTokenBody(clientId, clientSecret),
-        { headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded') }
-      )
-      .toPromise();
-    this.saveToken(token);
   }
 
   private saveToken(token: any){

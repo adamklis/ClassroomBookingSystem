@@ -8,10 +8,25 @@
     </ng-container>
 
     <ng-container *ngIf="authService.checkCredentials()">
-      <a class="nav-link" routerLinkActive="active" routerLink="reservations">{{ 'MENU.RESERVATIONS' | translate }}</a>
-      <a class="nav-link" routerLinkActive="active" routerLink="rooms">{{ 'MENU.ROOMS' | translate }}</a>
-      <a class="nav-link" routerLinkActive="active" routerLink="appliances">{{ 'MENU.APPLIANCES' | translate }}</a>
-      <a class="nav-link" routerLinkActive="active" routerLink="software">{{ 'MENU.SOFTWARE' | translate }}</a>
-      <a class="nav-link" routerLinkActive="active" routerLink="users">{{ 'MENU.USERS' | translate }}</a>
+      <a
+        cbsPermissions [permissions]="[permission.RESERVATION_VIEW, permission.RESERVATION_EDIT, permission.RESERVATION_EDIT_USER, permission.RESERVATION_VIEW_USER]"
+        class="nav-link" routerLinkActive="active" routerLink="reservations">{{ 'MENU.RESERVATIONS' | translate }}
+      </a>
+      <a
+        cbsPermissions [permissions]="[permission.ROOM_VIEW, permission.ROOM_EDIT]"
+        class="nav-link" routerLinkActive="active" routerLink="rooms">{{ 'MENU.ROOMS' | translate }}
+      </a>
+      <a
+        cbsPermissions [permissions]="[permission.APPLIANCE_VIEW, permission.APPLIANCE_EDIT]"
+        class="nav-link" routerLinkActive="active" routerLink="appliances">{{ 'MENU.APPLIANCES' | translate }}
+        </a>
+      <a
+        cbsPermissions [permissions]="[permission.SOFTWARE_VIEW, permission.SOFTWARE_EDIT]"
+        class="nav-link" routerLinkActive="active" routerLink="software">{{ 'MENU.SOFTWARE' | translate }}
+      </a>
+      <a
+        cbsPermissions [permissions]="[permission.USER_VIEW, permission.USER_EDIT]"
+        class="nav-link" routerLinkActive="active" routerLink="users">{{ 'MENU.USERS' | translate }}
+      </a>
     </ng-container>
 </nav>
