@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,8 @@ import { UseListComponent } from './component/use-list/use-list.component';
     RoomRoutingModule,
     TranslateModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CoreModule
   ]
 })
 export class RoomModule { }

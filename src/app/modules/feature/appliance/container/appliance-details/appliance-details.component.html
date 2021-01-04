@@ -8,14 +8,16 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="name">{{ 'APPLIANCE.DETAILS.NAME' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!nameControl.valid && nameControl.touched"
+      <input  cbsPermissions [permissions]="[permissions.APPLIANCE_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!nameControl.valid && nameControl.touched"
         [class.is-valid]="nameControl.valid" id="name" formControlName="name" required>
       <small *ngIf="!nameControl.valid && nameControl.touched" id="softwareHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
     <div class="form-group col-md-6">
       <label for="quantity">{{ 'APPLIANCE.DETAILS.QUANTITY' | translate }}</label>
-      <input type="number" class="form-control" [class.is-invalid]="!quantityControl.valid && quantityControl.touched"
+      <input cbsPermissions [permissions]="[permissions.APPLIANCE_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="number" class="form-control" [class.is-invalid]="!quantityControl.valid && quantityControl.touched"
         [class.is-valid]="quantityControl.valid" id="quantity" formControlName="quantity" required>
       <small *ngIf="quantityControl.errors?.required && quantityControl.touched" id="softwareHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
@@ -23,7 +25,7 @@
         class="form-text text-muted">{{ 'SHARED.VALIDATION.MIN_VALUE_0' | translate }}</small>
     </div>
   </div>
-  <div class="form-row">
+  <div cbsPermissions [permissions]="[permissions.APPLIANCE_EDIT]" class="form-row">
     <ng-container *ngIf="appliance">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="applianceForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
     <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>

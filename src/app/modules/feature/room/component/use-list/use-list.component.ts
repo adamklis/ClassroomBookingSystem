@@ -1,22 +1,32 @@
 import { Observable } from 'rxjs';
 import { ModalService } from './../../../../shared/modal/service/modal.service';
 import { IUse } from './../../interface/use.interface';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { faPlus, faMinus, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'cbs-use-list',
   templateUrl: './use-list.component.html',
-  styleUrls: ['./use-list.component.css']
+  styleUrls: ['./use-list.component.css'],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => UseListComponent), multi: true }]
 })
-export class UseListComponent implements OnInit {
+export class UseListComponent implements OnInit, ControlValueAccessor {
 
   faPlus = faPlus;
   faMinus = faMinus;
   faTrash = faTrash;
   faPen = faPen;
+
+  @Input()
+  public disabled: boolean;
+
+  public get isDisabled(): boolean {
+    return this.disabled;
+  }
+
 
   @Input()
   public uses: IUse[];
@@ -28,6 +38,14 @@ export class UseListComponent implements OnInit {
   public usesChange: EventEmitter<IUse[]> = new EventEmitter<IUse[]>();
 
   constructor(private modalService: ModalService) { }
+
+  writeValue(obj: any): void {}
+  registerOnChange(fn: any): void {}
+  registerOnTouched(fn: any): void {}
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    console.log(isDisabled);
+  }
 
   ngOnInit(): void {
   }

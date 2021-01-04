@@ -1,3 +1,5 @@
+import { PermissionsMode } from './../../../../core/authorization/enum/permissions-mode.enum';
+import { Permission } from './../../../../core/authorization/enum/permission.enum';
 import { IModalBody } from 'src/app/modules/shared/modal/interface/modal-body';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
@@ -16,6 +18,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 export class UserDetailsComponent implements OnInit {
 
   faArrowLeft = faArrowLeft;
+  permissions = Permission;
+  permissionsMode = PermissionsMode;
 
   public user: IUser;
 

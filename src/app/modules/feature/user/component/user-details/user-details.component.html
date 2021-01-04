@@ -8,7 +8,8 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="email">{{ 'USER.DETAILS.EMAIL' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
+      <input cbsPermissions [permissions]="[permissions.USER_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
         [class.is-valid]="emailControl.valid" id="email" formControlName="email" required>
       <small *ngIf="!emailControl.valid && emailControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
@@ -17,20 +18,23 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="password">{{ 'USER.DETAILS.PASSWORD' | translate }}</label>
-      <input type="password" class="form-control" id="password" formControlName="password">
+      <input cbsPermissions [permissions]="[permissions.USER_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="password" class="form-control" id="password" formControlName="password">
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="forename">{{ 'USER.DETAILS.FORENAME' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!forenameControl.valid && forenameControl.touched"
+      <input cbsPermissions [permissions]="[permissions.USER_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!forenameControl.valid && forenameControl.touched"
         [class.is-valid]="forenameControl.valid" id="forename" formControlName="forename" required>
       <small *ngIf="!forenameControl.valid && forenameControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
     <div class="form-group col-md-6">
       <label for="surname">{{ 'USER.DETAILS.SURNAME' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!surnameControl.valid && surnameControl.touched"
+      <input cbsPermissions [permissions]="[permissions.USER_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!surnameControl.valid && surnameControl.touched"
         [class.is-valid]="surnameControl.valid" id="surname" formControlName="surname" required>
       <small *ngIf="!surnameControl.valid && surnameControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
@@ -39,13 +43,14 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="contact">{{ 'USER.DETAILS.CONTACT' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!contactControl.valid && contactControl.touched"
+      <input cbsPermissions [permissions]="[permissions.USER_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!contactControl.valid && contactControl.touched"
         [class.is-valid]="contactControl.valid" id="contact" formControlName="contact" required>
       <small *ngIf="!contactControl.valid && contactControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
-  <div class="form-row">
+  <div cbsPermissions [permissions]="[permissions.USER_EDIT]" class="form-row">
     <ng-container *ngIf="user">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="registerForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
     <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>

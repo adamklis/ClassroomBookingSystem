@@ -6,7 +6,7 @@
       <th>{{ 'USER.TABLE.CONTACT' | translate }}</th>
       <th>{{ 'USER.TABLE.EMAIL' | translate }}</th>
       <th>
-        <button routerLink="/users/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.USER_EDIT]" routerLink="/users/0" class="btn btn-sm btn-success">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>

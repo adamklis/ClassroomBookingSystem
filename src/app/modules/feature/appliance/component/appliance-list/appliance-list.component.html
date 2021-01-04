@@ -4,7 +4,7 @@
       <th>{{ 'APPLIANCE.TABLE.NAME' | translate }}</th>
       <th>{{ 'APPLIANCE.TABLE.QUANTITY' | translate }}</th>
       <th>
-        <button routerLink="/appliances/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.USER_EDIT]" routerLink="/appliances/0" class="btn btn-sm btn-success">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>

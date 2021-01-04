@@ -8,14 +8,16 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="name">{{ 'ROOM.DETAILS.NAME' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!nameControl.valid && nameControl.touched"
+      <input   cbsPermissions [permissions]="[permissions.ROOM_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="text" class="form-control" [class.is-invalid]="!nameControl.valid && nameControl.touched"
         [class.is-valid]="nameControl.valid" id="name" formControlName="name" required>
       <small *ngIf="!nameControl.valid && nameControl.touched" id="roomHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
     <div class="form-group col-md-6">
       <label for="numberOfSeats">{{ 'ROOM.DETAILS.NUMBER_OF_SEATS' | translate }}</label>
-      <input type="number" class="form-control" [class.is-invalid]="!numberOfSeatsControl.valid && numberOfSeatsControl.touched"
+      <input cbsPermissions [permissions]="[permissions.ROOM_EDIT]" [mode]="permissionsMode.DISABLED"
+        type="number" class="form-control" [class.is-invalid]="!numberOfSeatsControl.valid && numberOfSeatsControl.touched"
         [class.is-valid]="numberOfSeatsControl.valid" id="numberOfSeats" formControlName="numberOfSeats" required>
       <small *ngIf="numberOfSeatsControl.errors?.required && numberOfSeatsControl.touched" id="roomHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
@@ -26,14 +28,18 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="name">{{ 'ROOM.DETAILS.SOFTWARE' | translate }}</label>
-      <cbs-use-list [uses]="softwareUsesList" (usesChange)="softwareUsesChange($event)" [searchFunction]="softwareUsesSearchFunction"></cbs-use-list>
+      <cbs-use-list [disabled]="!(authorizationService.hasPermissions([permissions.ROOM_EDIT]) | async)"
+        [uses]="softwareUsesList" (usesChange)="softwareUsesChange($event)" [searchFunction]="softwareUsesSearchFunction">
+      </cbs-use-list>
     </div>
     <div class="form-group col-md-6">
       <label for="numberOfSeats">{{ 'ROOM.DETAILS.APPLIANCES' | translate }}</label>
-      <cbs-use-list [uses]="applianceUsesList" (usesChange)="applianceUsesChange($event)" [searchFunction]="applianceUsesSearchFunction"></cbs-use-list>
+      <cbs-use-list [disabled]="!(authorizationService.hasPermissions([permissions.ROOM_EDIT]) | async)"
+        [uses]="applianceUsesList" (usesChange)="applianceUsesChange($event)" [searchFunction]="applianceUsesSearchFunction">
+      </cbs-use-list>
     </div>
   </div>
-  <div class="form-row">
+  <div cbsPermissions [permissions]="[permissions.ROOM_EDIT]"  class="form-row">
     <ng-container *ngIf="room">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="roomForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
     <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>

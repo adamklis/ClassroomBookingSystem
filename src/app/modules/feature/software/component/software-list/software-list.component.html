@@ -6,7 +6,7 @@
       <th>{{ 'SOFTWARE.TABLE.VALID_FROM' | translate }}</th>
       <th>{{ 'SOFTWARE.TABLE.VALID_TO' | translate }}</th>
       <th>
-        <button routerLink="/software/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.SOFTWARE_EDIT]" routerLink="/software/0" class="btn btn-sm btn-success">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>

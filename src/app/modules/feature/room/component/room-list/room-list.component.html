@@ -4,7 +4,7 @@
       <th>{{ 'ROOM.TABLE.NAME' | translate }}</th>
       <th>{{ 'ROOM.TABLE.NUMBER_OF_SEATS' | translate }}</th>
       <th>
-        <button routerLink="/rooms/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.ROOM_EDIT]" routerLink="/rooms/0" class="btn btn-sm btn-success">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>

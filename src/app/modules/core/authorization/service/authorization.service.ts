@@ -1,10 +1,11 @@
 import { Permission } from './../enum/permission.enum';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from './../../../feature/user/interface/user.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { map } from 'rxjs/operators';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -39,5 +40,18 @@ export class AuthorizationService {
   public clearUserInfo(){
       this.currentUser$.next(null);
       sessionStorage.removeItem('user');
+  }
+
+  public hasPermissions(permissions: Permission[]): Observable<boolean> {
+    return this.currentUser$.pipe(
+      map(user => {
+        let permissionFound = false;
+        user.permissions.forEach(userPermission => {
+          if (permissions.findIndex(permission => permission === userPermission) !== -1 ) { permissionFound = true; }
+        });
+        return permissionFound;
+      })
+    );
+
   }
 }

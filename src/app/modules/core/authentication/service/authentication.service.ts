@@ -29,9 +29,10 @@ export class AuthenticationService {
 
   public async logout(){
     const token = this.cookieService.get('access_token');
-    await this.httpClient.post(APIEndpoint + `/auth/logout?token=${token}`, '').toPromise();
-    this.cookieService.delete('access_token', '/');
-    this.authorizationService.clearUserInfo();
+    await this.httpClient.post(APIEndpoint + `/auth/logout?token=${token}`, '').toPromise().catch().finally(() => {
+      this.cookieService.delete('access_token', '/');
+      this.authorizationService.clearUserInfo();
+    });
   }
 
   public checkCredentials(): boolean {
