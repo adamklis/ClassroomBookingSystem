@@ -1,7 +1,8 @@
 import { IAppliance } from './../../interface/appliance.interface';
 import { Component, Input, OnInit } from '@angular/core';
-import { faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPen, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { AuthorizationService } from 'src/app/modules/core/authorization/service/authorization.service';
 
 @Component({
   selector: 'cbs-appliance-list',
@@ -15,9 +16,10 @@ export class ApplianceListComponent implements OnInit {
 
   faPen = faPen;
   faPlus = faPlus;
+  faInfo = faInfo;
   permissions = Permission;
 
-  constructor() { }
+  constructor(public authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
   }

@@ -6,7 +6,7 @@
       <th>{{ 'SOFTWARE.TABLE.VALID_FROM' | translate }}</th>
       <th>{{ 'SOFTWARE.TABLE.VALID_TO' | translate }}</th>
       <th>
-        <button cbsPermissions [permissions]="[permissions.SOFTWARE_EDIT]" routerLink="/software/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.SOFTWARE_EDIT]" routerLink="/software/0" class="btn btn-sm btn-success icon">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>
@@ -22,8 +22,8 @@
       <td>{{ software.validFrom | date: 'yyyy-MM-dd' }}</td>
       <td>{{ software.validTo | date: 'yyyy-MM-dd' }}</td>
       <td>
-        <button routerLink="/software/{{software.uuid}}" class="btn btn-sm btn-primary">
-          <fa-icon [icon]="faPen"></fa-icon>
+        <button routerLink="/software/{{software.uuid}}" class="btn btn-sm btn-primary icon">
+          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.SOFTWARE_EDIT]) | async) ? faPen : faInfo"></fa-icon>
         </button>
       </td>
     </tr>

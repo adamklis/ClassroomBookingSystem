@@ -4,7 +4,7 @@
       <th>{{ 'APPLIANCE.TABLE.NAME' | translate }}</th>
       <th>{{ 'APPLIANCE.TABLE.QUANTITY' | translate }}</th>
       <th>
-        <button cbsPermissions [permissions]="[permissions.USER_EDIT]" routerLink="/appliances/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.USER_EDIT]" routerLink="/appliances/0" class="btn btn-sm btn-success icon">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>
@@ -18,8 +18,8 @@
       <td>{{ appliance.name }}</td>
       <td>{{ appliance.quantity }}</td>
       <td>
-        <button routerLink="/appliances/{{appliance.uuid}}" class="btn btn-sm btn-primary">
-          <fa-icon [icon]="faPen"></fa-icon>
+        <button routerLink="/appliances/{{appliance.uuid}}" class="btn btn-sm btn-primary icon">
+          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.USER_EDIT]) | async) ? faPen : faInfo"></fa-icon>
         </button>
       </td>
     </tr>
