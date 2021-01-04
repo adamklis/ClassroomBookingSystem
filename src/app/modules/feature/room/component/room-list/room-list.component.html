@@ -4,7 +4,7 @@
       <th>{{ 'ROOM.TABLE.NAME' | translate }}</th>
       <th>{{ 'ROOM.TABLE.NUMBER_OF_SEATS' | translate }}</th>
       <th>
-        <button routerLink="/rooms/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.ROOM_EDIT]" routerLink="/rooms/0" class="btn btn-sm btn-success icon">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>
@@ -18,8 +18,8 @@
       <td>{{ room.name }}</td>
       <td>{{ room.numberOfSeats }}</td>
       <td>
-        <button routerLink="/rooms/{{room.uuid}}" class="btn btn-sm btn-primary">
-          <fa-icon [icon]="faPen"></fa-icon>
+        <button routerLink="/rooms/{{room.uuid}}" class="btn btn-sm btn-primary icon">
+          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.ROOM_EDIT]) | async) ? faPen : faInfo"></fa-icon>
         </button>
       </td>
     </tr>

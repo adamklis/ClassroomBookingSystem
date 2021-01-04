@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SoftwareRoutingModule,
     TranslateModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    CoreModule
   ]
 })
 export class SoftwareModule {

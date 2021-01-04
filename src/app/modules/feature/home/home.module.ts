@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UnathorizedComponent } from './unathorized/unathorized.component';
 
 
 
@@ -12,7 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     StartComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UnathorizedComponent
   ],
   imports: [
     CommonModule,

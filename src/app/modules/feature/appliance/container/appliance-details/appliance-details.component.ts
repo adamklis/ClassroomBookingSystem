@@ -6,6 +6,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
+import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 
 @Component({
   selector: 'cbs-appliance-details',
@@ -15,6 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class ApplianceDetailsComponent implements OnInit {
 
   faArrowLeft = faArrowLeft;
+  permissions = Permission;
+  permissionsMode = PermissionsMode;
 
   public appliance: IAppliance;
 

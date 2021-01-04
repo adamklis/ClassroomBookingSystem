@@ -1,11 +1,12 @@
+import { Permission } from './../../../core/authorization/enum/permission.enum';
 export interface IUser {
   uuid?: string;
   forename: string;
   surname: string;
   contact: string;
-  role: string;
   email: string;
   password: string;
+  permissions: Permission[];
 }
 
 export interface IUserRef {

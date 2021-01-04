@@ -1,4 +1,5 @@
-import { AuthService } from './../auth/auth.service';
+import { Permission } from './../authorization/enum/permission.enum';
+import { AuthenticationService } from '../authentication/service/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   public isCollapsed = true;
+  public permission = Permission;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthenticationService) {
 
    }
 

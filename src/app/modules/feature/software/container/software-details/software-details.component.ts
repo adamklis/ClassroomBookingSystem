@@ -8,6 +8,8 @@ import { faArrowLeft, faCalendar, faEraser } from '@fortawesome/free-solid-svg-i
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
 
 @Component({
   selector: 'cbs-software-details',
@@ -19,6 +21,8 @@ export class SoftwareDetailsComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faCalendar = faCalendar;
   faEraser = faEraser;
+  permissions = Permission;
+  permissionsMode = PermissionsMode;
 
   public software: ISoftware;
 

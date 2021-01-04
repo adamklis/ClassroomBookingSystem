@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { AuthService } from './../../../core/auth/auth.service';
+import { AuthenticationService } from '../../../core/authentication/service/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
 
   public loginError: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    this.authService.login(this.loginForm.value.login, this.loginForm.value.password)
+  async onSubmit(){
+    await this.authService.login(this.loginForm.value.login, this.loginForm.value.password)
     .then(() => {this.router.navigate(['home']); } )
     .catch(err => {
       this.loginError = err.error;

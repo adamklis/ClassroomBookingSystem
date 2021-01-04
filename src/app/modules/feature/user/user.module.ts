@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FontAwesomeModule,
     TranslateModule,
     UserRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CoreModule
   ],
   exports: [UserRoutingModule]
 })

@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../../../core/authorization/service/authorization.service';
 import { ISoftwareUse } from './../../../software/interface/software.interface';
 import { IApplianceUse } from './../../../appliance/interface/appliance.interface';
 import { ApplianceService } from './../../../appliance/service/appliance.service';
@@ -14,6 +15,8 @@ import { Observable } from 'rxjs';
 import { IUse } from '../../interface/use.interface';
 import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
+import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
 
 @Component({
   selector: 'cbs-room-details',
@@ -25,6 +28,8 @@ export class RoomDetailsComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faPlus = faPlus;
   faPen = faPen;
+  permissions = Permission;
+  permissionsMode = PermissionsMode;
 
   public room: IRoom;
 
@@ -33,16 +38,19 @@ export class RoomDetailsComponent implements OnInit {
 
   public nameControl = new FormControl('', [Validators.required]);
   public numberOfSeatsControl = new FormControl('', [Validators.required, Validators.min(1)]);
+  public softwareUsesListControl = new FormControl({ value: ''} );
   public softwareUsesList: ISoftwareUse[];
   public applianceUsesList: IApplianceUse[];
 
 
   public roomForm = new FormGroup({
     name: this.nameControl,
-    numberOfSeats: this.numberOfSeatsControl
+    numberOfSeats: this.numberOfSeatsControl,
+    softwareUsesList: this.softwareUsesListControl
   });
 
   constructor(
+    public authorizationService: AuthorizationService,
     private applianceService: ApplianceService,
     private softwareService: SoftwareService,
     private activatedRoute: ActivatedRoute,

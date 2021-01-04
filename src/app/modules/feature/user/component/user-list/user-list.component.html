@@ -3,11 +3,10 @@
     <tr>
       <th>{{ 'USER.TABLE.SURNAME' | translate }}</th>
       <th>{{ 'USER.TABLE.FORENAME' | translate }}</th>
-      <th>{{ 'USER.TABLE.ROLE' | translate }}</th>
       <th>{{ 'USER.TABLE.CONTACT' | translate }}</th>
       <th>{{ 'USER.TABLE.EMAIL' | translate }}</th>
       <th>
-        <button routerLink="/users/0" class="btn btn-sm btn-success">
+        <button cbsPermissions [permissions]="[permissions.USER_EDIT]" routerLink="/users/0" class="btn btn-sm btn-success icon">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </th>
@@ -15,17 +14,16 @@
   </thead>
   <tbody>
     <tr *ngIf="!users || users.length === 0">
-      <td colspan="6">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+      <td colspan="5">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
     </tr>
     <tr *ngFor="let user of users">
       <td>{{ user.surname }}</td>
       <td>{{ user.forename }}</td>
-      <td>{{ user.role }}</td>
       <td>{{ user.contact }}</td>
       <td>{{ user.email }}</td>
       <td>
-        <button routerLink="/users/{{user.uuid}}" class="btn btn-sm btn-primary">
-          <fa-icon [icon]="faPen"></fa-icon>
+        <button routerLink="/users/{{user.uuid}}" class="btn btn-sm btn-primary icon">
+          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.USER_EDIT]) | async) ? faPen : faInfo"></fa-icon>
         </button>
       </td>
     </tr>

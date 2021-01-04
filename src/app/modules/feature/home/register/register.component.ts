@@ -14,7 +14,6 @@ export class RegisterComponent implements OnInit {
   public forenameControl = new FormControl('', [Validators.required]);
   public surnameControl = new FormControl('', [Validators.required]);
   public contactControl = new FormControl('', [Validators.required]);
-  public roleControl = new FormControl('', [Validators.required]);
 
 
   public registerForm = new FormGroup({
@@ -23,8 +22,7 @@ export class RegisterComponent implements OnInit {
     password: this.passwordControl,
     forename: this.forenameControl,
     surname: this.surnameControl,
-    contact: this.contactControl,
-    role: this.roleControl
+    contact: this.contactControl
   });
 
   constructor() {}

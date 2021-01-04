@@ -57,8 +57,11 @@
       "FORENAME": "Imię",
       "SURNAME": "Nazwisko",
       "CONTACT": "Kontakt",
-      "ROLE": "Rola",
       "SIGN_UP": "Zarejestruj"
+  },
+  "UNATHORIZED": {
+    "HEADER": "Brak uprawnień",
+    "MESSAGE": "Nie masz uprawnień do oglądania tej strony."
   },
   "USER": {
     "HEADER": "Użytkownicy",
@@ -66,14 +69,12 @@
       "SURNAME": "Nazwisko",
       "FORENAME": "Imię",
       "CONTACT": "Kontakt",
-      "ROLE": "Rola",
       "EMAIL": "Email"
     },
     "DETAILS": {
       "SURNAME": "Nazwisko",
       "FORENAME": "Imię",
       "CONTACT": "Kontakt",
-      "ROLE": "Rola",
       "EMAIL": "Email",
       "PASSWORD": "Hasło",
       "NEW": "Nowy użytkownik"

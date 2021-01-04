@@ -1,6 +1,8 @@
 import { IRoom } from './../../interface/room.interface';
 import { Component, Input, OnInit } from '@angular/core';
-import { faPlus, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPen, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { AuthorizationService } from 'src/app/modules/core/authorization/service/authorization.service';
 
 @Component({
   selector: 'cbs-room-list',
@@ -11,11 +13,13 @@ export class RoomListComponent implements OnInit {
 
   faPlus = faPlus;
   faPen = faPen;
+  faInfo = faInfo;
+  permissions = Permission;
 
   @Input()
   public rooms: IRoom[];
 
-  constructor() { }
+  constructor(public authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
   }

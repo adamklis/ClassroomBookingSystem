@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { MenuComponent } from './menu/menu.component';
+import { PermissionsDirective } from './authorization/directive/permissions.directive';
 import { HealthCheckComponent } from './health-check/health-check.component';
 
 @NgModule({
   declarations: [
     MenuComponent,
+    PermissionsDirective,
     HealthCheckComponent
   ],
   imports: [
@@ -17,7 +19,8 @@ import { HealthCheckComponent } from './health-check/health-check.component';
     TranslateModule
   ],
   exports: [
-    MenuComponent
+    MenuComponent,
+    PermissionsDirective
   ]
 })
 export class CoreModule {
