@@ -5,11 +5,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { MenuComponent } from './menu/menu.component';
 import { PermissionsDirective } from './authorization/directive/permissions.directive';
+import { HealthCheckComponent } from './health-check/health-check.component';
 
 @NgModule({
   declarations: [
     MenuComponent,
-    PermissionsDirective
+    PermissionsDirective,
+    HealthCheckComponent
   ],
   imports: [
     CommonModule,

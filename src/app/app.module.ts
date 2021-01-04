@@ -1,5 +1,6 @@
 import { Permission } from './modules/core/authorization/enum/permission.enum';
 import { UnathorizedComponent } from './modules/feature/home/unathorized/unathorized.component';
+import { HealthCheckComponent } from './modules/core/health-check/health-check.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { HomeModule } from './modules/feature/home/home.module';
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'unathorized', component: UnathorizedComponent },
+      { path: 'api/health', component: HealthCheckComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '', children: [
         {
