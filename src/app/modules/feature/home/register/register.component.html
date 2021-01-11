@@ -3,7 +3,7 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="email">{{ 'REGISTER.EMAIL' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
+      <input type="email" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
         [class.is-valid]="emailControl.valid" id="email" formControlName="email" required>
       <small *ngIf="!emailControl.valid && emailControl.touched" id="loginHelp"
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
@@ -14,7 +14,7 @@
     <input type="password" class="form-control" [class.is-invalid]="!passwordControl.valid && passwordControl.touched"
       [class.is-valid]="passwordControl.valid" id="password" formControlName="password" required>
     <small *ngIf="!passwordControl.valid && passwordControl.touched" id="passwordHelp"
-      class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+      class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_MIN_LENGTH' | translate: {x:"5"} }}</small>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -43,4 +43,7 @@
   </div>
   <button type="submit" class="btn btn-primary"
     [disabled]="!registerForm.valid">{{ 'REGISTER.SIGN_UP' | translate }}</button>
+  <div *ngIf="registerError" class="alert alert-danger mt-3" role="alert">
+    {{registerError | translate}}
+  </div>
 </form>
