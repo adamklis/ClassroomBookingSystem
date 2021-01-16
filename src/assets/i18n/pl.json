@@ -77,7 +77,16 @@
       "CONTACT": "Kontakt",
       "EMAIL": "Email",
       "PASSWORD": "Hasło",
-      "NEW": "Nowy użytkownik"
+      "NEW": "Nowy użytkownik",
+      "PERMISSIONS": "Zarządzanie uprawnieniami",
+      "PROTECTED": "Użytkownik jest chroniony. Niektóre pola są tylko do odczytu."
+    },
+    "PERMISSIONS": {
+      "HEADER": "Uprawnienia",
+      "PRESET": "Wybierz grupę...",
+      "TABLE": {
+        "PERMISSION": "Uprawnienie"
+      }
     },
     "MODAL": {
       "DELETE_USER_TITLE": "Usuwanie użytkownika",
@@ -89,7 +98,9 @@
       "SAVE_USER_SUCCESS_TITLE": "Zapisywanie",
       "SAVE_USER_SUCCESS_MESSAGE": "Zapisano zmiany.",
       "RESTORE_USER_TITLE": "Przywracanie zmian",
-      "RESTORE_USER_MESSAGE": "Czy na pewno wyczyścić zmiany?"
+      "RESTORE_USER_MESSAGE": "Czy na pewno wyczyścić zmiany?",
+      "UNSAVED_CHANGES_TITLE": "Niezapisane zmiany",
+      "UNSAVED_CHANGES_MESSAGE": "Proszę najpierw zapisać lub przywrócić zmiany."
     }
   },
   "SOFTWARE": {
@@ -154,7 +165,8 @@
       "NAME": "Nazwa",
       "NUMBER_OF_SEATS": "Liczba miejsc",
       "SOFTWARE": "Oprogramowanie",
-      "APPLIANCES": "Sprzęt"
+      "APPLIANCES": "Sprzęt",
+      "NEW": "Nowy pokój"
     },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Usuwanie pokoju",

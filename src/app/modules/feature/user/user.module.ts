@@ -9,10 +9,11 @@ import { UserDashboardComponent } from './container/user-dashboard/user-dashboar
 import { UserListComponent } from './component/user-list/user-list.component';
 import { UserDetailsComponent } from './component/user-details/user-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserPermissionsComponent } from './container/user-permissions/user-permissions.component';
 
 
 @NgModule({
-  declarations: [UserDashboardComponent, UserListComponent, UserDetailsComponent],
+  declarations: [UserDashboardComponent, UserListComponent, UserDetailsComponent, UserPermissionsComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,

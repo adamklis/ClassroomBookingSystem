@@ -16,7 +16,9 @@ export class PermissionAssignment {
         Permission.SOFTWARE_EDIT,
         Permission.SOFTWARE_VIEW,
         Permission.USER_EDIT,
-        Permission.USER_VIEW
+        Permission.USER_VIEW,
+        Permission.PERMISSION_VIEW,
+        Permission.PERMISSION_EDIT
       ]
     },
     {
@@ -56,6 +58,10 @@ export class PermissionAssignment {
       permissions: []
     }
   ];
+
+  public static getPermissionAssignments(): {permissionGroup: PermissionGroup, permissions: Permission[]}[] {
+    return PermissionAssignment.assignments;
+  }
 
   public static isAssigned(permission: Permission, group: PermissionGroup): boolean{
     const result = this.assignments.find(assignment => assignment.permissionGroup === group);

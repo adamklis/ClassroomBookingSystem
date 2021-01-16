@@ -1,6 +1,6 @@
 import { AuthorizationService } from './../service/authorization.service';
 import { Permission } from './../enum/permission.enum';
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ɵclearOverrides } from '@angular/core';
 import { PermissionsMode } from '../enum/permissions-mode.enum';
 import { Subscription } from 'rxjs';
 
@@ -15,6 +15,9 @@ export class PermissionsDirective implements OnInit, OnDestroy {
   @Input()
   public mode: PermissionsMode = PermissionsMode.HIDDEN;
 
+  @Input()
+  public overridePermited = null;
+
   private userSubscription: Subscription;
 
   constructor(private authorizationService: AuthorizationService, private renderer: Renderer2, private element: ElementRef){
@@ -28,6 +31,10 @@ export class PermissionsDirective implements OnInit, OnDestroy {
         this.permissions.forEach(permission => {
           if (user.permissions.findIndex(userPermission => userPermission === permission) !== -1) { userPermitted = true; }
         });
+      }
+
+      if (this.overridePermited !== null){
+        userPermitted = this.overridePermited;
       }
 
       if (!userPermitted){

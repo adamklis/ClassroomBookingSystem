@@ -7,7 +7,7 @@ import { UserService } from '../../service/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '../../interface/user.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -30,7 +30,7 @@ export class UserDetailsComponent implements OnInit {
   public contactControl = new FormControl('', [Validators.required]);
 
 
-  public registerForm = new FormGroup({
+  public userForm = new FormGroup({
     email: this.emailControl,
     password: this.passwordControl,
     forename: this.forenameControl,
@@ -48,10 +48,32 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const userUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
-    this.userService.getUser(userUuid).subscribe(user => {
-      this.user = user;
-      this.resetForm();
-    });
+    if (userUuid !== '0') {
+      this.userService.getUser(userUuid).subscribe(user => {
+        this.user = user;
+        if (this.isProtected()) {
+          this.emailControl.disable();
+          this.passwordControl.disable();
+        }
+        this.resetForm();
+      });
+    }
+  }
+
+  public onPermissionsClick(){
+    if (!this.userForm.dirty) {
+      const navigationExtras: NavigationExtras = {state: {user: this.user}};
+      this.router.navigate(['users', this.user.uuid, 'permissions'], navigationExtras);
+    } else {
+      this.translateService.get([
+        'USER.MODAL.UNSAVED_CHANGES_TITLE',
+        'USER.MODAL.UNSAVED_CHANGES_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['USER.MODAL.UNSAVED_CHANGES_TITLE'], message: translation['USER.MODAL.UNSAVED_CHANGES_MESSAGE']}).then();
+      });
+    }
   }
 
   public onRestoreClick(){
@@ -117,7 +139,7 @@ export class UserDetailsComponent implements OnInit {
     .then(translation => {
       this.modalService.showConfirmModal({title: translation['USER.MODAL.RESTORE_USER_TITLE'], message: translation['USER.MODAL.RESTORE_USER_MESSAGE']})
       .then(() => {
-        this.registerForm.reset();
+        this.userForm.reset();
       })
       .catch(error => {});
     });
@@ -142,6 +164,10 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  public isProtected(): boolean{
+    return this.user && this.user.permissions.findIndex(permission => permission === Permission.PROTECTED_USER) !== -1;
+  }
+
   private resetForm(): void{
     if (this.user) {
       this.emailControl.setValue(this.user.email);
@@ -150,8 +176,10 @@ export class UserDetailsComponent implements OnInit {
       this.surnameControl.setValue(this.user.surname);
       this.contactControl.setValue(this.user.contact);
     } else {
-      this.registerForm.reset();
+      this.userForm.reset();
     }
+    this.userForm.markAsPristine();
+    this.userForm.markAsUntouched();
   }
 
   private getFormUserObject(): IUser {
