@@ -7,7 +7,7 @@ import { HomeModule } from './modules/feature/home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationGuard } from './modules/core/guard/authentication/authentication.guard';
 import { AuthorizationGuard } from './modules/core/guard/authorization/authorization.guard';
+import { HttpAuthorizedInterceptor } from './modules/core/interceptoprs/http-authorized-interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -34,7 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FontAwesomeModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: 'home', canActivate:[AuthorizationGuard], component: StartComponent },
+      { path: 'home', canActivate: [AuthorizationGuard], component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'unathorized', component: UnathorizedComponent },
@@ -82,7 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeModule,
     SharedModule
   ],
-  providers: [TranslateService, CookieService],
+  providers: [TranslateService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: HttpAuthorizedInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
