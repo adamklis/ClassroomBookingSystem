@@ -36,7 +36,8 @@
   "HOME": {
       "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
       "PLEASE_LOG_IN": "Proszę się zalogować.",
-      "LOGGED_IN_AS": "Zalogowano jako"
+      "LOGGED_IN_AS": "Zalogowano jako",
+      "MESSAGE": "To jest testowa instancja aplikacji. Proszę się zalogować z użyciem przykładowego konta:\n\nADMIN:\nemail: admin@classroombookingsystem.com\nhasło: example\n\nTECHNICIAN:\nemail: technician@classroombookingsystem.com\nhasło: example\n\nUSER:\nemail: user@classroombookingsystem.com\nhasło: example\n\nUżywając konta administratora możesz utworzyć użytkownika z wybranymi uprawnieniami."
   },
   "LOGIN": {
       "HEADER": "Logowanie",

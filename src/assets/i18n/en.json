@@ -36,7 +36,8 @@
   "HOME": {
       "WELCOME": "Welcome to Classroom booking system",
       "PLEASE_LOG_IN": "Please log in.",
-      "LOGGED_IN_AS": "Logged in as"
+      "LOGGED_IN_AS": "Logged in as",
+      "MESSAGE": "This is a test instance of the application. Please log in with a example account:\n\nADMIN:\nemail: admin@classroombookingsystem.com\npassword: example\n\nTECHNICIAN:\nemail: technician@classroombookingsystem.com\npassword: example\n\nUSER:\nemail: user@classroombookingsystem.com\npassword: example\n\nUsing an admin account you can create user with custom permissions."
   },
   "LOGIN": {
       "HEADER": "Log in",
