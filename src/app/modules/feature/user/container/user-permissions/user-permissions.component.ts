@@ -65,16 +65,17 @@ export class UserPermissionsComponent implements OnInit {
   }
 
   public permissionsChanged(): boolean{
+    let permissionsChanged = false;
     if (this.userPermissions.length !== this.user.permissions.length) { return true; }
     this.userPermissions.forEach( permission => {
-      if (!this.user.permissions.find(userPermission => userPermission === permission)) { return true; }
+      if (!this.user.permissions.find(userPermission => userPermission === permission)) { permissionsChanged = true; return; }
     });
 
     this.user.permissions.forEach( permission => {
-      if (!this.userPermissions.find(userPermission => userPermission === permission)) { return true; }
+      if (!this.userPermissions.find(userPermission => userPermission === permission)) {permissionsChanged = true; return; }
     });
 
-    return false;
+    return permissionsChanged;
   }
 
   public onRestoreClick(){
@@ -94,6 +95,7 @@ export class UserPermissionsComponent implements OnInit {
 
   public onSaveClick(){
     this.userService.saveUserPermissions(this.user.uuid, this.userPermissions).then(() => {
+      this.user.permissions = JSON.parse(JSON.stringify(this.userPermissions));
       this.translateService.get([
         'USER.MODAL.SAVE_USER_SUCCESS_TITLE',
         'USER.MODAL.SAVE_USER_SUCCESS_MESSAGE'
@@ -102,7 +104,7 @@ export class UserPermissionsComponent implements OnInit {
       .then(translation => {
         this.modalService.showInfoModal({title: translation['USER.MODAL.SAVE_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.SAVE_USER_SUCCESS_MESSAGE']});
       });
-    })
+    });
   }
 
   public isProtected(): boolean{
