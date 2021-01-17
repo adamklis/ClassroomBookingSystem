@@ -3,10 +3,10 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="email">{{ 'REGISTER.EMAIL' | translate }}</label>
-      <input type="text" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
+      <input type="email" class="form-control" [class.is-invalid]="!emailControl.valid && emailControl.touched"
         [class.is-valid]="emailControl.valid" id="email" formControlName="email" required>
       <small *ngIf="!emailControl.valid && emailControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
   <div class="form-group">
@@ -14,7 +14,7 @@
     <input type="password" class="form-control" [class.is-invalid]="!passwordControl.valid && passwordControl.touched"
       [class.is-valid]="passwordControl.valid" id="password" formControlName="password" required>
     <small *ngIf="!passwordControl.valid && passwordControl.touched" id="passwordHelp"
-      class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+      class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_MIN_LENGTH' | translate: {x:"5"} }}</small>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -22,14 +22,14 @@
       <input type="text" class="form-control" [class.is-invalid]="!forenameControl.valid && forenameControl.touched"
         [class.is-valid]="forenameControl.valid" id="forename" formControlName="forename" required>
       <small *ngIf="!forenameControl.valid && forenameControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
     <div class="form-group col-md-6">
       <label for="surname">{{ 'REGISTER.SURNAME' | translate }}</label>
       <input type="text" class="form-control" [class.is-invalid]="!surnameControl.valid && surnameControl.touched"
         [class.is-valid]="surnameControl.valid" id="surname" formControlName="surname" required>
       <small *ngIf="!surnameControl.valid && surnameControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
   <div class="form-row">
@@ -38,9 +38,12 @@
       <input type="text" class="form-control" [class.is-invalid]="!contactControl.valid && contactControl.touched"
         [class.is-valid]="contactControl.valid" id="contact" formControlName="contact" required>
       <small *ngIf="!contactControl.valid && contactControl.touched" id="loginHelp"
-        class="form-text text-muted">{{ 'REGISTER.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
   <button type="submit" class="btn btn-primary"
     [disabled]="!registerForm.valid">{{ 'REGISTER.SIGN_UP' | translate }}</button>
+  <div *ngIf="registerError" class="alert alert-danger mt-3" role="alert">
+    {{registerError | translate}}
+  </div>
 </form>

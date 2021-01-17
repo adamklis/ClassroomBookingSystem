@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UnathorizedComponent } from './unathorized/unathorized.component';
+import { RegisterSuccessComponent } from './register/register-success/register-success.component';
 
 
 
@@ -14,7 +15,8 @@ import { UnathorizedComponent } from './unathorized/unathorized.component';
     StartComponent,
     LoginComponent,
     RegisterComponent,
-    UnathorizedComponent
+    UnathorizedComponent,
+    RegisterSuccessComponent
   ],
   imports: [
     CommonModule,

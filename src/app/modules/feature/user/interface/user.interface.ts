@@ -6,7 +6,7 @@ export interface IUser {
   contact: string;
   email: string;
   password: string;
-  permissions: Permission[];
+  permissions?: Permission[];
 }
 
 export interface IUserRef {

@@ -1,3 +1,4 @@
+import { RegisterSuccessComponent } from './modules/feature/home/register/register-success/register-success.component';
 import { Permission } from './modules/core/authorization/enum/permission.enum';
 import { UnathorizedComponent } from './modules/feature/home/unathorized/unathorized.component';
 import { HealthCheckComponent } from './modules/core/health-check/health-check.component';
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'home', canActivate: [AuthorizationGuard], component: StartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'register/success', component: RegisterSuccessComponent },
       { path: 'unathorized', component: UnathorizedComponent },
       { path: 'api/health', component: HealthCheckComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },

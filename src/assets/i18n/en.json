@@ -8,7 +8,11 @@
       "ERROR": "Error!",
       "FIELD_REQUIRED": "Field is required.",
       "MIN_VALUE_0": "Value must be greater than 0.",
-      "DATE_PERIOD": "Invalid date period."
+      "DATE_PERIOD": "Invalid date period.",
+      "FIELD_MIN_LENGTH": "The value must be longer than {{ x }} characters."
+    },
+    "ERROR" : {
+      "USER_EXIST": "User alredy exist. Please contact with service administrator to reset password."
     },
     "BUTTON": {
       "ADD": "Add",
@@ -57,7 +61,11 @@
       "FORENAME": "Forename",
       "SURNAME": "Surname",
       "CONTACT": "Contact",
-      "SIGN_UP": "Sign Up"
+      "SIGN_UP": "Sign Up",
+      "SUCCESS": {
+        "HEADER": "Register success",
+        "MESSAGE": "Please wait for account confirmation by service administration."
+      }
   },
   "UNATHORIZED": {
     "HEADER": "Unathorized",

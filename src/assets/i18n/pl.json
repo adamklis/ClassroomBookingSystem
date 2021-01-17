@@ -8,7 +8,11 @@
       "ERROR": "Błąd!",
       "FIELD_REQUIRED": "Pole jest wymagane.",
       "MIN_VALUE_0": "Wartość musi być większa od 0.",
-      "DATE_PERIOD": "Niepoprawny zakres czasu."
+      "DATE_PERIOD": "Niepoprawny zakres czasu.",
+      "FIELD_MIN_LENGTH": "Wartość musi mieć więcej niż {{ x }} znaków."
+    },
+    "ERROR" : {
+      "USER_EXIST": "Użytkownik istnieje. Proszę skontaktować się z administratorem serwisu w celu zmiany hasła."
     },
     "BUTTON": {
       "ADD": "Dodaj",
@@ -58,7 +62,11 @@
       "FORENAME": "Imię",
       "SURNAME": "Nazwisko",
       "CONTACT": "Kontakt",
-      "SIGN_UP": "Zarejestruj"
+      "SIGN_UP": "Zarejestruj",
+      "SUCCESS": {
+        "HEADER": "Rejestracja prawidłowa",
+        "MESSAGE": "Poczekaj na zatwierdzenie rejestracji oraz nadanie uprawnień przez administratora systemu."
+      }
   },
   "UNATHORIZED": {
     "HEADER": "Brak uprawnień",
