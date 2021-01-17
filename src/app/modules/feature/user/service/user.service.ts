@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -22,20 +23,18 @@ export class UserService {
   }
 
   public addUser(user: IUser): Promise<any> {
-    console.log('Add user:');
-    console.log(user);
     return this.httpClient.post(APIEndpoint + '/user', user).toPromise();
   }
 
   public saveUser(user: IUser): Promise<any> {
-    console.log('Save user:');
-    console.log(user);
     return this.httpClient.put(`${APIEndpoint}/user/${user.uuid}`, user).toPromise();
   }
 
   public deleteUser(uuid: string): Promise<any> {
-    console.log('Delete user:');
-    console.log(uuid);
     return this.httpClient.delete(`${APIEndpoint}/user/${uuid}`).toPromise();
+  }
+
+  public saveUserPermissions(uuid: string, permissions: Permission[]) {
+    return this.httpClient.put(`${APIEndpoint}/user/${uuid}/permissions`, permissions).toPromise();
   }
 }

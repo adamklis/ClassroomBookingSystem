@@ -93,7 +93,16 @@ export class UserPermissionsComponent implements OnInit {
   }
 
   public onSaveClick(){
-    console.log(this.userPermissions);
+    this.userService.saveUserPermissions(this.user.uuid, this.userPermissions).then(() => {
+      this.translateService.get([
+        'USER.MODAL.SAVE_USER_SUCCESS_TITLE',
+        'USER.MODAL.SAVE_USER_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['USER.MODAL.SAVE_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.SAVE_USER_SUCCESS_MESSAGE']});
+      });
+    })
   }
 
   public isProtected(): boolean{
