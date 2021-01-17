@@ -184,6 +184,8 @@ export class RoomDetailsComponent implements OnInit {
     } else {
       this.roomForm.reset();
     }
+    this.roomForm.markAsUntouched();
+    this.roomForm.markAsPristine();
   }
 
   public applianceUsesChange(event: IApplianceUse[]) {

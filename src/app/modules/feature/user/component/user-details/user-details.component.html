@@ -62,7 +62,7 @@
     <ng-container *ngIf="user">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="userForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
     <button *ngIf="!isProtected()" class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!userForm.valid || userForm.untouched" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!userForm.valid || userForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="!user">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>

@@ -158,6 +158,8 @@ export class ApplianceDetailsComponent implements OnInit {
     } else {
       this.applianceForm.reset();
     }
+    this.applianceForm.markAsPristine();
+    this.applianceForm.markAsUntouched();
   }
 
   private getFormApplianceObject(): IAppliance {
