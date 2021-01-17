@@ -15,6 +15,9 @@ export class PermissionsDirective implements OnInit, OnDestroy {
   @Input()
   public mode: PermissionsMode = PermissionsMode.HIDDEN;
 
+  @Input()
+  public overridePermited = null;
+
   private userSubscription: Subscription;
 
   constructor(private authorizationService: AuthorizationService, private renderer: Renderer2, private element: ElementRef){
@@ -28,6 +31,10 @@ export class PermissionsDirective implements OnInit, OnDestroy {
         this.permissions.forEach(permission => {
           if (user.permissions.findIndex(userPermission => userPermission === permission) !== -1) { userPermitted = true; }
         });
+      }
+
+      if (this.overridePermited !== null){
+        userPermitted = this.overridePermited;
       }
 
       if (!userPermitted){

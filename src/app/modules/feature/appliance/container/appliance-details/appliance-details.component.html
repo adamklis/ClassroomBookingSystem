@@ -29,7 +29,7 @@
     <ng-container *ngIf="appliance">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="applianceForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
     <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!applianceForm.valid || applianceForm.untouched" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!applianceForm.valid || applianceForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="!appliance">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>

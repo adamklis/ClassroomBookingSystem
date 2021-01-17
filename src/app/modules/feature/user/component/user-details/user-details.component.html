@@ -4,7 +4,10 @@
   </span>
   / {{user ? user.forename + ' ' + user.surname : 'USER.DETAILS.NEW' | translate }}
 </h3>
-<form [formGroup]="registerForm">
+<div *ngIf="isProtected()" class="alert alert-warning" role="alert">
+  {{'USER.DETAILS.PROTECTED' | translate}}
+</div>
+<form [formGroup]="userForm">
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="email">{{ 'USER.DETAILS.EMAIL' | translate }}</label>
@@ -50,15 +53,20 @@
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
+  <div *ngIf="user" cbsPermissions [permissions]="[permissions.PERMISSION_VIEW]" [mode]="permissionsMode.HIDDEN" class="form-row">
+    <div class="form-group">
+      <button class="col-md-4 offset-md-8 btn btn-primary " (click)="onPermissionsClick()">{{ 'USER.DETAILS.PERMISSIONS' | translate }}</button>
+    </div>
+  </div>
   <div cbsPermissions [permissions]="[permissions.USER_EDIT]" class="form-row">
     <ng-container *ngIf="user">
-    <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="registerForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!registerForm.valid || registerForm.untouched" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="userForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
+    <button *ngIf="!isProtected()" class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!userForm.valid || userForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="!user">
     <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!registerForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!userForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
   </ng-container>
   </div>
 </form>

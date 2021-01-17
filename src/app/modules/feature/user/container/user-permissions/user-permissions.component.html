@@ -1,0 +1,56 @@
+<h3>
+  <span [routerLink]="['/users', user.uuid]">
+    <fa-icon [icon]="faArrowLeft"></fa-icon>
+  </span>
+  <span routerLink="users">
+    {{ 'USER.HEADER' | translate }}
+  </span>
+  <span [routerLink]="['/users', user.uuid]">
+    / {{user ? user.forename + ' ' + user.surname : 'USER.DETAILS.NEW' | translate }}
+  </span>
+    / {{ 'USER.PERMISSIONS.HEADER' | translate }}
+</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr class="d-flex">
+      <th class="col-9">{{ 'USER.PERMISSIONS.TABLE.PERMISSION' | translate }}</th>
+      <th class="col-3">
+        <div class="dropdown text-center">
+          <button cbsPermissions [permissions]="[permissions.PERMISSION_EDIT]" [mode]="permissionsMode.DISABLED" [overridePermited]="isProtected()? false: null"
+           class="btn btn-primary dropdown-toggle" type="button" id="presetButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ 'USER.PERMISSIONS.PRESET' | translate }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="presetButton">
+            <button *ngFor="let preset of permissionPresets" class="dropdown-item" (click)="setPreset(preset)">{{preset.permissionGroup}}</button>
+          </div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!permissionList || permissionList.length === 0">
+      <td colspan="2">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr class="d-flex" *ngFor="let permission of permissionList">
+      <td class="col-9">{{ permission }}</td>
+      <td class="col-3 text-center">
+        <button
+          cbsPermissions [permissions]="[permissions.PERMISSION_EDIT]" [mode]="permissionsMode.DISABLED" [overridePermited]="(isProtected() || permission === permissions.PROTECTED_USER)? false : null"
+          (click)="switchPermission(permission)"
+          class="btn btn-sm select-button icon"
+          [class.btn-success]="hasPermission(permission)"
+          [class.btn-danger]="!hasPermission(permission)">
+            <fa-icon *ngIf="hasPermission(permission)" [icon]="faCheck"></fa-icon>
+            <fa-icon *ngIf="!hasPermission(permission)" [icon]="faTimes"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div cbsPermissions [permissions]="[permissions.PERMISSION_EDIT]" [mode]="permissionsMode.HIDDEN" class="form-row">
+  <ng-container *ngIf="user && !isProtected()">
+    <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="!permissionsChanged()" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
+    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!permissionsChanged()" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+  </ng-container>
+</div>

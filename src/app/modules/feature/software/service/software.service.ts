@@ -42,20 +42,14 @@ export class SoftwareService {
   }
 
   public addSoftware(software: ISoftware): Promise<any> {
-    console.log('Add software:');
-    console.log(software);
     return this.httpClient.post(APIEndpoint + '/software', software).toPromise();
   }
 
   public saveSoftware(software: ISoftware): Promise<any> {
-    console.log('Save software:');
-    console.log(software);
     return this.httpClient.put(`${APIEndpoint}/software/${software.uuid}`, software).toPromise();
   }
 
   public deleteSoftware(uuid: string): Promise<any> {
-    console.log('Delete software:');
-    console.log(uuid);
     return this.httpClient.delete(`${APIEndpoint}/software/${uuid}`).toPromise();
   }
 }

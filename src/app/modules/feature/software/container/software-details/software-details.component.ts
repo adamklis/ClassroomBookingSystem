@@ -170,6 +170,8 @@ export class SoftwareDetailsComponent implements OnInit {
     } else {
       this.softwareForm.reset();
     }
+    this.softwareForm.markAsUntouched();
+    this.softwareForm.markAsPristine();
   }
 
   private getFormSoftwareObject(): ISoftware {

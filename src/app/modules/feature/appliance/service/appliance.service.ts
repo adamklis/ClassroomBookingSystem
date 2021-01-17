@@ -40,20 +40,14 @@ export class ApplianceService {
   }
 
   public addAppliance(appliance: IAppliance): Promise<any> {
-    console.log('Add appliance:');
-    console.log(appliance);
     return this.httpClient.post(APIEndpoint + '/appliance', appliance).toPromise();
   }
 
   public saveAppliance(appliance: IAppliance): Promise<any> {
-    console.log('Save appliance:');
-    console.log(appliance);
     return this.httpClient.put(`${APIEndpoint}/appliance/${appliance.uuid}`, appliance).toPromise();
   }
 
   public deleteAppliance(uuid: string): Promise<any> {
-    console.log('Delete appliance:');
-    console.log(uuid);
     return this.httpClient.delete(`${APIEndpoint}/appliance/${uuid}`).toPromise();
   }
 }

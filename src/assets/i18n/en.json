@@ -40,7 +40,8 @@
   "HOME": {
       "WELCOME": "Welcome to Classroom booking system",
       "PLEASE_LOG_IN": "Please log in.",
-      "LOGGED_IN_AS": "Logged in as"
+      "LOGGED_IN_AS": "Logged in as",
+      "MESSAGE": "This is a test instance of the application. Please log in with a example account:\n\nADMIN:\nemail: admin@classroombookingsystem.com\npassword: example\n\nTECHNICIAN:\nemail: technician@classroombookingsystem.com\npassword: example\n\nUSER:\nemail: user@classroombookingsystem.com\npassword: example\n\nUsing an admin account you can create user with custom permissions."
   },
   "LOGIN": {
       "HEADER": "Log in",
@@ -84,7 +85,16 @@
       "CONTACT": "Contact",
       "EMAIL": "Email",
       "PASSWORD": "Password",
-      "NEW": "New user"
+      "NEW": "New user",
+      "PERMISSIONS": "Permission management",
+      "PROTECTED": "User is protected. Some fields are read-only."
+    },
+    "PERMISSIONS": {
+      "HEADER": "Permissions",
+      "PRESET": "Choose preset...",
+      "TABLE": {
+        "PERMISSION": "Permission"
+      }
     },
     "MODAL": {
       "DELETE_USER_TITLE": "Delete user",
@@ -96,7 +106,9 @@
       "SAVE_USER_SUCCESS_TITLE": "Save user",
       "SAVE_USER_SUCCESS_MESSAGE": "Changes saved.",
       "RESTORE_USER_TITLE": "Discard changes",
-      "RESTORE_USER_MESSAGE": "Are you sure to discard changes?"
+      "RESTORE_USER_MESSAGE": "Are you sure to discard changes?",
+      "UNSAVED_CHANGES_TITLE": "Unsaved changes",
+      "UNSAVED_CHANGES_MESSAGE": "Please save or discard your changes first."
     }
   },
   "SOFTWARE": {
@@ -162,7 +174,8 @@
       "NAME": "Name",
       "NUMBER_OF_SEATS": "Number of seats",
       "SOFTWARE": "Software",
-      "APPLIANCES": "Appliances"
+      "APPLIANCES": "Appliances",
+      "NEW": "New room"
     },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Delete room",
@@ -170,7 +183,7 @@
       "DELETE_ROOM_SUCCESS_TITLE": "Delete room",
       "DELETE_ROOM_SUCCESS_MESSAGE": "Delete success.",
       "ADD_ROOM_SUCCESS_TITLE": "Add room",
-      "ADD_ROOM_SUCCESS_MESSAGE": "Appliance {{name}} added.",
+      "ADD_ROOM_SUCCESS_MESSAGE": "Room {{name}} added.",
       "SAVE_ROOM_SUCCESS_TITLE": "Save room",
       "SAVE_ROOM_SUCCESS_MESSAGE": "Changes saved.",
       "RESTORE_ROOM_TITLE": "Discard changes",
