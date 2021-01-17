@@ -22,20 +22,14 @@ export class RoomService {
   }
 
   public addRoom(room: IRoom): Promise<any> {
-    console.log('Add room:');
-    console.log(room);
     return this.httpClient.post(APIEndpoint + '/room', room).toPromise();
   }
 
   public saveRoom(room: IRoom): Promise<any> {
-    console.log('Save room:');
-    console.log(room);
     return this.httpClient.put(`${APIEndpoint}/room/${room.uuid}`, room).toPromise();
   }
 
   public deleteRoom(uuid: string): Promise<any> {
-    console.log('Delete room:');
-    console.log(uuid);
     return this.httpClient.delete(`${APIEndpoint}/room/${uuid}`).toPromise();
   }
 }

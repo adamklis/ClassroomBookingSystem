@@ -44,7 +44,7 @@ export class UseListComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: any): void {}
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    console.log(isDisabled);
+
   }
 
   ngOnInit(): void {

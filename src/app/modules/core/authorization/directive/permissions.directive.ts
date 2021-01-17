@@ -1,6 +1,6 @@
 import { AuthorizationService } from './../service/authorization.service';
 import { Permission } from './../enum/permission.enum';
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ɵclearOverrides } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { PermissionsMode } from '../enum/permissions-mode.enum';
 import { Subscription } from 'rxjs';
 
