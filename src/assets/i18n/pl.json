@@ -48,6 +48,7 @@
       "EMAIL": "Email",
       "PASSWORD": "Hasło",
       "LOG_IN": "Zaloguj",
+      "WARNING": "Ze względu na ograniczenia platformy Microsoft Azure, pierwsze logowanie może potrwać do minuty.",
       "VALIDATION": {
         "LOGIN_REQUIRED": "Proszę uzupełnić email.",
         "PASSWORD_REQUIRED": "Proszę uzupełnić hasło."

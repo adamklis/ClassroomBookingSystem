@@ -48,6 +48,7 @@
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "LOG_IN": "Log in",
+      "WARNING": "Due to Microsoft Azure limitations, the first login can take up to a minute.",
       "VALIDATION": {
         "LOGIN_REQUIRED": "Email required.",
         "PASSWORD_REQUIRED": "Password required."
