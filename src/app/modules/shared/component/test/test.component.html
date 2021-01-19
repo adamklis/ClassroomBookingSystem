@@ -1,1 +1,1 @@
-<cbs-tag-bar [tags]="tags" searchPlaceholder="Software, Appliance, Name..." (tagsChangeEvent)="tagsChanged($event)" (searchChangeEvent)="searchChanged($event)"></cbs-tag-bar>
+<cbs-tag-bar [$tags]="$tags.asObservable()" searchPlaceholder="Software, Appliance, Name..." (tagsChangeEvent)="tagsChanged($event)" (searchChangeEvent)="searchChanged($event)"></cbs-tag-bar>

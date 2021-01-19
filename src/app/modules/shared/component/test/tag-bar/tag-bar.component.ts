@@ -1,20 +1,16 @@
+import { Observable, Subscription } from 'rxjs';
 import { ITag } from './../tag/tag.interface';
-import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter, HostListener, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'cbs-tag-bar',
   templateUrl: './tag-bar.component.html',
   styleUrls: ['./tag-bar.component.css']
 })
-export class TagBarComponent implements OnInit {
+export class TagBarComponent implements OnInit, OnDestroy {
 
   @Input()
-  public tags: ITag[] = [
-    {category: 'Software', value: 'MS Visual Studio 2020'},
-    {category: 'Software', value: 'MS Office 2010'},
-    {category: 'Appliance', value: 'Projector Dell'},
-    {category: 'Appliance', value: 'PC'}
-  ];
+  public $tags: Observable<ITag[]>;
 
   @Input()
   public searchPlaceholder = 'Search...';
@@ -30,12 +26,23 @@ export class TagBarComponent implements OnInit {
 
   public searchResultShow = false;
 
+  public tags: ITag[] = [];
   public selectedTags: ITag[] = [];
   public foundTags: ITag[] = [];
+
+  private tagsSubscription: Subscription;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.$tags.subscribe(tags => {
+      this.tags = tags;
+      this.foundTags.push(...this.tags.filter(tag => this.selectedTags.findIndex(selectedTag => selectedTag === tag) === -1));
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.tagsSubscription.unsubscribe();
   }
 
   public selectTag(selectedTag: ITag){
@@ -51,17 +58,19 @@ export class TagBarComponent implements OnInit {
   }
 
   public searchClick(){
+    if (!this.searchResultShow){
+      this.searchInput();
+    }
+  }
+
+  public searchInput(){
     const value = this.searchInputElement.nativeElement.value;
     this.searchChangeEvent.emit(value);
-    this.foundTags = this.tags.filter(tag => this.selectedTags.findIndex(selectedTag => selectedTag === tag) === -1);
+    this.foundTags = [];
     if (value) {
       this.foundTags.unshift({category: 'name', value});
     }
     this.searchResultShow = true;
-  }
-
-  public searchInput(){
-    this.searchClick();
   }
 
   public searchBlur(){

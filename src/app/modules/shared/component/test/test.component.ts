@@ -1,6 +1,6 @@
 import { Sort } from './../../model/sort';
 import { Filter } from './../../model/filter';
-import { forkJoin } from 'rxjs';
+import { forkJoin, BehaviorSubject } from 'rxjs';
 import { ApplianceService } from './../../../feature/appliance/service/appliance.service';
 import { SoftwareService } from './../../../feature/software/service/software.service';
 import { ITag } from './tag/tag.interface';
@@ -14,7 +14,7 @@ import { SortOrder } from '../../enum/sort-order.enum';
 })
 export class TestComponent implements OnInit {
 
-  public tags: ITag[] = [];
+  public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
 
   constructor(private softwareService: SoftwareService, private applianceService: ApplianceService) { }
 
@@ -33,9 +33,10 @@ export class TestComponent implements OnInit {
       appliances: this.applianceService.getAppliances([filter], [sort]),
       softwareList: this.softwareService.getSoftwareList([filter], [sort])
     }).toPromise().then(result => {
-      this.tags = [];
-      this.tags.push(...result.appliances.map(appliance => ({category: 'appliance', value: appliance.name})));
-      this.tags.push(...result.softwareList.map(software => ({category: 'software', value: software.name})));
+      this.$tags.next([
+        ...result.appliances.map(appliance => ({category: 'appliance', value: appliance.name})),
+        ...result.softwareList.map(software => ({category: 'software', value: software.name}))
+      ]);
     });
 
   }
