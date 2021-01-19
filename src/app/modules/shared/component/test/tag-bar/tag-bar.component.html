@@ -1,0 +1,12 @@
+<div class="d-flex flex-wrap justify-content-start align-items-center bg-light">
+  <div class="d-flex flex-wrap justify-content-start align-items-center p-1 rounded">
+    <cbs-tag *ngFor="let tag of selectedTags" [tag]="tag" (removeEvent)="removeTag(tag)"></cbs-tag>
+    <input #search class="d-inline-block m-1 border-0 bg-light tag-bar-input" (click)="searchClick()" (input)="searchInput()" (blur)="searchBlur()" [placeholder]="searchPlaceholder">
+  </div>
+  <ul *ngIf="searchResultShow" class="list-group overflow-auto w-100">
+    <li *ngFor="let tag of foundTags" (click)="selectTag(tag)" class="list-group-item list-group-item-action list-group-item-lighT border-light p-1">
+      <div class="d-inline-block m-1 px-2 py-1 bg-primary text-white font-weight-bold rounded text-uppercase tag-category">{{tag.category}}</div>
+      <div class="d-inline-block m-1">{{tag.value}}</div>
+    </li>
+  </ul>
+</div>

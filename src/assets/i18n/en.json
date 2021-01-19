@@ -190,5 +190,35 @@
       "RESTORE_ROOM_TITLE": "Discard changes",
       "RESTORE_ROOM_MESSAGE": "Are you sure to discard changes?"
     }
+  },
+  "RESERVATION": {
+    "HEADER": "Reservations",
+    "TABLE": {
+      "ROOM": "Room",
+      "DATE_FROM": "Date from",
+      "DATE_TO": "Date to",
+      "USER": "User",
+      "CONTACT": "Contact",
+      "MESSAGE": "Message"
+    },
+    "DETAILS": {
+      "NEW": "New reservation",
+      "USER": "User",
+      "MESSAGE": "Message",
+      "DATE_FROM": "Date from",
+      "DATE_TO": "Date to"
+    },
+    "MODAL": {
+      "DELETE_RESERVATION_TITLE": "Delete reservation",
+      "DELETE_RESERVATION_MESSAGE": "Are you sure to delete reservation?",
+      "DELETE_RESERVATION_SUCCESS_TITLE": "Delete reservation",
+      "DELETE_RESERVATION_SUCCESS_MESSAGE": "Delete success.",
+      "ADD_RESERVATION_SUCCESS_TITLE": "Add reservation",
+      "ADD_RESERVATION_SUCCESS_MESSAGE": "Reservation added.",
+      "SAVE_RESERVATION_SUCCESS_TITLE": "Save reservation",
+      "SAVE_RESERVATION_SUCCESS_MESSAGE": "Changes saved.",
+      "RESTORE_RESERVATION_TITLE": "Discard changes",
+      "RESTORE_RESERVATION_MESSAGE": "Are you sure to discard changes?"
+    }
   }
 }

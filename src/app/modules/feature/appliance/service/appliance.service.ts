@@ -23,8 +23,10 @@ export class ApplianceService {
       .get(APIEndpoint + '/appliance/use?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)) as Observable<IApplianceUse[]>;
   }
 
-  public getAppliances(): Observable<IAppliance[]> {
-    return this.httpClient.get(APIEndpoint + '/appliance') as Observable<IAppliance[]>;
+  public getAppliances(filter?: IFilter[], sort?: ISort[]): Observable<IAppliance[]> {
+    return this.httpClient.get(
+      APIEndpoint + '/appliance?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
+    ) as Observable<IAppliance[]>;
   }
 
   public getAppliance(uuid: string): Observable<IAppliance> {

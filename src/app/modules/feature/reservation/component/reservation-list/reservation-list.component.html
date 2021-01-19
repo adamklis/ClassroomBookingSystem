@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{{ 'RESERVATION.TABLE.ROOM' | translate }}</th>
+      <th>{{ 'RESERVATION.TABLE.DATE_FROM' | translate }}</th>
+      <th>{{ 'RESERVATION.TABLE.DATE_TO' | translate }}</th>
+      <th>{{ 'RESERVATION.TABLE.USER' | translate }}</th>
+      <th>{{ 'RESERVATION.TABLE.CONTACT' | translate }}</th>
+      <th>{{ 'RESERVATION.TABLE.MESSAGE' | translate }}</th>
+      <th>
+        <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" routerLink="/reservations/0" class="btn btn-sm btn-success icon">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!reservations || reservations.length === 0">
+      <td colspan="7">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
+    </tr>
+    <tr *ngFor="let reservation of reservations">
+      <td>{{ reservation.room }}</td>
+      <td>{{ reservation.dateFrom }}</td>
+      <td>{{ reservation.dateTo }}</td>
+      <td>{{ reservation.user.surname + " " + reservation.user.forename }}</td>
+      <td>{{ reservation.user.contact }}</td>
+      <td>{{ reservation.message }}</td>
+      <td>
+        <button routerLink="/reservations/{{reservation.uuid}}" class="btn btn-sm btn-primary icon">
+          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async) ? faPen : faInfo"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

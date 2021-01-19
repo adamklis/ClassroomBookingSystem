@@ -1,3 +1,5 @@
+import { ReservationService } from './../../service/reservation.service';
+import { IReservation } from './../../interface/reservation.interface';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationDashboardComponent implements OnInit {
 
-  constructor() { }
+  public reservations: IReservation[];
+
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit(): void {
+    this.reservationService.getReservations().subscribe(reservations => this.reservations = reservations);
   }
 
 }

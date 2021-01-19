@@ -3,7 +3,7 @@ import { ISort } from './../interface/sort.interface';
 
 export class Sort implements ISort {
 
-  constructor(public key: string, public value: string, public order: SortOrder){}
+  constructor(public key: string, public order: SortOrder){}
 
   public static getQueryString(sort: ISort | ISort[] | null): string {
 
@@ -13,10 +13,10 @@ export class Sort implements ISort {
 
     if (Array.isArray(sort)) {
       return sort.reduce((result, next) => {
-        return result.concat('sort_', next.key, '_', next.order, '=', next.value, '&');
-      }, '').slice(0, -1);
+        return result.concat('sort_', next.key, '_', next.order, '%2C');
+      }, '').slice(0, -3).concat('&');
     } else {
-      return ''.concat('sort_', sort.key, '_', sort.order, '=', sort.value);
+      return ''.concat('sort_', sort.key, '_', sort.order, '&');
     }
   }
 }

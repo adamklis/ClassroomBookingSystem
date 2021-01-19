@@ -23,8 +23,10 @@ export class SoftwareService {
       .get(APIEndpoint + '/software/use?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)) as Observable<ISoftwareUse[]>;
   }
 
-  public getSoftwareList(): Observable<ISoftware[]> {
-    return this.httpClient.get(APIEndpoint + '/software') as Observable<ISoftware[]>;
+  public getSoftwareList(filter?: IFilter[], sort?: ISort[]): Observable<ISoftware[]> {
+    return this.httpClient.get(
+      APIEndpoint + '/software?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
+    ) as Observable<ISoftware[]>;
   }
 
   public getSoftware(uuid: string): Observable<ISoftware> {
