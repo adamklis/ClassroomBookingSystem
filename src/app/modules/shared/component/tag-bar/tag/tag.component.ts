@@ -1,4 +1,4 @@
-import { ITag } from './tag.interface';
+import { ITag } from '../tag.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 

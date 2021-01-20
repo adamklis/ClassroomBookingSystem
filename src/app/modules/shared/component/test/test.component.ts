@@ -3,7 +3,7 @@ import { Filter } from './../../model/filter';
 import { forkJoin, BehaviorSubject } from 'rxjs';
 import { ApplianceService } from './../../../feature/appliance/service/appliance.service';
 import { SoftwareService } from './../../../feature/software/service/software.service';
-import { ITag } from './tag/tag.interface';
+import { ITag } from '../tag-bar/tag.interface';
 import { Component, OnInit } from '@angular/core';
 import { SortOrder } from '../../enum/sort-order.enum';
 

@@ -8,8 +8,8 @@ import { ResultListComponent } from './modal/component/search-modal/result-list/
 import { SearchInputComponent } from './modal/component/search-modal/search-input/search-input.component';
 import { FormsModule } from '@angular/forms';
 import { TestComponent } from './component/test/test.component';
-import { TagComponent } from './component/test/tag/tag.component';
-import { TagBarComponent } from './component/test/tag-bar/tag-bar.component';
+import { TagComponent } from './component/tag-bar/tag/tag.component';
+import { TagBarComponent } from './component/tag-bar/tag-bar.component';
 
 
 

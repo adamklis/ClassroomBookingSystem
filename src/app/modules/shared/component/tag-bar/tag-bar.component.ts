@@ -1,5 +1,5 @@
 import { Observable, Subscription } from 'rxjs';
-import { ITag } from './../tag/tag.interface';
+import { ITag } from './tag.interface';
 import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 @Component({
