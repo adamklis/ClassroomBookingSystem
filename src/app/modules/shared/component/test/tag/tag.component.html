@@ -1,5 +1,5 @@
 <div class="d-inline-flex m-1 align-items-center tag border border-secondary rounded bg-white">
-  <div class="d-inline-block m-1 px-2 py-1 tag-category bg-primary text-white font-weight-bold rounded text-uppercase">{{tag.category}}</div>
+  <div class="d-inline-block m-1 px-2 py-1 tag-category bg-primary text-white font-weight-bold rounded text-uppercase">{{tag.categoryAlias ? tag.categoryAlias : tag.category}}</div>
   <div class="d-inline-block m-1 tag-value">{{tag.value}}</div>
   <button class="d-inline-block m-1 btn btn-light btn-sm tag-button" (click)="onRemove()">
     <fa-icon [icon]="faTimes"></fa-icon>

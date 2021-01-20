@@ -5,7 +5,7 @@
   </div>
   <ul *ngIf="searchResultShow" class="list-group overflow-auto w-100">
     <li *ngFor="let tag of foundTags" (click)="selectTag(tag)" class="list-group-item list-group-item-action list-group-item-lighT border-light p-1">
-      <div class="d-inline-block m-1 px-2 py-1 bg-primary text-white font-weight-bold rounded text-uppercase tag-category">{{tag.category}}</div>
+      <div class="d-inline-block m-1 px-2 py-1 bg-primary text-white font-weight-bold rounded text-uppercase tag-category">{{tag.categoryAlias ? tag.categoryAlias : tag.category}}</div>
       <div class="d-inline-block m-1">{{tag.value}}</div>
     </li>
   </ul>

@@ -1,6 +1,6 @@
 import { Observable, Subscription } from 'rxjs';
 import { ITag } from './../tag/tag.interface';
-import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter, HostListener, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'cbs-tag-bar',
@@ -14,6 +14,9 @@ export class TagBarComponent implements OnInit, OnDestroy {
 
   @Input()
   public searchPlaceholder = 'Search...';
+
+  @Input()
+  public keywordCategoryAlias = 'keyword';
 
   @Output()
   public tagsChangeEvent: EventEmitter<ITag[]> = new EventEmitter<ITag[]>();
@@ -35,7 +38,7 @@ export class TagBarComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    this.tagsSubscription = this.$tags.subscribe(tags => {
+    this.tagsSubscription =  this.$tags.subscribe(tags => {
       this.tags = tags;
       this.foundTags.push(
         ...this.tags.filter(tag => this.selectedTags.findIndex(selectedTag =>
@@ -72,7 +75,7 @@ export class TagBarComponent implements OnInit, OnDestroy {
     this.searchChangeEvent.emit(value);
     this.foundTags = [];
     if (value) {
-      this.foundTags.unshift({category: 'name', value});
+      this.foundTags.unshift({category: 'keyword', categoryAlias: this.keywordCategoryAlias, value});
     }
     this.searchResultShow = true;
   }
