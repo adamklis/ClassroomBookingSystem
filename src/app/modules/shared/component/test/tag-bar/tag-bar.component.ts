@@ -35,9 +35,13 @@ export class TagBarComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    this.$tags.subscribe(tags => {
+    this.tagsSubscription = this.$tags.subscribe(tags => {
       this.tags = tags;
-      this.foundTags.push(...this.tags.filter(tag => this.selectedTags.findIndex(selectedTag => selectedTag === tag) === -1));
+      this.foundTags.push(
+        ...this.tags.filter(tag => this.selectedTags.findIndex(selectedTag =>
+          selectedTag.category === tag.category && selectedTag.value === tag.value
+        ) === -1)
+      );
     });
   }
 
@@ -71,6 +75,14 @@ export class TagBarComponent implements OnInit, OnDestroy {
       this.foundTags.unshift({category: 'name', value});
     }
     this.searchResultShow = true;
+  }
+
+  public backspaceInput(){
+    const value = this.searchInputElement.nativeElement.value;
+    if (!value) {
+      this.selectedTags.pop();
+      this.tagsChangeEvent.emit(this.selectedTags);
+    }
   }
 
   public searchBlur(){

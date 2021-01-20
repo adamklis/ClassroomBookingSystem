@@ -1,7 +1,7 @@
 <div class="d-flex flex-wrap justify-content-start align-items-center bg-light">
   <div class="d-flex flex-wrap justify-content-start align-items-center p-1 rounded">
     <cbs-tag *ngFor="let tag of selectedTags" [tag]="tag" (removeEvent)="removeTag(tag)"></cbs-tag>
-    <input #search class="d-inline-block m-1 border-0 bg-light tag-bar-input" (click)="searchClick()" (input)="searchInput()" (blur)="searchBlur()" [placeholder]="searchPlaceholder">
+    <input #search class="d-inline-block m-1 border-0 bg-light tag-bar-input" (click)="searchClick()" (keydown.backspace)="backspaceInput()" (input)="searchInput()" (blur)="searchBlur()" [placeholder]="searchPlaceholder">
   </div>
   <ul *ngIf="searchResultShow" class="list-group overflow-auto w-100">
     <li *ngFor="let tag of foundTags" (click)="selectTag(tag)" class="list-group-item list-group-item-action list-group-item-lighT border-light p-1">

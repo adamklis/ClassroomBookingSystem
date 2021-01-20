@@ -13,10 +13,10 @@ export class Sort implements ISort {
 
     if (Array.isArray(sort)) {
       return sort.reduce((result, next) => {
-        return result.concat('sort_', next.key, '_', next.order, '%2C');
-      }, '').slice(0, -3).concat('&');
+        return result.concat('sort_', next.key, '=', next.order, '&');
+      }, '')
     } else {
-      return ''.concat('sort_', sort.key, '_', sort.order, '&');
+      return ''.concat('sort_', sort.key, '=', sort.order, '&');
     }
   }
 }
