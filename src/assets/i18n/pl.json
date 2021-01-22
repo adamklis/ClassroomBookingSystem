@@ -213,6 +213,12 @@
         "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
         "SOFTWARE_ALIAS": "Oprogramowanie",
         "APPLIANCE_ALIAS": "Sprzęt"
+      },
+      "TABLE": {
+        "NAME": "Nazwa",
+        "NUMBER_OF_SEATS": "Liczba miejsc",
+        "APPLIANCES": "Wyposażenie",
+        "SOFTWARE": "Oprogramowanie"
       }
     },
     "MODAL": {

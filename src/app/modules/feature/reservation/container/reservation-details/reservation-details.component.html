@@ -88,6 +88,11 @@
       </cbs-tag-bar>
     </div>
   </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+    </div>
+  </div>
   <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]">
     <ng-container *ngIf="reservation">
       <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>

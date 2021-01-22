@@ -11,10 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReservationDetailsComponent } from './container/reservation-details/reservation-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReservationRoomListComponent } from './component/reservation-room-list/reservation-room-list.component';
 
 
 @NgModule({
-  declarations: [ReservationDashboardComponent, ReservationListComponent, ReservationDetailsComponent],
+  declarations: [ReservationDashboardComponent, ReservationListComponent, ReservationDetailsComponent, ReservationRoomListComponent],
   imports: [
     CommonModule,
     ReservationRoutingModule,

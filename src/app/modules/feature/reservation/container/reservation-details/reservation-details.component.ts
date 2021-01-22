@@ -1,3 +1,5 @@
+import { IRoom } from './../../../room/interface/room.interface';
+import { RoomService } from './../../../room/service/room.service';
 import { IReservation } from './../../interface/reservation.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -44,14 +46,17 @@ export class ReservationDetailsComponent implements OnInit {
     })
   });
 
+  public selectedRoom: IRoom;
+
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
+  public $rooms: BehaviorSubject<IRoom[]> = new BehaviorSubject<IRoom[]>([]);
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: ModalService,
     private translateService: TranslateService,
     private router: Router,
-    private softwareService: SoftwareService, private applianceService: ApplianceService
+    private softwareService: SoftwareService, private applianceService: ApplianceService, private roomService: RoomService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +84,9 @@ export class ReservationDetailsComponent implements OnInit {
   }
 
   public tagsChanged(tags: ITag[]){
-    console.log(tags);
+    this.roomService.getRooms().toPromise().then(rooms => {
+      this.$rooms.next(rooms);
+    });
   }
 
   public searchChanged(searchText: string){
@@ -101,7 +108,10 @@ export class ReservationDetailsComponent implements OnInit {
         ]);
       });
     });
+  }
 
+  public roomSelected(room: IRoom){
+    this.selectedRoom = room;
   }
 
 }

@@ -213,6 +213,12 @@
         "SEARCH_KEYWORD_INT_ALIAS": "Seats",
         "SOFTWARE_ALIAS": "Software",
         "APPLIANCE_ALIAS": "Appliance"
+      },
+      "TABLE": {
+        "NAME": "Name",
+        "NUMBER_OF_SEATS": "Number of seats",
+        "APPLIANCES": "Appliances",
+        "SOFTWARE": "Software"
       }
     },
     "MODAL": {

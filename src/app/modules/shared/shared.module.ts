@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { TestComponent } from './component/test/test.component';
 import { TagComponent } from './component/tag-bar/tag/tag.component';
 import { TagBarComponent } from './component/tag-bar/tag-bar.component';
+import { TooltipListPipe } from './pipe/tooltip-list.pipe';
 
 
 
@@ -21,7 +22,8 @@ import { TagBarComponent } from './component/tag-bar/tag-bar.component';
     SearchInputComponent,
     TestComponent,
     TagComponent,
-    TagBarComponent
+    TagBarComponent,
+    TooltipListPipe
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { TagBarComponent } from './component/tag-bar/tag-bar.component';
     FontAwesomeModule
   ],
   exports: [
-    TagBarComponent
+    TagBarComponent,
+    TooltipListPipe
   ]
 })
 export class SharedModule { }
