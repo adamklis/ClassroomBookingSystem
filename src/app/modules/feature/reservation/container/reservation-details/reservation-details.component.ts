@@ -84,7 +84,11 @@ export class ReservationDetailsComponent implements OnInit {
   }
 
   public tagsChanged(tags: ITag[]){
-    this.roomService.getRooms().toPromise().then(rooms => {
+    const filter = [];
+    const sort = [];
+    tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
+    sort.push(new Sort('quantity', SortOrder.ASCEND));
+    this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
       this.$rooms.next(rooms);
     });
   }
