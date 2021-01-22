@@ -14,12 +14,23 @@ import { TagBarComponent } from './component/tag-bar/tag-bar.component';
 
 
 @NgModule({
-  declarations: [BaseModalComponent, SearchModalComponent, ResultListComponent, SearchInputComponent, TestComponent, TagComponent, TagBarComponent],
+  declarations: [
+    BaseModalComponent,
+    SearchModalComponent,
+    ResultListComponent,
+    SearchInputComponent,
+    TestComponent,
+    TagComponent,
+    TagBarComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule,
     FormsModule,
     FontAwesomeModule
+  ],
+  exports: [
+    TagBarComponent
   ]
 })
 export class SharedModule { }

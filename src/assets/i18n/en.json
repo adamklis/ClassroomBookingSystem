@@ -206,7 +206,13 @@
       "USER": "User",
       "MESSAGE": "Message",
       "DATE_FROM": "Date from",
-      "DATE_TO": "Date to"
+      "DATE_TO": "Date to",
+      "FILTER": {
+        "SEARCH_PLACEHOLDER": "Software, Appliance, Name...",
+        "SEARCH_KEYWORD_ALIAS": "Name",
+        "SOFTWARE_ALIAS": "Software",
+        "APPLIANCE_ALIAS": "Appliance"
+      }
     },
     "MODAL": {
       "DELETE_RESERVATION_TITLE": "Delete reservation",

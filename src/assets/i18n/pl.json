@@ -206,7 +206,13 @@
       "USER": "Użytkownik",
       "MESSAGE": "Wiadomość",
       "DATE_FROM": "Data od",
-      "DATE_TO": "Data do"
+      "DATE_TO": "Data do",
+      "FILTER": {
+        "SEARCH_PLACEHOLDER": "Oprogramowanie, Sprzęt, Nazwa...",
+        "SEARCH_KEYWORD_ALIAS": "Nazwa",
+        "SOFTWARE_ALIAS": "Oprogramowanie",
+        "APPLIANCE_ALIAS": "Sprzęt"
+      }
     },
     "MODAL": {
       "DELETE_RESERVATION_TITLE": "Usuwanie rezerwacji",

@@ -1,6 +1,6 @@
 .tag-bar-input{
   text-overflow: ellipsis;
-  width: 260px;
+  min-width: 100px;
   outline: none;
 }
 

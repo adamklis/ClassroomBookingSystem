@@ -25,11 +25,7 @@
         class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
     </div>
   </div>
-  <div class="form-row">
-    <div class="col-md-6">{{ 'RESERVATION.DETAILS.DATE_FROM' | translate }}</div>
-    <div class="col-md-6">{{ 'RESERVATION.DETAILS.DATE_TO' | translate }}</div>
-  </div>
-  <div formGroupName="reservationPeriod" class="form-row align-items-md-center period">
+  <div formGroupName="reservationPeriod" class="form-row align-items-md-center">
     <div class="form-group col-md-4">
       <div class="input-group">
         <input  cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
@@ -74,33 +70,32 @@
       <ngb-timepicker></ngb-timepicker>
     </div>
   </div>
+  <div *ngIf="!reservationForm.valid && userControl.touched" class="form-row">
+    <div class="form-group col-md-12">
+      <small id="reservationHelp"
+          class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+    </div>
+  </div>
   <div class="form-row">
-    <small *ngIf="!reservationForm.valid && userControl.touched" id="reservationHelp"
-        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
-  </div>
-
-  <div formGroupName="filter" class="form-row align-items-md-center period">
-    <div class="form-group col-md-4">
-      <input class="form-control" id="roomName" formControlName="roomName">
-    </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" id="appliance" formControlName="appliance">
-    </div>
-    <div class="form-group col-md-4">
-      <input class="form-control" id="software" formControlName="software">
+    <div class="form-group col-md-12">
+      <cbs-tag-bar
+        [$tags]="$tags.asObservable()"
+        [searchPlaceholder]="'RESERVATION.DETAILS.FILTER.SEARCH_PLACEHOLDER' | translate"
+        [keywordCategoryAlias]="'RESERVATION.DETAILS.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+        (tagsChangeEvent)="tagsChanged($event)"
+        (searchChangeEvent)="searchChanged($event)">
+      </cbs-tag-bar>
     </div>
   </div>
-
-
-  <div cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" class="form-row">
+  <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]">
     <ng-container *ngIf="reservation">
-    <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid || reservationForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
-  </ng-container>
-  <ng-container *ngIf="!reservation">
-    <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
-    <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
-  </ng-container>
+      <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid || reservationForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+    </ng-container>
+    <ng-container *ngIf="!reservation">
+      <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
+    </ng-container>
   </div>
 </form>

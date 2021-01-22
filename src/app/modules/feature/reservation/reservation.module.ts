@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { CoreModule } from './../../core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReservationRoutingModule,
     TranslateModule,
     CoreModule,
+    SharedModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     NgbModule
