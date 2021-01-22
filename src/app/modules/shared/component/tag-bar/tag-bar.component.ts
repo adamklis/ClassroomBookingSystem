@@ -18,6 +18,9 @@ export class TagBarComponent implements OnInit, OnDestroy {
   @Input()
   public keywordCategoryAlias = 'keyword';
 
+  @Input()
+  public keywordIntCategoryAlias = 'number';
+
   @Output()
   public tagsChangeEvent: EventEmitter<ITag[]> = new EventEmitter<ITag[]>();
 
@@ -74,6 +77,10 @@ export class TagBarComponent implements OnInit, OnDestroy {
     const value = this.searchInputElement.nativeElement.value;
     this.searchChangeEvent.emit(value);
     this.foundTags = [];
+    const numKeyword = Number(value);
+    if (numKeyword && Number.isInteger(numKeyword)) {
+      this.foundTags.unshift({category: 'keyword_int', categoryAlias: this.keywordIntCategoryAlias, value});
+    }
     if (value) {
       this.foundTags.unshift({category: 'keyword', categoryAlias: this.keywordCategoryAlias, value});
     }
