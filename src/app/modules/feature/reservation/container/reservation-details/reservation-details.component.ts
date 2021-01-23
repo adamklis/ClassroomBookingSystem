@@ -60,7 +60,9 @@ export class ReservationDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.roomService.getRooms().toPromise().then(rooms => {
+      this.$rooms.next(rooms);
+    });
   }
 
   public onRestoreClick(){
