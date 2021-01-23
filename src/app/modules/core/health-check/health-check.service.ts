@@ -21,16 +21,14 @@ export class HealthCheckService {
   }
 
   public checkBackend(): Promise<any> {
-    setInterval(() => this.httpClient.get(APIEndpoint + '/health').pipe(
-      timeout(60000),
-      catchError((err) => {
-        this.$backendState.next(false);
-        return of(err);
-      })
-    ).toPromise()
+    this.httpClient.get(APIEndpoint + '/health').toPromise()
+      .then(() => this.$backendState.next(true) )
+      .catch(() => this.$backendState.next(false) );
+    setInterval(() => this.httpClient.get(APIEndpoint + '/health').toPromise()
       .then(() => this.$backendState.next(true) )
       .catch(() => this.$backendState.next(false) )
     , 300000);
-    return this.httpClient.get(APIEndpoint + '/health').toPromise();
+
+    return Promise.resolve(this.$backendState.value);
   }
 }
