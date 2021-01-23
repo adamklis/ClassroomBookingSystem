@@ -1,3 +1,4 @@
+import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
 import { RoomService } from './../../../room/service/room.service';
 import { IReservation } from './../../interface/reservation.interface';
@@ -16,6 +17,10 @@ import { Sort } from 'src/app/modules/shared/model/sort';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
 import { SoftwareService } from '../../../software/service/software.service';
 import { ApplianceService } from '../../../appliance/service/appliance.service';
+import { AuthorizationService } from 'src/app/modules/core/authorization/service/authorization.service';
+import { datetimePeriodValidator } from 'src/app/modules/shared/validator/datetime-period-validator';
+import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
+import { TimeAdapter } from 'src/app/modules/shared/adapter/time.adapter';
 
 @Component({
   selector: 'cbs-reservation-details',
@@ -35,15 +40,19 @@ export class ReservationDetailsComponent implements OnInit {
   public userControl = new FormControl('', [Validators.required]);
   public messageControl = new FormControl('', []);
   public dateFromControl = new FormControl('', [Validators.required]);
+  public timeFromControl = new FormControl('', [Validators.required]);
   public dateToControl = new FormControl('', [Validators.required]);
+  public timeToControl = new FormControl('', [Validators.required]);
 
   public reservationForm = new FormGroup({
     user: this.userControl,
     message: this.messageControl,
     reservationPeriod: new FormGroup({
       dateFrom: this.dateFromControl,
-      dateTo: this.dateToControl
-    })
+      timeFrom: this.timeFromControl,
+      dateTo: this.dateToControl,
+      timeTo: this.timeToControl
+    }, [ datetimePeriodValidator() ])
   });
 
   public selectedRoom: IRoom;
@@ -56,10 +65,17 @@ export class ReservationDetailsComponent implements OnInit {
     private modalService: ModalService,
     private translateService: TranslateService,
     private router: Router,
-    private softwareService: SoftwareService, private applianceService: ApplianceService, private roomService: RoomService
+    private softwareService: SoftwareService,
+    private applianceService: ApplianceService,
+    private roomService: RoomService,
+    private reservationService: ReservationService,
+    private dateAdapter: DateAdapter,
+    private timeAdapter: TimeAdapter,
+    public authorizationService: AuthorizationService
   ) { }
 
   ngOnInit(): void {
+    this.resetForm();
     this.roomService.getRooms().toPromise().then(rooms => {
       this.$rooms.next(rooms);
     });
@@ -118,6 +134,48 @@ export class ReservationDetailsComponent implements OnInit {
 
   public roomSelected(room: IRoom){
     this.selectedRoom = room;
+  }
+
+  private resetForm(): void{
+    const reservationUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
+    if (reservationUuid && reservationUuid !== '0') {
+      this.reservationService.getReservation(reservationUuid).subscribe(reservation => {
+        this.reservation = reservation;
+        this.userControl.setValue(
+          this.reservation.user.forename + ' ' + this.reservation.user.surname + ' (' + this.reservation.user.email + ')'
+        );
+        this.messageControl.setValue(this.reservation.message);
+        this.dateFromControl.setValue(this.dateAdapter.fromModel(this.reservation.dateFrom));
+        this.timeFromControl.setValue(this.timeAdapter.fromModel(this.reservation.dateFrom));
+        this.dateToControl.setValue(this.dateAdapter.fromModel(this.reservation.dateTo));
+        this.timeToControl.setValue(this.timeAdapter.fromModel(this.reservation.dateTo));
+        this.selectedRoom = this.reservation.room;
+      });
+    } else {
+      this.reservationForm.reset();
+    }
+    this.reservationForm.markAsUntouched();
+    this.reservationForm.markAsPristine();
+  }
+
+  private getFormReservationObject(): IReservation {
+    const dateFrom = new Date(
+      this.dateAdapter.toModel(this.dateFromControl.value).getTime() +
+      this.timeAdapter.toModel(this.timeFromControl.value).getTime()
+    );
+    const dateTo = new Date(
+      this.dateAdapter.toModel(this.dateToControl.value).getTime() +
+      this.timeAdapter.toModel(this.timeToControl.value).getTime()
+    );
+
+    return {
+      uuid: this.reservation ? this.reservation.uuid : null,
+      user: this.userControl.value,
+      message: this.messageControl.value,
+      dateFrom,
+      dateTo,
+      room: this.selectedRoom
+    };
   }
 
 }

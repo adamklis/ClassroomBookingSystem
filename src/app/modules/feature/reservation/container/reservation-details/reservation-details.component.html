@@ -19,23 +19,16 @@
     <div class="form-group col-md-12">
       <label for="messageControl">{{ 'RESERVATION.DETAILS.MESSAGE' | translate }}</label>
       <input  cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
-        type="text" class="form-control" [class.is-invalid]="!messageControl.valid && messageControl.touched"
-        [class.is-valid]="messageControl.valid" id="message" formControlName="message" required>
-      <small *ngIf="!messageControl.valid && messageControl.touched" id="reservationHelp"
-        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+        type="text" class="form-control" id="message" formControlName="message">
     </div>
   </div>
   <div formGroupName="reservationPeriod" class="form-row align-items-md-center">
     <div class="form-group col-md-4">
       <div class="input-group">
-        <input  cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
+        <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
           class="form-control" id="dateFrom" formControlName="dateFrom" ngbDatepicker #dValidFrom="ngbDatepicker"
-          [class.is-invalid]="!reservationForm.get('reservationPeriod').valid && reservationForm.get('reservationPeriod').touched" readonly>
+          [class.is-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" readonly>
         <div class="input-group-append">
-          <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]"
-            class="btn btn-outline-danger" (click)="dateFromControl.setValue(null); dateFromControl.markAsTouched()" type="button">
-            <fa-icon [icon]="faEraser"></fa-icon>
-          </button>
           <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]"
             class="btn btn-outline-secondary" (click)="dValidFrom.toggle()" type="button">
             <fa-icon [icon]="faCalendar"></fa-icon>
@@ -45,19 +38,20 @@
     </div>
 
     <div class="form-group col-md-2">
-      <ngb-timepicker></ngb-timepicker>
+      <ngb-timepicker
+        id="timeFrom" formControlName="timeFrom"
+        [class.ng-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched"
+        [readonlyInputs]="!(authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async)"
+        [spinners]="authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async">
+      </ngb-timepicker>
     </div>
 
     <div class="form-group col-md-4">
       <div class="input-group">
         <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
           class="form-control" id="dateTo" formControlName="dateTo" ngbDatepicker #dValidTo="ngbDatepicker"
-          [class.is-invalid]="!reservationForm.get('reservationPeriod').valid && reservationForm.get('reservationPeriod').touched" readonly>
+          [class.is-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" readonly>
         <div class="input-group-append">
-          <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]"
-            class="btn btn-outline-danger" (click)="dateToControl.setValue(null); dateToControl.markAsTouched()" type="button">
-            <fa-icon [icon]="faEraser"></fa-icon>
-          </button>
           <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]"
             class="btn btn-outline-secondary" (click)="dValidTo.toggle()" type="button">
             <fa-icon [icon]="faCalendar"></fa-icon>
@@ -67,7 +61,12 @@
     </div>
 
     <div class="form-group col-md-2">
-      <ngb-timepicker></ngb-timepicker>
+      <ngb-timepicker
+        id="timeTo" formControlName="timeTo"
+        [class.ng-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched"
+        [readonlyInputs]="!(authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async)"
+        [spinners]="authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async">
+      </ngb-timepicker>
     </div>
   </div>
   <div *ngIf="!reservationForm.valid && userControl.touched" class="form-row">
