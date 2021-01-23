@@ -95,6 +95,14 @@ export class TagBarComponent implements OnInit, OnDestroy {
     }
   }
 
+  public enterInput(){
+    const value = this.searchInputElement.nativeElement.value;
+    if (value) {
+      this.selectTag(this.foundTags[0]);
+      this.searchResultShow = false;
+    }
+  }
+
   public searchBlur(){
     setTimeout(() => this.searchResultShow = false, 200);
   }

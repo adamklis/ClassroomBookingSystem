@@ -87,7 +87,7 @@ export class ReservationDetailsComponent implements OnInit {
     const filter = [];
     const sort = [];
     tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
-    sort.push(new Sort('quantity', SortOrder.ASCEND));
+    sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
     this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
       this.$rooms.next(rooms);
     });
