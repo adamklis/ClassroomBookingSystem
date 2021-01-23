@@ -1,3 +1,4 @@
+import { HealthCheckService } from './modules/core/health-check/health-check.service';
 import { RegisterSuccessComponent } from './modules/feature/home/register/register-success/register-success.component';
 import { Permission } from './modules/core/authorization/enum/permission.enum';
 import { UnathorizedComponent } from './modules/feature/home/unathorized/unathorized.component';
@@ -6,7 +7,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { HomeModule } from './modules/feature/home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -85,7 +86,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeModule,
     SharedModule
   ],
-  providers: [TranslateService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: HttpAuthorizedInterceptor, multi: true}],
+  providers: [
+    TranslateService,
+    CookieService,
+    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthorizedInterceptor, multi: true},
+    HealthCheckService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (healthCheck: HealthCheckService) => () => (healthCheck.checkBackend()),
+      deps: [HealthCheckService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

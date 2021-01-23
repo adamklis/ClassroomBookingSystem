@@ -12,7 +12,8 @@
       "FIELD_MIN_LENGTH": "The value must be longer than {{ x }} characters."
     },
     "ERROR" : {
-      "USER_EXIST": "User alredy exist. Please contact with service administrator to reset password."
+      "USER_EXIST": "User alredy exist. Please contact with service administrator to reset password.",
+      "BACKEND_DISABLED": "Backend service is temporarily disabled."
     },
     "BUTTON": {
       "ADD": "Add",
