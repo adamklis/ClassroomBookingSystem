@@ -12,7 +12,8 @@
       "FIELD_MIN_LENGTH": "Wartość musi mieć więcej niż {{ x }} znaków."
     },
     "ERROR" : {
-      "USER_EXIST": "Użytkownik istnieje. Proszę skontaktować się z administratorem serwisu w celu zmiany hasła."
+      "USER_EXIST": "Użytkownik istnieje. Proszę skontaktować się z administratorem serwisu w celu zmiany hasła.",
+      "BACKEND_DISABLED": "Backend aplikacji jest tymczasowo wyłączony."
     },
     "BUTTON": {
       "ADD": "Dodaj",
