@@ -14,6 +14,9 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
   faTimes = faTimes;
 
   @Input()
+  public selectedRoom: IRoom;
+
+  @Input()
   public rooms: Observable<IRoom[]>;
   private roomSubscription: Subscription;
 
@@ -21,7 +24,6 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
   public roomSelected: EventEmitter<IRoom> = new EventEmitter<IRoom>();
 
   public list: IRoom[];
-  public selectedRoom: IRoom;
 
 
   constructor() { }

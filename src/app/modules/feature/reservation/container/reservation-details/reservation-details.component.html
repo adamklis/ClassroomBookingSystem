@@ -89,7 +89,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
-      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
     </div>
   </div>
   <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]">
@@ -99,7 +99,7 @@
       <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid || reservationForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
     </ng-container>
     <ng-container *ngIf="!reservation">
-      <button class="col-md-2 mr-1 btn btn-outline-secondary" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
       <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
     </ng-container>
   </div>

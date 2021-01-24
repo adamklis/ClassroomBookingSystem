@@ -82,23 +82,106 @@ export class ReservationDetailsComponent implements OnInit {
   }
 
   public onRestoreClick(){
-
+    this.translateService.get([
+      'RESERVATION.MODAL.RESTORE_RESERVATION_TITLE',
+      'RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE'
+    ])
+    .toPromise()
+    .then(translation => {
+      this.modalService.showConfirmModal({title: translation['RESERVATION.MODAL.RESTORE_RESERVATION_TITLE'], message: translation['RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE']})
+      .then(() => {
+        this.resetForm();
+      })
+      .catch(error => {});
+    });
   }
 
   public onDeleteClick(){
-
+    this.translateService
+    .get([
+      'RESERVATION.MODAL.DELETE_RESERVATION_TITLE',
+      'RESERVATION.MODAL.DELETE_RESERVATION_MESSAGE',
+      'RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_TITLE',
+      'RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_MESSAGE'
+    ])
+    .toPromise()
+    .then(translation => {
+      this.modalService.showDeleteModal({
+        title: translation['RESERVATION.MODAL.DELETE_SOFTWARE_TITLE'],
+        message: translation['RESERVATION.MODAL.DELETE_SOFTWARE_MESSAGE']
+      })
+      .then(() => {
+        this.reservationService.deleteReservation(this.reservation.uuid)
+        .then(() => {
+          this.modalService.showInfoModal({title: translation['RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_TITLE'], message: translation['RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_MESSAGE']})
+          .then(() => this.router.navigate(['reservation']));
+        })
+        .catch(err => {
+          this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(errorTranslation =>
+            this.modalService.showInfoModal({title: errorTranslation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+        });
+      })
+      .catch(error => {});
+    });
   }
 
   public onSaveClick(){
-
+    this.reservationService.saveReservation(this.getFormReservationObject())
+    .then(() => {
+      this.translateService.get([
+        'RESERVATION.MODAL.SAVE_RESERVATION_SUCCESS_TITLE',
+        'RESERVATION.MODAL.SAVE_RESERVATION_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['RESERVATION.MODAL.SAVE_RESERVATION_SUCCESS_TITLE'], message: translation['RESERVATION.MODAL.SAVE_RESERVATION_SUCCESS_MESSAGE']});
+      });
+    })
+    .catch(err => {
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+    });
   }
 
   public onClearClick(){
-
+    this.translateService.get([
+      'RESERVATION.MODAL.RESTORE_RESERVATION_TITLE',
+      'RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE'
+    ])
+    .toPromise()
+    .then(translation => {
+      this.modalService.showConfirmModal({title: translation['RESERVATION.MODAL.RESTORE_RESERVATION_TITLE'], message: translation['RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE']})
+      .then(() => {
+        this.reservationForm.reset();
+        this.selectedRoom = null;
+      })
+      .catch(error => {});
+    });
   }
 
   public onAddClick(){
-
+    this.reservation = this.getFormReservationObject();
+    this.reservationService.addReservation(this.reservation)
+    .then(() => {
+      this.translateService.get([
+        'RESERVATION.MODAL.ADD_RESERVATION_SUCCESS_TITLE',
+        'RESERVATION.MODAL.ADD_RESERVATION_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['RESERVATION.MODAL.ADD_RESERVATION_SUCCESS_TITLE'], message: translation['RESERVATION.MODAL.ADD_RESERVATION_SUCCESS_MESSAGE']})
+        .then(() => {
+          this.reservation = null;
+          this.selectedRoom = null;
+          this.resetForm();
+        });
+      });
+    })
+    .catch(err => {
+      this.reservation = null;
+      this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
+    });
   }
 
   public tagsChanged(tags: ITag[]){
@@ -134,6 +217,7 @@ export class ReservationDetailsComponent implements OnInit {
 
   public roomSelected(room: IRoom){
     this.selectedRoom = room;
+    this.reservationForm.markAsDirty();
   }
 
   private resetForm(): void{
