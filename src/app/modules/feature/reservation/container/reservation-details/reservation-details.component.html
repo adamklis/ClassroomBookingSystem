@@ -24,6 +24,7 @@
   </div>
   <div formGroupName="reservationPeriod" class="form-row align-items-md-center">
     <div class="form-group col-md-4">
+      <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_FROM' | translate }}</label>
       <div class="input-group">
         <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
           class="form-control" id="dateFrom" formControlName="dateFrom" ngbDatepicker #dValidFrom="ngbDatepicker"
@@ -47,6 +48,7 @@
     </div>
 
     <div class="form-group col-md-4">
+      <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_TO' | translate }}</label>
       <div class="input-group">
         <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
           class="form-control" id="dateTo" formControlName="dateTo" ngbDatepicker #dValidTo="ngbDatepicker"
@@ -69,10 +71,10 @@
       </ngb-timepicker>
     </div>
   </div>
-  <div *ngIf="!reservationForm.valid && userControl.touched" class="form-row">
-    <div class="form-group col-md-12">
+  <div *ngIf="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" class="form-row reservation-period-validation-outer">
+    <div class="form-group col-md-12 reservation-period-validation-inner">
       <small id="reservationHelp"
-          class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+          class="form-text text-muted">{{ 'SHARED.VALIDATION.DATE_PERIOD' | translate }}</small>
     </div>
   </div>
   <div class="form-row">

@@ -208,7 +208,7 @@
       "DATE_FROM": "Date from",
       "DATE_TO": "Date to",
       "FILTER": {
-        "SEARCH_PLACEHOLDER": "Software, Appliance, Name...",
+        "SEARCH_PLACEHOLDER": "Search: software, appliance, classroom name...",
         "SEARCH_KEYWORD_ALIAS": "Name",
         "SEARCH_KEYWORD_INT_ALIAS": "Seats",
         "SOFTWARE_ALIAS": "Software",

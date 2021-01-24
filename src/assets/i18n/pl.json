@@ -208,7 +208,7 @@
       "DATE_FROM": "Data od",
       "DATE_TO": "Data do",
       "FILTER": {
-        "SEARCH_PLACEHOLDER": "Oprogramowanie, Sprzęt, Nazwa...",
+        "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
         "SEARCH_KEYWORD_ALIAS": "Nazwa",
         "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
         "SOFTWARE_ALIAS": "Oprogramowanie",

@@ -2,7 +2,39 @@ h3 > span {
   cursor: pointer;
 }
 
-.period {
+.reservation-period-validation-outer{
+  height: 1rem;
   position: relative;
-  top: -1.8em;
+}
+
+.reservation-period-validation-inner{
+  top: -2rem;
+  position: absolute;
+}
+
+.reservation-period-label{
+  height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  top: -2rem;
+}
+
+.reservation-period-label{
+  height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  top: -2rem;
+}
+
+@media all and (max-width:767px){
+  .reservation-period-label{
+    height: 2rem;
+    display: block;
+    position: relative;
+    top: 0;
+  }
 }
