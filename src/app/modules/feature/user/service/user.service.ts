@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
+import { ISort } from 'src/app/modules/shared/interface/sort.interface';
+import { Filter } from 'src/app/modules/shared/model/filter';
+import { Sort } from 'src/app/modules/shared/model/sort';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -14,8 +18,10 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getUsers(): Observable<IUser[]> {
-    return this.httpClient.get(APIEndpoint + '/user') as Observable<IUser[]>;
+  public getUsers(filter?: IFilter[], sort?: ISort[]): Observable<IUser[]> {
+    return this.httpClient.get(
+      APIEndpoint + '/user?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
+    ) as Observable<IUser[]>;
   }
 
   public getUser(uuid: string): Observable<IUser> {

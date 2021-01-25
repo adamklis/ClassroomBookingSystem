@@ -10,7 +10,7 @@
       <label for="userControl">{{ 'RESERVATION.DETAILS.USER' | translate }}</label>
       <cbs-search-input-list
         formControlName="user"
-        [searchPlaceholder]="'Select user...'"
+        [searchPlaceholder]="'RESERVATION.DETAILS.USER_PLACEHOLDER' | translate"
         [$searchResults]="$users.asObservable()"
         (searchChangeEvent)="searchUserInputChanged($event)">
       </cbs-search-input-list>

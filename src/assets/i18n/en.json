@@ -204,6 +204,7 @@
     "DETAILS": {
       "NEW": "New reservation",
       "USER": "User",
+      "USER_PLACEHOLDER": "Select user...",
       "MESSAGE": "Message",
       "DATE_FROM": "Date from",
       "DATE_TO": "Date to",

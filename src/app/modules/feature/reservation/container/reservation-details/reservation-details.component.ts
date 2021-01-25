@@ -226,7 +226,9 @@ export class ReservationDetailsComponent implements OnInit {
 
   public searchUserInputChanged(input: string){
     this.userControl.markAsDirty();
-    this.userService.getUsers().toPromise()
+    const filter = new Filter('all', input);
+    const sort = new Sort('all', SortOrder.ASCEND);
+    this.userService.getUsers([filter], [sort]).toPromise()
       .then(users => this.$users.next(users.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))));
   }
 
