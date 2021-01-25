@@ -8,11 +8,12 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label for="userControl">{{ 'RESERVATION.DETAILS.USER' | translate }}</label>
-      <input  cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED"
-        type="text" class="form-control" [class.is-invalid]="!userControl.valid && userControl.touched"
-        [class.is-valid]="userControl.valid" id="user" formControlName="user" required>
-      <small *ngIf="!userControl.valid && userControl.touched" id="reservationHelp"
-        class="form-text text-muted">{{ 'SHARED.VALIDATION.FIELD_REQUIRED' | translate }}</small>
+      <cbs-search-input-list
+        formControlName="user"
+        [searchPlaceholder]="'Select user...'"
+        [$searchResults]="$users.asObservable()"
+        (searchChangeEvent)="searchUserInputChanged($event)">
+      </cbs-search-input-list>
     </div>
   </div>
   <div class="form-row">
@@ -98,11 +99,11 @@
     <ng-container *ngIf="reservation">
       <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
       <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
-      <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid || reservationForm.pristine" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="(reservationForm.invalid || reservationForm.pristine) || !selectedRoom" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
     </ng-container>
     <ng-container *ngIf="!reservation">
       <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
-      <button class="col-md-2 mr-1 btn btn-success" [disabled]="!reservationForm.valid" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="reservationForm.invalid || !selectedRoom" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
     </ng-container>
   </div>
 </form>

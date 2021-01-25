@@ -1,3 +1,4 @@
+import { UserService } from './../../../user/service/user.service';
 import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
 import { RoomService } from './../../../room/service/room.service';
@@ -21,6 +22,7 @@ import { AuthorizationService } from 'src/app/modules/core/authorization/service
 import { datetimePeriodValidator } from 'src/app/modules/shared/validator/datetime-period-validator';
 import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
 import { TimeAdapter } from 'src/app/modules/shared/adapter/time.adapter';
+import { IUser } from '../../../user/interface/user.interface';
 
 @Component({
   selector: 'cbs-reservation-details',
@@ -37,7 +39,7 @@ export class ReservationDetailsComponent implements OnInit {
 
   public reservation: IReservation;
 
-  public userControl = new FormControl('', [Validators.required]);
+  public userControl = new FormControl({}, [Validators.required]);
   public messageControl = new FormControl('', []);
   public dateFromControl = new FormControl('', [Validators.required]);
   public timeFromControl = new FormControl('', [Validators.required]);
@@ -59,6 +61,7 @@ export class ReservationDetailsComponent implements OnInit {
 
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $rooms: BehaviorSubject<IRoom[]> = new BehaviorSubject<IRoom[]>([]);
+  public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -67,6 +70,7 @@ export class ReservationDetailsComponent implements OnInit {
     private router: Router,
     private softwareService: SoftwareService,
     private applianceService: ApplianceService,
+    private userService: UserService,
     private roomService: RoomService,
     private reservationService: ReservationService,
     private dateAdapter: DateAdapter,
@@ -152,7 +156,7 @@ export class ReservationDetailsComponent implements OnInit {
     .then(translation => {
       this.modalService.showConfirmModal({title: translation['RESERVATION.MODAL.RESTORE_RESERVATION_TITLE'], message: translation['RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE']})
       .then(() => {
-        this.reservationForm.reset();
+        this.resetForm();
         this.selectedRoom = null;
       })
       .catch(error => {});
@@ -220,13 +224,22 @@ export class ReservationDetailsComponent implements OnInit {
     this.reservationForm.markAsDirty();
   }
 
+  public searchUserInputChanged(input: string){
+    this.userControl.markAsDirty();
+    this.userService.getUsers().toPromise()
+      .then(users => this.$users.next(users.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))));
+  }
+
   private resetForm(): void{
     const reservationUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
     if (reservationUuid && reservationUuid !== '0') {
       this.reservationService.getReservation(reservationUuid).subscribe(reservation => {
         this.reservation = reservation;
         this.userControl.setValue(
-          this.reservation.user.forename + ' ' + this.reservation.user.surname + ' (' + this.reservation.user.email + ')'
+          {
+            key: this.reservation.user,
+            value: this.reservation.user.forename + ' ' + this.reservation.user.surname + ' <' + this.reservation.user.email + '>'
+          }
         );
         this.messageControl.setValue(this.reservation.message);
         this.dateFromControl.setValue(this.dateAdapter.fromModel(this.reservation.dateFrom));
@@ -237,6 +250,13 @@ export class ReservationDetailsComponent implements OnInit {
       });
     } else {
       this.reservationForm.reset();
+      const currentUser = this.authorizationService.currentUser$.getValue();
+      this.userControl.setValue(
+        {
+          key: currentUser,
+          value: currentUser.forename + ' ' + currentUser.surname + ' <' + currentUser.email + '>'
+        }
+      );
     }
     this.reservationForm.markAsUntouched();
     this.reservationForm.markAsPristine();

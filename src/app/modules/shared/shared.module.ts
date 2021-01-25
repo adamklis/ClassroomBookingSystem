@@ -11,6 +11,7 @@ import { TestComponent } from './component/test/test.component';
 import { TagComponent } from './component/tag-bar/tag/tag.component';
 import { TagBarComponent } from './component/tag-bar/tag-bar.component';
 import { TooltipListPipe } from './pipe/tooltip-list.pipe';
+import { SearchInputListComponent } from './component/search-input/search-input-list.component';
 
 
 
@@ -20,6 +21,7 @@ import { TooltipListPipe } from './pipe/tooltip-list.pipe';
     SearchModalComponent,
     ResultListComponent,
     SearchInputComponent,
+    SearchInputListComponent,
     TestComponent,
     TagComponent,
     TagBarComponent,
@@ -33,6 +35,7 @@ import { TooltipListPipe } from './pipe/tooltip-list.pipe';
   ],
   exports: [
     TagBarComponent,
+    SearchInputListComponent,
     TooltipListPipe
   ]
 })

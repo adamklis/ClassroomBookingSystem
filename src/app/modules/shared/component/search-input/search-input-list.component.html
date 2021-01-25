@@ -1,0 +1,17 @@
+<div>
+  <input #search
+    class="form-control"
+    [placeholder]="searchPlaceholder"
+    [(ngModel)]="searchInputValue"
+    [disabled]="disabled"
+    (click)="searchInputClick()"
+    (input)="searchInputInput($event)"
+    (blur)="blurInput()"
+    (keydown.enter)="enterInput()"
+  >
+  <ul *ngIf="searchResultShow" class="dropdown-menu list-group overflow-auto m-1 w-100">
+    <li *ngFor="let result of searchResults" (click)="selectSearchResult(result)" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
+      {{result.value}}
+    </li>
+  </ul>
+</div>
