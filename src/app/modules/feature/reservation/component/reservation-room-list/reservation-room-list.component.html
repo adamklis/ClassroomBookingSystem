@@ -28,8 +28,8 @@
         <span *ngIf="room.software.length > 3">...</span>
       </td>
       <td>
-        <button class="btn btn-sm icon" (click)="selectRoom(room)" [class.btn-success]="room === selectedRoom" [class.btn-danger]="room !== selectedRoom">
-          <fa-icon [icon]="room === selectedRoom ? faCheck : faTimes"></fa-icon>
+        <button class="btn btn-sm icon" (click)="selectRoom(room)" [class.btn-success]="room.uuid === selectedRoom.uuid" [class.btn-danger]="room.uuid !== selectedRoom.uuid">
+          <fa-icon [icon]="room.uuid === selectedRoom.uuid ? faCheck : faTimes"></fa-icon>
         </button>
       </td>
     </tr>

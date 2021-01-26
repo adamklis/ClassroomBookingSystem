@@ -165,7 +165,7 @@ export class SoftwareDetailsComponent implements OnInit {
         this.nameControl.setValue(this.software.name);
         this.quantityControl.setValue(this.software.quantity);
         this.validFromControl.setValue(this.dateAdapter.fromModel(this.software.validFrom));
-        this.validToControl.setValue((this.dateAdapter.fromModel(this.software.validTo)));
+        this.validToControl.setValue(this.dateAdapter.fromModel(this.software.validTo));
       });
     } else {
       this.softwareForm.reset();

@@ -2,7 +2,7 @@
   <span routerLink="reservations">
     <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'RESERVATION.HEADER' | translate }}
   </span>
-  / {{reservation ? reservation.room : 'RESERVATION.DETAILS.NEW' | translate }}
+  / {{reservation ? reservation.room.name : 'RESERVATION.DETAILS.NEW' | translate }}
 </h3>
 <form [formGroup]="reservationForm">
   <div class="form-row">

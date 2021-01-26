@@ -48,7 +48,7 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
 
   // value accessor methods
 
-  onChange = () => {};
+  onChange: any = () => {};
   onTouched = () => {};
 
   writeValue(obj: {key: any, value: string}): void {
@@ -100,6 +100,7 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
   public selectSearchResult(selectedResult: {key: any, value: string}){
     this.componentValue = selectedResult;
     this.searchInputValue = selectedResult.value;
+    this.onChange(this.componentValue);
   }
 
 }

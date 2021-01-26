@@ -30,8 +30,8 @@ export class ReservationService {
           uuid: item.uuid,
           user: item.user,
           room: item.room,
-          dateFrom: item.dateFrom,
-          dateTo: item.dateTo,
+          dateFrom: new Date(item.dateFrom),
+          dateTo: new Date(item.dateTo),
           message: item.message
         };
       })

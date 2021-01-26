@@ -19,9 +19,9 @@
       <td colspan="7">{{ 'SHARED.TABLE.EMPTY' | translate }}</td>
     </tr>
     <tr *ngFor="let reservation of reservations">
-      <td>{{ reservation.room }}</td>
-      <td>{{ reservation.dateFrom }}</td>
-      <td>{{ reservation.dateTo }}</td>
+      <td>{{ reservation.room.name }}</td>
+      <td>{{ reservation.dateFrom | date: "dd-MM-yy HH:mm" }}</td>
+      <td>{{ reservation.dateTo | date: "dd-MM-yy HH:mm" }}</td>
       <td>{{ reservation.user.surname + " " + reservation.user.forename }}</td>
       <td>{{ reservation.user.contact }}</td>
       <td>{{ reservation.message }}</td>

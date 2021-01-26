@@ -111,8 +111,8 @@ export class ReservationDetailsComponent implements OnInit {
     .toPromise()
     .then(translation => {
       this.modalService.showDeleteModal({
-        title: translation['RESERVATION.MODAL.DELETE_SOFTWARE_TITLE'],
-        message: translation['RESERVATION.MODAL.DELETE_SOFTWARE_MESSAGE']
+        title: translation['RESERVATION.MODAL.DELETE_RESERVATION_TITLE'],
+        message: translation['RESERVATION.MODAL.DELETE_RESERVATION_MESSAGE']
       })
       .then(() => {
         this.reservationService.deleteReservation(this.reservation.uuid)
@@ -237,12 +237,10 @@ export class ReservationDetailsComponent implements OnInit {
     if (reservationUuid && reservationUuid !== '0') {
       this.reservationService.getReservation(reservationUuid).subscribe(reservation => {
         this.reservation = reservation;
-        this.userControl.setValue(
-          {
-            key: this.reservation.user,
-            value: this.reservation.user.forename + ' ' + this.reservation.user.surname + ' <' + this.reservation.user.email + '>'
-          }
-        );
+        this.userControl.setValue({
+          key: this.reservation.user,
+          value: this.reservation.user.forename + ' ' + this.reservation.user.surname + ' <' + this.reservation.user.email + '>'
+        });
         this.messageControl.setValue(this.reservation.message);
         this.dateFromControl.setValue(this.dateAdapter.fromModel(this.reservation.dateFrom));
         this.timeFromControl.setValue(this.timeAdapter.fromModel(this.reservation.dateFrom));
@@ -253,30 +251,28 @@ export class ReservationDetailsComponent implements OnInit {
     } else {
       this.reservationForm.reset();
       const currentUser = this.authorizationService.currentUser$.getValue();
-      this.userControl.setValue(
-        {
-          key: currentUser,
-          value: currentUser.forename + ' ' + currentUser.surname + ' <' + currentUser.email + '>'
-        }
-      );
+      this.userControl.setValue({
+        key: currentUser,
+        value: currentUser.forename + ' ' + currentUser.surname + ' <' + currentUser.email + '>'
+      });
     }
     this.reservationForm.markAsUntouched();
     this.reservationForm.markAsPristine();
   }
 
   private getFormReservationObject(): IReservation {
-    const dateFrom = new Date(
-      this.dateAdapter.toModel(this.dateFromControl.value).getTime() +
-      this.timeAdapter.toModel(this.timeFromControl.value).getTime()
-    );
-    const dateTo = new Date(
-      this.dateAdapter.toModel(this.dateToControl.value).getTime() +
-      this.timeAdapter.toModel(this.timeToControl.value).getTime()
-    );
+    const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
+    const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
+    dateFrom.setHours(timeFrom.getHours());
+    dateFrom.setMinutes(timeFrom.getMinutes());
 
+    const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
+    const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
+    dateTo.setHours(timeTo.getHours());
+    dateTo.setMinutes(timeTo.getMinutes());
     return {
       uuid: this.reservation ? this.reservation.uuid : null,
-      user: this.userControl.value,
+      user: this.userControl.value.key,
       message: this.messageControl.value,
       dateFrom,
       dateTo,
