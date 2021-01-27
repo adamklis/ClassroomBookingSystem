@@ -3,7 +3,7 @@ import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
 import { RoomService } from './../../../room/service/room.service';
 import { IReservation } from './../../interface/reservation.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faArrowLeft, faCalendar, faEraser } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { BehaviorSubject, forkJoin, Subscription } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
@@ -29,7 +29,7 @@ import { IUser } from '../../../user/interface/user.interface';
   templateUrl: './reservation-details.component.html',
   styleUrls: ['./reservation-details.component.css']
 })
-export class ReservationDetailsComponent implements OnInit {
+export class ReservationDetailsComponent implements OnInit, OnDestroy {
 
   faArrowLeft = faArrowLeft;
   faCalendar = faCalendar;
@@ -46,6 +46,8 @@ export class ReservationDetailsComponent implements OnInit {
   public dateToControl = new FormControl('', [Validators.required]);
   public timeToControl = new FormControl('', [Validators.required]);
 
+  private datePeriodChangesSubscription: Subscription;
+
   public reservationForm = new FormGroup({
     user: this.userControl,
     message: this.messageControl,
@@ -61,6 +63,7 @@ export class ReservationDetailsComponent implements OnInit {
 
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $rooms: BehaviorSubject<IRoom[]> = new BehaviorSubject<IRoom[]>([]);
+  public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
   public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
   constructor(
@@ -83,6 +86,14 @@ export class ReservationDetailsComponent implements OnInit {
     this.roomService.getRooms().toPromise().then(rooms => {
       this.$rooms.next(rooms);
     });
+    this.onDatesChanged();
+    this.datePeriodChangesSubscription = this.reservationForm.get('reservationPeriod').valueChanges.subscribe(() => this.onDatesChanged());
+  }
+
+  ngOnDestroy(): void {
+    if (this.datePeriodChangesSubscription) {
+      this.datePeriodChangesSubscription.unsubscribe();
+    }
   }
 
   public onRestoreClick(){
@@ -118,7 +129,7 @@ export class ReservationDetailsComponent implements OnInit {
         this.reservationService.deleteReservation(this.reservation.uuid)
         .then(() => {
           this.modalService.showInfoModal({title: translation['RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_TITLE'], message: translation['RESERVATION.MODAL.DELETE_RESERVATION_SUCCESS_MESSAGE']})
-          .then(() => this.router.navigate(['reservation']));
+          .then(() => this.router.navigate(['reservations']));
         })
         .catch(err => {
           this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(errorTranslation =>
@@ -186,6 +197,27 @@ export class ReservationDetailsComponent implements OnInit {
       this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
         this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
+  }
+
+  public onDatesChanged(){
+    this.selectedRoom = this.reservation?.room;
+    if (this.reservationForm.get('reservationPeriod').valid){
+      const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
+      const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
+      dateFrom.setHours(timeFrom.getHours());
+      dateFrom.setMinutes(timeFrom.getMinutes());
+
+      const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
+      const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
+      dateTo.setHours(timeTo.getHours());
+      dateTo.setMinutes(timeTo.getMinutes());
+
+      const filters = [new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString())];
+
+      this.reservationService.getReservations(filters).subscribe(
+        reservations => this.$reservations.next(reservations)
+      );
+    }
   }
 
   public tagsChanged(tags: ITag[]){

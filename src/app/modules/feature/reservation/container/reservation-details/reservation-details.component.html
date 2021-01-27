@@ -92,7 +92,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
-      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [reservations]="$reservations.asObservable()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
     </div>
   </div>
   <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]">

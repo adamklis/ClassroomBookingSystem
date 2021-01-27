@@ -1,7 +1,8 @@
+import { IReservation } from './../../interface/reservation.interface';
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IRoom } from '../../../room/interface/room.interface';
-import { Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'cbs-reservation-room-list',
@@ -18,23 +19,35 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
 
   @Input()
   public rooms: Observable<IRoom[]>;
-  private roomSubscription: Subscription;
+
+  @Input()
+  public reservations: Observable<IReservation[]>;
 
   @Output()
   public roomSelected: EventEmitter<IRoom> = new EventEmitter<IRoom>();
 
   public list: IRoom[];
+  public reservationList: IReservation[];
+
+  private subscription: Subscription;
 
 
   constructor() { }
 
   ngOnInit(): void {
-     this.roomSubscription = this.rooms.subscribe(rooms => this.list = rooms);
+    this.subscription = combineLatest([
+      this.rooms,
+      this.reservations
+    ]).subscribe(result => {
+      this.list = result[0].filter(room => 
+        result[1].findIndex(reservation => room.uuid === reservation.room.uuid) === -1 || room.uuid === this.selectedRoom?.uuid);
+    });
+
   }
 
   ngOnDestroy(): void {
-    if (this.roomSubscription) {
-      this.roomSubscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
