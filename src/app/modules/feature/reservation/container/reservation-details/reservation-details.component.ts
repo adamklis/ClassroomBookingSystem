@@ -287,6 +287,10 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
         key: currentUser,
         value: currentUser.forename + ' ' + currentUser.surname + ' <' + currentUser.email + '>'
       });
+      this.dateFromControl.setValue(this.dateAdapter.fromModel(new Date()));
+      this.timeFromControl.setValue({hour: 0, minute: 0, second: 0});
+      this.dateToControl.setValue(this.dateAdapter.fromModel(new Date()));
+      this.timeToControl.setValue({hour: 0, minute: 0, second: 0});
     }
     this.reservationForm.markAsUntouched();
     this.reservationForm.markAsPristine();

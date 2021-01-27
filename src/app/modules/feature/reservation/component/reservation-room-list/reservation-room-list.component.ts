@@ -39,7 +39,7 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
       this.rooms,
       this.reservations
     ]).subscribe(result => {
-      this.list = result[0].filter(room => 
+      this.list = result[0].filter(room =>
         result[1].findIndex(reservation => room.uuid === reservation.room.uuid) === -1 || room.uuid === this.selectedRoom?.uuid);
     });
 
