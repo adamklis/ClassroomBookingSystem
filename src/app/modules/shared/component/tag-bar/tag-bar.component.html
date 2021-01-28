@@ -3,7 +3,7 @@
     <cbs-tag class="d-inline-block" *ngFor="let tag of selectedTags" [tag]="tag" (removeEvent)="removeTag(tag)"></cbs-tag>
     <input #search class="flex-grow-1 m-1 border-0 bg-whote tag-bar-input" (click)="searchClick()" (keydown.enter)="enterInput()" (keydown.backspace)="backspaceInput()" (input)="searchInput()" (blur)="searchBlur()" [placeholder]="searchPlaceholder" [disabled]="disabled">
   </div>
-  <ul *ngIf="searchResultShow && !disabled" class="dropdown-menu list-group overflow-auto m-1 w-100">
+  <ul *ngIf="searchResultShow && foundTags && foundTags.length > 0 && !disabled" class="dropdown-menu list-group overflow-auto m-1 w-100">
     <li *ngFor="let tag of foundTags" (click)="selectTag(tag)" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
       <div class="d-inline-block m-1 px-2 py-1 bg-primary text-white font-weight-bold rounded text-uppercase tag-category">{{tag.categoryAlias ? tag.categoryAlias : tag.category}}</div>
       <div class="d-inline-block m-1">{{tag.value}}</div>

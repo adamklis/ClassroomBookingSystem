@@ -1,3 +1,5 @@
+import { IAppliance } from './../../../appliance/interface/appliance.interface';
+import { ISoftware } from './../../../software/interface/software.interface';
 import { UserService } from './../../../user/service/user.service';
 import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
@@ -90,9 +92,13 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT) === -1){
       this.userControl.disable();
     }
-    this.roomService.getRooms().toPromise().then(rooms => {
-      this.$rooms.next(rooms);
-    });
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
+      this.roomService.getRooms().toPromise().then(rooms => {
+        this.$rooms.next(rooms);
+      });
+    } else {
+      this.$rooms.next([this.reservation.room]);
+    }
     this.onDatesChanged();
     this.datePeriodChangesSubscription = this.reservationForm.get('reservationPeriod').valueChanges.subscribe(() => this.onDatesChanged());
   }
@@ -232,28 +238,42 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     const sort = [];
     tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
     sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
-    this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
-      this.$rooms.next(rooms);
-    });
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
+      this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
+        this.$rooms.next(rooms);
+      });
+    }
   }
 
   public searchChanged(searchText: string){
     const filter = new Filter('name', searchText);
     const sort = new Sort('name', SortOrder.ASCEND);
-    forkJoin({
-      appliances: this.applianceService.getAppliances([filter], [sort]),
-      softwareList: this.softwareService.getSoftwareList([filter], [sort])
-    }).toPromise().then(result => {
+    const requests = [];
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.APPLIANCE_VIEW) !== -1) {
+      requests.push(this.applianceService.getAppliances([filter], [sort]));
+    }
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.SOFTWARE_VIEW) !== -1) {
+      requests.push(this.softwareService.getSoftwareList([filter], [sort]));
+    }
+    forkJoin(requests).toPromise().then((result: Array<ISoftware[] | IAppliance[]>) => {
       this.translateService.get([
         'RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS',
         'RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'
       ])
       .toPromise()
       .then(translation => {
-        this.$tags.next([
-          ...result.appliances.map(appliance => ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: appliance.name})),
-          ...result.softwareList.map(software => ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: software.name}))
-        ]);
+        if (result){
+          const flattenResult: Array<any> = result.reduce((acc, val) => acc.concat(val), []);
+          this.$tags.next([
+            ...flattenResult.map(el => {
+              if (el.validFrom || el.validFrom === null) {
+                return ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: el.name});
+              } else {
+                return ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: el.name});
+              }
+            })
+          ]);
+        }
       });
     });
   }
@@ -276,6 +296,14 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT) !== -1 ||
       this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT_USER) !== -1 &&
       (!this.reservation || this.reservation.user.uuid === this.currentUser.uuid)
+    );
+  }
+
+  public hasSearchPermission(): boolean{
+    return(
+      this.currentUser.permissions.findIndex(permission =>
+        permission === this.permissions.APPLIANCE_VIEW || permission === this.permissions.SOFTWARE_VIEW
+      ) !== -1
     );
   }
 
