@@ -23,6 +23,9 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
   @Input()
   public reservations: Observable<IReservation[]>;
 
+  @Input()
+  public disabled = false;
+
   @Output()
   public roomSelected: EventEmitter<IRoom> = new EventEmitter<IRoom>();
 
@@ -40,7 +43,8 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
       this.reservations
     ]).subscribe(result => {
       this.list = result[0].filter(room =>
-        result[1].findIndex(reservation => room.uuid === reservation.room.uuid) === -1 || room.uuid === this.selectedRoom?.uuid);
+        (result[1].findIndex(reservation => room.uuid === reservation.room.uuid) === -1 && !this.disabled) ||
+        room.uuid === this.selectedRoom?.uuid);
     });
 
   }

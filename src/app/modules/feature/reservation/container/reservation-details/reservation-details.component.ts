@@ -66,6 +66,8 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
   public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
+  private currentUser = null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: ModalService,
@@ -82,7 +84,12 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.currentUser = this.activatedRoute.snapshot.data.user;
+    this.reservation = this.activatedRoute.snapshot.data.reservation;
     this.resetForm();
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT) === -1){
+      this.userControl.disable();
+    }
     this.roomService.getRooms().toPromise().then(rooms => {
       this.$rooms.next(rooms);
     });
@@ -264,11 +271,16 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       .then(users => this.$users.next(users.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))));
   }
 
+  public hasEditPermission(): boolean{
+    return(
+      this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT) !== -1 ||
+      this.currentUser.permissions.findIndex(permission => permission === this.permissions.RESERVATION_EDIT_USER) !== -1 &&
+      (!this.reservation || this.reservation.user.uuid === this.currentUser.uuid)
+    );
+  }
+
   private resetForm(): void{
-    const reservationUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
-    if (reservationUuid && reservationUuid !== '0') {
-      this.reservationService.getReservation(reservationUuid).subscribe(reservation => {
-        this.reservation = reservation;
+    if (this.reservation) {
         this.userControl.setValue({
           key: this.reservation.user,
           value: this.reservation.user.forename + ' ' + this.reservation.user.surname + ' <' + this.reservation.user.email + '>'
@@ -279,13 +291,12 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
         this.dateToControl.setValue(this.dateAdapter.fromModel(this.reservation.dateTo));
         this.timeToControl.setValue(this.timeAdapter.fromModel(this.reservation.dateTo));
         this.selectedRoom = this.reservation.room;
-      });
     } else {
       this.reservationForm.reset();
-      const currentUser = this.authorizationService.currentUser$.getValue();
+
       this.userControl.setValue({
-        key: currentUser,
-        value: currentUser.forename + ' ' + currentUser.surname + ' <' + currentUser.email + '>'
+        key: this.currentUser,
+        value: this.currentUser.forename + ' ' + this.currentUser.surname + ' <' + this.currentUser.email + '>'
       });
       this.dateFromControl.setValue(this.dateAdapter.fromModel(new Date()));
       this.timeFromControl.setValue({hour: 0, minute: 0, second: 0});

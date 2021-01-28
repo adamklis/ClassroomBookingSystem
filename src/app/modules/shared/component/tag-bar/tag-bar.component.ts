@@ -21,6 +21,9 @@ export class TagBarComponent implements OnInit, OnDestroy {
   @Input()
   public keywordIntCategoryAlias = 'number';
 
+  @Input()
+  public disabled = false;
+
   @Output()
   public tagsChangeEvent: EventEmitter<ITag[]> = new EventEmitter<ITag[]>();
 

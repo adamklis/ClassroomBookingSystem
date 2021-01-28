@@ -28,7 +28,7 @@
         <span *ngIf="room.software.length > 3">...</span>
       </td>
       <td>
-        <button class="btn btn-sm icon" (click)="selectRoom(room)" [class.btn-success]="room.uuid === selectedRoom?.uuid" [class.btn-danger]="room.uuid !== selectedRoom?.uuid">
+        <button class="btn btn-sm icon" (click)="selectRoom(room)" [class.btn-success]="room.uuid === selectedRoom?.uuid" [class.btn-danger]="room.uuid !== selectedRoom?.uuid" [disabled]="disabled">
           <fa-icon [icon]="room.uuid === selectedRoom?.uuid ? faCheck : faTimes"></fa-icon>
         </button>
       </td>

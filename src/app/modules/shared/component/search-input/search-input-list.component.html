@@ -9,7 +9,7 @@
     (blur)="blurInput()"
     (keydown.enter)="enterInput()"
   >
-  <ul *ngIf="searchResultShow" class="dropdown-menu list-group overflow-auto m-1 w-100">
+  <ul *ngIf="searchResultShow && searchResults?.length > 0 && !disabled" class="dropdown-menu list-group overflow-auto m-1 w-100">
     <li *ngFor="let result of searchResults" (click)="selectSearchResult(result)" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
       {{result.value}}
     </li>
