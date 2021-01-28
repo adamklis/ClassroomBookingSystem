@@ -122,7 +122,10 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     .then(translation => {
       this.modalService.showConfirmModal({title: translation['RESERVATION.MODAL.RESTORE_RESERVATION_TITLE'], message: translation['RESERVATION.MODAL.RESTORE_RESERVATION_MESSAGE']})
       .then(() => {
-        this.resetForm();
+        this.reservationService.getReservation(this.reservation.uuid).toPromise().then(reservation => {
+          this.reservation = reservation;
+          this.resetForm();
+        });
       })
       .catch(error => {});
     });
