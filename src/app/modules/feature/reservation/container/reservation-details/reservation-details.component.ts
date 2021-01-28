@@ -97,7 +97,11 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
         this.$rooms.next(rooms);
       });
     } else {
-      this.$rooms.next([this.reservation.room]);
+      if (this.reservation){
+        this.$rooms.next([this.reservation.room]);
+      } else {
+        this.$rooms.next([]);
+      }
     }
     this.onDatesChanged();
     this.datePeriodChangesSubscription = this.reservationForm.get('reservationPeriod').valueChanges.subscribe(() => this.onDatesChanged());

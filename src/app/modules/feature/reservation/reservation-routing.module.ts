@@ -6,9 +6,9 @@ import { ReservationDashboardComponent } from './container/reservation-dashboard
 import { ReservationDetailsComponent } from './container/reservation-details/reservation-details.component';
 
 const routes: Routes = [
-  { path: '', component: ReservationDashboardComponent },
+  { path: '', component: ReservationDashboardComponent, resolve: {user: UserResolver} },
   { path: ':uuid', component: ReservationDetailsComponent, resolve: {user: UserResolver, reservation: ReservationResolver}},
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -27,7 +27,7 @@
       <td>{{ reservation.message }}</td>
       <td>
         <button routerLink="/reservations/{{reservation.uuid}}" class="btn btn-sm btn-primary icon">
-          <fa-icon [icon]="(authorizationService.hasPermissions([permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]) | async) ? faPen : faInfo"></fa-icon>
+          <fa-icon [icon]="hasEditPermission(reservation) ? faPen : faInfo"></fa-icon>
         </button>
       </td>
     </tr>
