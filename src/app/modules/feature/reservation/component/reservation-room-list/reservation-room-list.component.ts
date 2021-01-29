@@ -61,7 +61,10 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
   }
 
   public getTooltipNames(elements: any): string[]{
-    return elements.map(item => (item.name + ': ' + item.quantity));
+    if (elements) {
+      return elements.map(item => (item.name + ': ' + item.quantity));
+    }
+    return [];
   }
 
 }

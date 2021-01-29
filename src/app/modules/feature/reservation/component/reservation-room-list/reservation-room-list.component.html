@@ -17,15 +17,15 @@
       <td>{{ room.numberOfSeats }}</td>
       <td placement="bottom" [ngbTooltip]="getTooltipNames(room.appliances) | tooltipList" tooltipClass="tooltip-list" container="body">
         <ng-container *ngFor="let appliance of room.appliances; let i = index">
-          <span *ngIf="i < 2 || i === 2 && room.appliances.length === 3 ">{{appliance.name}}<br/></span>
+          <span *ngIf="i < 2 || i === 2 && room.appliances?.length === 3 ">{{appliance.name}}<br/></span>
         </ng-container>
-        <span *ngIf="room.appliances.length > 3">...</span>
+        <span *ngIf="room.appliances?.length > 3">...</span>
       </td>
       <td placement="bottom" [ngbTooltip]="getTooltipNames(room.software) | tooltipList" tooltipClass="tooltip-list" container="body">
         <ng-container *ngFor="let software of room.software; let i = index">
-          <span *ngIf="i < 2 || i === 2 && room.software.length === 3 ">{{software.name}}<br/></span>
+          <span *ngIf="i < 2 || i === 2 && room.software?.length === 3 ">{{software.name}}<br/></span>
         </ng-container>
-        <span *ngIf="room.software.length > 3">...</span>
+        <span *ngIf="room.software?.length > 3">...</span>
       </td>
       <td>
         <button class="btn btn-sm icon" (click)="selectRoom(room)" [class.btn-success]="room.uuid === selectedRoom?.uuid" [class.btn-danger]="room.uuid !== selectedRoom?.uuid" [disabled]="disabled">
