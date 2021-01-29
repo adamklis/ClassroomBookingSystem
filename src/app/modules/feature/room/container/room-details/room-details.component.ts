@@ -190,10 +190,12 @@ export class RoomDetailsComponent implements OnInit {
 
   public applianceUsesChange(event: IApplianceUse[]) {
     this.applianceUsesList = event;
+    this.roomForm.markAsDirty();
   }
 
   public softwareUsesChange(event: ISoftwareUse[]) {
     this.softwareUsesList = event;
+    this.roomForm.markAsDirty();
   }
 
   private getFormRoomObject(): IRoom {
@@ -201,8 +203,8 @@ export class RoomDetailsComponent implements OnInit {
       uuid: this.room ? this.room.uuid : null,
       name: this.nameControl.value,
       numberOfSeats: this.numberOfSeatsControl.value,
-      appliances: this.applianceUsesList,
-      software: this.softwareUsesList
+      appliances: this.applianceUsesList ? this.applianceUsesList : [],
+      software: this.softwareUsesList ? this.softwareUsesList : []
     };
   }
 
