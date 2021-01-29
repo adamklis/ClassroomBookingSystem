@@ -12,9 +12,9 @@ export class Filter implements IFilter {
     if (Array.isArray(filter)) {
       return filter.reduce((result, next) => {
         return result.concat('filter_', next.key, '=', next.value, '&');
-      }, '').slice(0, -1);
+      }, '');
     } else {
-      return ''.concat('filter_', filter.key, '=', filter.value);
+      return ''.concat('filter_', filter.key, '=', filter.value, '&');
     }
   }
 }

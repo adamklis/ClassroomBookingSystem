@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
+import { ISort } from 'src/app/modules/shared/interface/sort.interface';
+import { Filter } from 'src/app/modules/shared/model/filter';
+import { Sort } from 'src/app/modules/shared/model/sort';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -13,8 +17,10 @@ export class RoomService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getRooms(): Observable<IRoom[]> {
-    return this.httpClient.get(APIEndpoint + '/room') as Observable<IRoom[]>;
+  public getRooms(filter?: IFilter[], sort?: ISort[]): Observable<IRoom[]> {
+    return this.httpClient.get(
+      APIEndpoint + '/room?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
+    ) as Observable<IRoom[]>;
   }
 
   public getRoom(uuid: string): Observable<IRoom> {

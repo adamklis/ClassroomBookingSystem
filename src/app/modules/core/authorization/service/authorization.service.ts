@@ -16,6 +16,27 @@ export class AuthorizationService {
 
   public currentUser$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
+  public get currentUser(): Promise<IUser> {
+    const token = this.cookieService.get('access_token');
+    if (token){
+        if (!this.currentUser$.getValue()){
+          let user: IUser = JSON.parse(sessionStorage.getItem('user'));
+          if (!user) {
+            return this.httpClient.get(APIEndpoint + `/auth/get_user?token=${token}`).toPromise().then(res => {
+              user = res as IUser;
+              sessionStorage.setItem('user', JSON.stringify(user));
+              this.currentUser$.next((user as IUser));
+            }) as Promise<IUser>;
+          } else {
+            this.currentUser$.next((user as IUser));
+          }
+        }
+        return Promise.resolve(this.currentUser$.getValue());
+    } else {
+      this.clearUserInfo();
+    }
+  }
+
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService

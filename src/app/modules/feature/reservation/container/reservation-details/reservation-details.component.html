@@ -1,0 +1,111 @@
+<h3>
+  <span routerLink="reservations">
+    <fa-icon [icon]="faArrowLeft"></fa-icon> {{ 'RESERVATION.HEADER' | translate }}
+  </span>
+  / {{reservation ? reservation.room.name : 'RESERVATION.DETAILS.NEW' | translate }}
+</h3>
+<form [formGroup]="reservationForm">
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="userControl">{{ 'RESERVATION.DETAILS.USER' | translate }}</label>
+      <cbs-search-input-list
+        formControlName="user"
+        [searchPlaceholder]="'RESERVATION.DETAILS.USER_PLACEHOLDER' | translate"
+        [$searchResults]="$users.asObservable()"
+        (searchChangeEvent)="searchUserInputChanged($event)"
+      >
+      </cbs-search-input-list>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="messageControl">{{ 'RESERVATION.DETAILS.MESSAGE' | translate }}</label>
+      <input  cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED" [overridePermited]="hasEditPermission()"
+        type="text" class="form-control" id="message" formControlName="message">
+    </div>
+  </div>
+  <div formGroupName="reservationPeriod" class="form-row d-flex align-items-center reservation-period">
+    <div class="form-group col-md-4">
+      <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_FROM' | translate }}</label>
+      <div class="input-group">
+        <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED" [overridePermited]="hasEditPermission()"
+          class="form-control" id="dateFrom" formControlName="dateFrom" ngbDatepicker #dValidFrom="ngbDatepicker"
+          [class.is-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" readonly>
+        <div class="input-group-append">
+          <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [overridePermited]="hasEditPermission()"
+            class="btn btn-outline-secondary" (click)="dValidFrom.toggle()" type="button">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <ngb-timepicker
+        id="timeFrom" formControlName="timeFrom"
+        [class.ng-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched"
+        [readonlyInputs]="!hasEditPermission()"
+        [spinners]="hasEditPermission()">
+      </ngb-timepicker>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_TO' | translate }}</label>
+      <div class="input-group">
+        <input cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [mode]="permissionsMode.DISABLED" [overridePermited]="hasEditPermission()"
+          class="form-control" id="dateTo" formControlName="dateTo" ngbDatepicker #dValidTo="ngbDatepicker"
+          [class.is-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" readonly>
+        <div class="input-group-append">
+          <button cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [overridePermited]="hasEditPermission()"
+            class="btn btn-outline-secondary" (click)="dValidTo.toggle()" type="button">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <ngb-timepicker
+        id="timeTo" formControlName="timeTo"
+        [class.ng-invalid]="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched"
+        [readonlyInputs]="!hasEditPermission()"
+        [spinners]="hasEditPermission()">
+      </ngb-timepicker>
+    </div>
+  </div>
+  <div *ngIf="reservationForm.get('reservationPeriod').invalid && reservationForm.get('reservationPeriod').touched" class="form-row reservation-period-validation-outer">
+    <div class="form-group col-md-12 reservation-period-validation-inner">
+      <small id="reservationHelp"
+          class="form-text text-muted">{{ 'SHARED.VALIDATION.DATE_PERIOD' | translate }}</small>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <cbs-tag-bar
+        [$tags]="$tags.asObservable()"
+        [searchPlaceholder]="'RESERVATION.DETAILS.FILTER.SEARCH_PLACEHOLDER' | translate"
+        [keywordCategoryAlias]="'RESERVATION.DETAILS.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+        [keywordIntCategoryAlias]="'RESERVATION.DETAILS.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+        [disabled]="!(hasEditPermission() && hasSearchPermission())"
+        (tagsChangeEvent)="tagsChanged($event)"
+        (searchChangeEvent)="searchChanged($event)">
+      </cbs-tag-bar>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [reservations]="$reservations.asObservable()" [disabled]="!hasEditPermission()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+    </div>
+  </div>
+  <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [overridePermited]="hasEditPermission()">
+    <ng-container *ngIf="reservation">
+      <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onRestoreClick()">{{ 'SHARED.BUTTON.RESTORE' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-outline-danger" (click)="onDeleteClick()">{{ 'SHARED.BUTTON.DELETE' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="(reservationForm.invalid || reservationForm.pristine) || !selectedRoom" (click)="onSaveClick()">{{ 'SHARED.BUTTON.SAVE' | translate }}</button>
+    </ng-container>
+    <ng-container *ngIf="!reservation">
+      <button class="col-md-2 mr-1 btn btn-outline-secondary" [disabled]="reservationForm.pristine" (click)="onClearClick()">{{ 'SHARED.BUTTON.CLEAR' | translate }}</button>
+      <button class="col-md-2 mr-1 btn btn-success" [disabled]="reservationForm.invalid || !selectedRoom" (click)="onAddClick()">{{ 'SHARED.BUTTON.ADD' | translate }}</button>
+    </ng-container>
+  </div>
+</form>

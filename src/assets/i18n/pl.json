@@ -191,5 +191,49 @@
       "RESTORE_ROOM_TITLE": "Przywracanie zmian",
       "RESTORE_ROOM_MESSAGE": "Czy na pewno wyczyścić zmiany?"
     }
+  },
+  "RESERVATION": {
+    "HEADER": "Rezerwacje",
+    "TABLE": {
+      "ROOM": "Pokój",
+      "DATE_FROM": "Data od",
+      "DATE_TO": "Data do",
+      "USER": "Użytkownik",
+      "CONTACT": "Kontakt",
+      "MESSAGE": "Wiadomość"
+     },
+    "DETAILS": {
+      "NEW": "Nowa rezerwacja",
+      "USER": "Użytkownik",
+      "USER_PLACEHOLDER": "Wybierz użytkownika...",
+      "MESSAGE": "Wiadomość",
+      "DATE_FROM": "Data od",
+      "DATE_TO": "Data do",
+      "FILTER": {
+        "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
+        "SEARCH_KEYWORD_ALIAS": "Nazwa",
+        "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
+        "SOFTWARE_ALIAS": "Oprogramowanie",
+        "APPLIANCE_ALIAS": "Sprzęt"
+      },
+      "TABLE": {
+        "NAME": "Nazwa",
+        "NUMBER_OF_SEATS": "Liczba miejsc",
+        "APPLIANCES": "Wyposażenie",
+        "SOFTWARE": "Oprogramowanie"
+      }
+    },
+    "MODAL": {
+      "DELETE_RESERVATION_TITLE": "Usuwanie rezerwacji",
+      "DELETE_RESERVATION_MESSAGE": "Czy na pewno chcesz usunąć rezerwację?",
+      "DELETE_RESERVATION_SUCCESS_TITLE": "Usuwanie rezerwacji",
+      "DELETE_RESERVATION_SUCCESS_MESSAGE": "Usunięto rezerwację.",
+      "ADD_RESERVATION_SUCCESS_TITLE": "Dodawanie rezerwacji",
+      "ADD_RESERVATION_SUCCESS_MESSAGE": "Rezerwacja dodana.",
+      "SAVE_RESERVATION_SUCCESS_TITLE": "Zapisywanie",
+      "SAVE_RESERVATION_SUCCESS_MESSAGE": "Zapisano zmiany.",
+      "RESTORE_RESERVATION_TITLE": "Przywracanie zmian",
+      "RESTORE_RESERVATION_MESSAGE": "Czy na pewno wyczyścić zmiany?"
+    }
   }
 }

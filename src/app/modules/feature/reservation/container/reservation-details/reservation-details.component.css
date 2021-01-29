@@ -1,0 +1,46 @@
+h3 > span {
+  cursor: pointer;
+}
+
+.reservation-period-validation-outer{
+  height: 1rem;
+  position: relative;
+}
+
+.reservation-period-validation-inner{
+  top: -2rem;
+  position: absolute;
+}
+
+.reservation-period-label{
+  height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  top: -2rem;
+}
+
+.reservation-period-label{
+  height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  top: -2rem;
+}
+
+@media all and (max-width:767px){
+  .reservation-period-label{
+    height: 2rem;
+    display: block;
+    position: relative;
+    top: 0;
+  }
+}
+
+@media all and (min-width:767px){
+  .reservation-period{
+    height: 8rem;
+  }
+}

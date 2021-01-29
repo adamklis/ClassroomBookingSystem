@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.tooltip-list {
+  white-space: pre;
+}
+
+ngb-timepicker.ng-invalid fieldset .ngb-tp .ngb-tp-input-container .ngb-tp-input{
+  border-color:#dc3545;
+}
+
+ngb-timepicker.ng-invalid fieldset .ngb-tp .ngb-tp-input-container .ngb-tp-input:focus{
+  box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+}
