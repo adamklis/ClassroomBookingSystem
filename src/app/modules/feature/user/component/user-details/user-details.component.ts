@@ -119,14 +119,28 @@ export class UserDetailsComponent implements OnInit {
   }
 
   public onSaveClick(){
-    this.userService.saveUser(this.getFormUserObject());
-    this.translateService.get([
-      'USER.MODAL.SAVE_USER_SUCCESS_TITLE',
-      'USER.MODAL.SAVE_USER_SUCCESS_MESSAGE'
-    ])
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['USER.MODAL.SAVE_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.SAVE_USER_SUCCESS_MESSAGE']});
+    this.userService.saveUser(this.getFormUserObject())
+    .then(user => {
+      this.translateService.get([
+        'USER.MODAL.SAVE_USER_SUCCESS_TITLE',
+        'USER.MODAL.SAVE_USER_SUCCESS_MESSAGE'
+      ])
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['USER.MODAL.SAVE_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.SAVE_USER_SUCCESS_MESSAGE']});
+      });
+    })
+    .catch(err => {
+      this.translateService.get([
+        'SHARED.VALIDATION.ERROR',
+        err.error
+      ],
+      {forename: this.user.forename, surname: this.user.surname})
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: translation[err.error]})
+        .then(() => {});
+      });
     });
   }
 
@@ -147,25 +161,42 @@ export class UserDetailsComponent implements OnInit {
 
   public onAddClick(){
     this.user = this.getFormUserObject();
-    this.userService.addUser(this.user);
-
-    this.translateService.get([
-      'USER.MODAL.ADD_USER_SUCCESS_TITLE',
-      'USER.MODAL.ADD_USER_SUCCESS_MESSAGE'
-    ],
-    {forename: this.user.forename, surname: this.user.surname})
-    .toPromise()
-    .then(translation => {
-      this.modalService.showInfoModal({title: translation['USER.MODAL.ADD_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.ADD_USER_SUCCESS_MESSAGE']})
-      .then(() => {
-        this.user = null;
-        this.resetForm();
+    this.userService.addUser(this.user)
+    .then(user => {
+      this.translateService.get([
+        'USER.MODAL.ADD_USER_SUCCESS_TITLE',
+        'USER.MODAL.ADD_USER_SUCCESS_MESSAGE'
+      ],
+      {forename: this.user.forename, surname: this.user.surname})
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['USER.MODAL.ADD_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.ADD_USER_SUCCESS_MESSAGE']})
+        .then(() => {
+          this.user = user;
+          this.router.navigate(['users', user.uuid]);
+          this.resetForm();
+        });
       });
+    })
+    .catch(err => {
+      this.translateService.get([
+        'SHARED.VALIDATION.ERROR',
+        err.error
+      ],
+      {forename: this.user.forename, surname: this.user.surname})
+      .toPromise()
+      .then(translation => {
+        this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: translation[err.error]})
+        .then(() => {});
+      });
+      this.user = null;
     });
+
+
   }
 
   public isProtected(): boolean{
-    return this.user && this.user.permissions.findIndex(permission => permission === Permission.PROTECTED_USER) !== -1;
+    return this.user && this.user.permissions?.findIndex(permission => permission === Permission.PROTECTED_USER) !== -1;
   }
 
   private resetForm(): void{
@@ -189,8 +220,7 @@ export class UserDetailsComponent implements OnInit {
       surname: this.surnameControl.value,
       contact: this.contactControl.value,
       email: this.emailControl.value,
-      password: this.passwordControl.value,
-      permissions: []
+      password: this.passwordControl.value
     };
   }
 

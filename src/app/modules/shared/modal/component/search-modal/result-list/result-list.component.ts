@@ -1,6 +1,6 @@
 import { IUse } from 'src/app/modules/feature/room/interface/use.interface';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'cbs-result-list',
@@ -10,7 +10,6 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 export class ResultListComponent implements OnInit {
 
   faCheck = faCheck;
-  faTimes = faTimes;
 
   @Input()
   public uses: IUse[];

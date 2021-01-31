@@ -39,10 +39,8 @@
           cbsPermissions [permissions]="[permissions.PERMISSION_EDIT]" [mode]="permissionsMode.DISABLED" [overridePermited]="(isProtected() || permission === permissions.PROTECTED_USER)? false : null"
           (click)="switchPermission(permission)"
           class="btn btn-sm select-button icon"
-          [class.btn-success]="hasPermission(permission)"
-          [class.btn-danger]="!hasPermission(permission)">
+          [ngClass]="{'border-dark bg-white': !hasPermission(permission), 'btn-primary': hasPermission(permission)}">
             <fa-icon *ngIf="hasPermission(permission)" [icon]="faCheck"></fa-icon>
-            <fa-icon *ngIf="!hasPermission(permission)" [icon]="faTimes"></fa-icon>
         </button>
       </td>
     </tr>

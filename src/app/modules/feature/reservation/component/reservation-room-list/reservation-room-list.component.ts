@@ -1,6 +1,6 @@
 import { IReservation } from './../../interface/reservation.interface';
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { IRoom } from '../../../room/interface/room.interface';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 
@@ -12,7 +12,6 @@ import { combineLatest, Observable, Subscription } from 'rxjs';
 export class ReservationRoomListComponent implements OnInit, OnDestroy {
 
   faCheck = faCheck;
-  faTimes = faTimes;
 
   @Input()
   public selectedRoom: IRoom;

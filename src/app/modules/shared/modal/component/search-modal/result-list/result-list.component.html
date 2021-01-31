@@ -16,9 +16,8 @@
       <td class="col-2">{{ use.maxQuantity }}</td>
       <td class="col-3"><input class="form-control" type="number" min="0" [max]="use.maxQuantity" step="1"  pattern="\d+" [(ngModel)]="use.quantity" (input)="trimDecimal($event, use.maxQuantity); onQuantityChange(use);"></td>
       <td class="col-2">
-        <button class="btn btn-sm select-button" [class.btn-success]="use.quantity" [class.btn-danger]="!use.quantity" disabled>
+        <button class="btn btn-sm select-button" [ngClass]="{'border-dark bg-white': !use.quantity, 'btn-primary': use.quantity}" disabled>
           <fa-icon *ngIf="use.quantity" [icon]="faCheck"></fa-icon>
-          <fa-icon *ngIf="!use.quantity" [icon]="faTimes"></fa-icon>
         </button>
       </td>
     </tr>

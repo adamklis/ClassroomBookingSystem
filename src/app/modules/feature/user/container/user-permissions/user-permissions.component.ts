@@ -1,7 +1,7 @@
 import { PermissionAssignment } from './../../../../core/authorization/model/permission-assignment';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowLeft, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
@@ -19,7 +19,6 @@ export class UserPermissionsComponent implements OnInit {
 
   faArrowLeft = faArrowLeft;
   faCheck = faCheck;
-  faTimes = faTimes;
 
   permissions = Permission;
   permissionsMode = PermissionsMode;
