@@ -153,6 +153,11 @@
       "QUANTITY": "Quantity",
       "NEW": "New appliance"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search appliances...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
+    },
     "MODAL": {
       "DELETE_APPLIANCE_TITLE": "Delete appliance",
       "DELETE_APPLIANCE_MESSAGE": "Are you sure to delete appliance: {{name}}?",

@@ -1,2 +1,15 @@
 <h3>{{ 'APPLIANCE.HEADER' | translate }}</h3>
-<cbs-appliance-list [appliances]=appliances></cbs-appliance-list>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <cbs-tag-bar
+      [$tags]="$tags.asObservable()"
+      [searchPlaceholder]="'APPLIANCE.FILTER.SEARCH_PLACEHOLDER' | translate"
+      [keywordCategoryAlias]="'APPLIANCE.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+      [keywordIntCategoryAlias]="'APPLIANCE.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+      [disabled]="false"
+      (tagsChangeEvent)="tagsChanged($event)"
+      (searchChangeEvent)="searchChanged($event)">
+    </cbs-tag-bar>
+  </div>
+</div>
+<cbs-appliance-list [$appliances]="$appliances.asObservable()"></cbs-appliance-list>

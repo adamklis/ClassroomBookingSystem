@@ -153,6 +153,11 @@
       "QUANTITY": "Ilość",
       "NEW": "Nowy sprzęt"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj sprzęt...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
+    },
     "MODAL": {
       "DELETE_APPLIANCE_TITLE": "Usuwanie sprzętu",
       "DELETE_APPLIANCE_MESSAGE": "Czy na pewno chcesz usunąć sprzęt: {{name}}?",
