@@ -129,6 +129,11 @@
       "VALID_TO": "Ważne do",
       "NEW": "Nowe oprogramowanie"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj oprogramowanie...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
+    },
     "MODAL": {
       "DELETE_SOFTWARE_TITLE": "Usuwanie oprogramowania",
       "DELETE_SOFTWARE_MESSAGE": "Czy na pewno chcesz usunąć oprogramowanie: {{name}}?",

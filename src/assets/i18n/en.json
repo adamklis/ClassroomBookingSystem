@@ -129,6 +129,11 @@
       "VALID_TO": "Valid to",
       "NEW": "New software"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search software...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
+    },
     "MODAL": {
       "DELETE_SOFTWARE_TITLE": "Delete software",
       "DELETE_SOFTWARE_MESSAGE": "Are you sure to delete software: {{name}}?",

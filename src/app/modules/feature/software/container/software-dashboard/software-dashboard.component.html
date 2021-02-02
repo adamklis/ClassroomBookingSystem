@@ -1,2 +1,15 @@
 <h3>{{ 'SOFTWARE.HEADER' | translate }}</h3>
-<cbs-software-list [softwareList]=softwareList></cbs-software-list>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <cbs-tag-bar
+      [$tags]="$tags.asObservable()"
+      [searchPlaceholder]="'SOFTWARE.FILTER.SEARCH_PLACEHOLDER' | translate"
+      [keywordCategoryAlias]="'SOFTWARE.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+      [keywordIntCategoryAlias]="'SOFTWARE.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+      [disabled]="false"
+      (tagsChangeEvent)="tagsChanged($event)"
+      (searchChangeEvent)="searchChanged($event)">
+    </cbs-tag-bar>
+  </div>
+</div>
+<cbs-software-list [$softwareList]="$software.asObservable()"></cbs-software-list>
