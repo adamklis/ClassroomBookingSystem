@@ -16,7 +16,7 @@ export class TagBarComponent implements OnInit, OnDestroy {
   public searchPlaceholder = 'Search...';
 
   @Input()
-  public keywordCategoryAlias: string;
+  public keywordCategoryAlias: string | string[];
 
   @Input()
   public keywordIntCategoryAlias: string;
@@ -85,7 +85,15 @@ export class TagBarComponent implements OnInit, OnDestroy {
       this.foundTags.unshift({category: 'keyword_int', categoryAlias: this.keywordIntCategoryAlias, value});
     }
     if (value && this.keywordCategoryAlias) {
-      this.foundTags.unshift({category: 'keyword', categoryAlias: this.keywordCategoryAlias, value});
+      if (Array.isArray(this.keywordCategoryAlias)){
+        let index = 0;
+        this.keywordCategoryAlias.forEach(alias => {
+          this.foundTags.unshift({category: 'keyword' + index, categoryAlias: alias, value});
+          index++;
+        });
+      } else {
+        this.foundTags.unshift({category: 'keyword', categoryAlias: this.keywordCategoryAlias, value});
+      }
     }
     this.searchResultShow = true;
   }

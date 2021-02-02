@@ -82,6 +82,13 @@
       "CONTACT": "Kontakt",
       "EMAIL": "Email"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj użytkownika...",
+      "SEARCH_KEYWORD_FORENAME_ALIAS": "Imię",
+      "SEARCH_KEYWORD_SURNAME_ALIAS": "Nazwisko",
+      "SEARCH_KEYWORD_CONTACT_ALIAS": "Kontakt",
+      "SEARCH_KEYWORD_EMAIL_ALIAS": "Email"
+    },
     "DETAILS": {
       "SURNAME": "Nazwisko",
       "FORENAME": "Imię",

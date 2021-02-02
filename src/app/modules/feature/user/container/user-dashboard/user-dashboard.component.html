@@ -1,2 +1,19 @@
 <h3>{{ 'USER.HEADER' | translate }}</h3>
-<cbs-user-list [users]=users></cbs-user-list>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <cbs-tag-bar
+      [$tags]="$tags.asObservable()"
+      [searchPlaceholder]="'USER.FILTER.SEARCH_PLACEHOLDER' | translate"
+      [keywordCategoryAlias]="[
+        'USER.FILTER.SEARCH_KEYWORD_EMAIL_ALIAS' | translate,
+        'USER.FILTER.SEARCH_KEYWORD_CONTACT_ALIAS' | translate,
+        'USER.FILTER.SEARCH_KEYWORD_FORENAME_ALIAS' | translate,
+        'USER.FILTER.SEARCH_KEYWORD_SURNAME_ALIAS' | translate
+      ]"
+      [disabled]="false"
+      (tagsChangeEvent)="tagsChanged($event)"
+      (searchChangeEvent)="searchChanged($event)">
+    </cbs-tag-bar>
+  </div>
+</div>
+<cbs-user-list [$users]="$users.asObservable()"></cbs-user-list>
