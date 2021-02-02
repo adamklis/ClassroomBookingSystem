@@ -202,6 +202,13 @@
       "CONTACT": "Contact",
       "MESSAGE": "Message"
     },
+    "FILTER": {
+      "SHOW_EXPIRED": "Show expired",
+      "SEARCH_PLACEHOLDER": "Search reservations...",
+      "SEARCH_KEYWORD_ALIAS": "Message",
+      "ROOM_ALIAS": "Room",
+      "USER_ALIAS": "User"
+    },
     "DETAILS": {
       "NEW": "New reservation",
       "USER": "User",

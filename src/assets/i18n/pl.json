@@ -201,7 +201,14 @@
       "USER": "Użytkownik",
       "CONTACT": "Kontakt",
       "MESSAGE": "Wiadomość"
-     },
+    },
+    "FILTER": {
+      "SHOW_EXPIRED": "Wyświetl zakończone",
+      "SEARCH_PLACEHOLDER": "Wyszukaj rezerwację...",
+      "SEARCH_KEYWORD_ALIAS": "Wiadomość",
+      "ROOM_ALIAS": "Pokój",
+      "USER_ALIAS": "Użytkownik"
+    },
     "DETAILS": {
       "NEW": "Nowa rezerwacja",
       "USER": "Użytkownik",
