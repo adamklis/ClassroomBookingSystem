@@ -1,3 +1,8 @@
+import { UserService } from './../../../user/service/user.service';
+import { RoomService } from './../../../room/service/room.service';
+import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
+import { IFilter } from './../../../../shared/interface/filter.interface';
+import { NgbCalendarGregorian, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { SortOrder } from './../../../../shared/enum/sort-order.enum';
 import { Sort } from 'src/app/modules/shared/model/sort';
 import { Filter } from 'src/app/modules/shared/model/filter';
@@ -7,6 +12,10 @@ import { ReservationService } from './../../service/reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../user/interface/user.interface';
 import { IReservation } from '../../interface/reservation.interface';
+import { BehaviorSubject, forkJoin } from 'rxjs';
+import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
+import { faCalendar, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cbs-reservation-dashboard',
@@ -15,24 +24,120 @@ import { IReservation } from '../../interface/reservation.interface';
 })
 export class ReservationDashboardComponent implements OnInit {
 
-  public reservations: IReservation[];
+  faCalendar = faCalendar;
+  faCheck = faCheck;
+
+  public filterDateFrom: NgbDate;
+  public filterDateTo: NgbDate;
+  public showExpired = false;
+
+  public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
+  public $searchTags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
+  public $selectedTags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   private currentUser: IUser;
 
-  constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private translateService: TranslateService,
+    private reservationService: ReservationService,
+    private roomService: RoomService,
+    private userService: UserService,
+    private dateAdapter: DateAdapter
+    ) { }
 
   ngOnInit(): void {
     this.currentUser = this.activatedRoute.snapshot.data.user;
-    if (this.currentUser.permissions.findIndex(
-      permission => permission === Permission.RESERVATION_VIEW || permission === Permission.RESERVATION_VIEW_USER) !== -1
-    ){
-      if (this.currentUser.permissions.findIndex(permission => permission === Permission.RESERVATION_VIEW) !== -1){
-        this.reservationService.getReservations([], [new Sort('dateFrom', SortOrder.ASCEND)])
-          .subscribe(reservations => this.reservations = reservations);
-      } else {
-        this.reservationService.getReservations([new Filter('user.uuid', this.currentUser.uuid)], [new Sort('dateFrom', SortOrder.ASCEND)])
-          .subscribe(reservations => this.reservations = reservations);
-      }
+
+    this.filterDateFrom = new NgbCalendarGregorian().getToday();
+    this.filterDateTo = new NgbCalendarGregorian().getToday();
+
+    this.onFilterChanged();
+  }
+
+  public onSearchChanged(searchText: string): void {
+    const requests = [];
+    if (this.hasPermission(Permission.ROOM_VIEW)) {
+      const filter = new Filter('name', searchText);
+      const sort = new Sort('name', SortOrder.ASCEND);
+      requests.push(this.roomService.getRooms([filter], [sort]));
     }
+    if (this.hasPermission(Permission.USER_VIEW)) {
+      const filter = new Filter('all', searchText);
+      const sort = new Sort('all', SortOrder.ASCEND);
+      requests.push(this.userService.getUsers([filter], [sort]));
+    }
+
+    forkJoin(requests).toPromise().then((result: Array<any>) => {
+      this.translateService.get([
+        'RESERVATION.FILTER.ROOM_ALIAS',
+        'RESERVATION.FILTER.USER_ALIAS',
+      ])
+      .toPromise()
+      .then(translation => {
+        if (result){
+          const flattenResult: Array<any> = result.reduce((acc, val) => acc.concat(val), []);
+          this.$searchTags.next([
+            ...flattenResult.map(el => {
+              if (el.numberOfSeats) {
+                return ({
+                  category: 'room.name',
+                  categoryAlias: translation['RESERVATION.FILTER.ROOM_ALIAS'],
+                  value: el.name
+                });
+              } else {
+                return ({
+                  category: 'user.email',
+                  categoryAlias: translation['RESERVATION.FILTER.USER_ALIAS'],
+                  value: `${el.forename} ${el.surname} <${el.email}>`
+                });
+              }
+            })
+          ]);
+        }
+      });
+    });
+  }
+
+  public onFilterChanged(tags?: ITag[]): void {
+    if (tags) {
+      this.$selectedTags.next(tags);
+    }
+    const filters: IFilter[] = [];
+
+    filters.push(...this.$selectedTags.value.map(tag => {
+      if (tag.category === 'user.email') {
+        return new Filter(tag.category, tag.value.slice(tag.value.indexOf(' <') + 2, tag.value.length - 1));
+      } else {
+        return new Filter(tag.category, tag.value);
+      }
+    }));
+
+    if (!this.hasPermission(Permission.RESERVATION_VIEW)){
+      filters.push(new Filter('user.uuid', this.currentUser.uuid));
+    }
+    let dateFrom: Date;
+    if (!this.showExpired) {
+      dateFrom = new Date();
+    } else {
+      dateFrom = this.dateAdapter.toModel(this.filterDateFrom);
+    }
+    const dateTo = this.dateAdapter.toModel(this.filterDateTo);
+    dateTo.setHours(23, 59, 59);
+    filters.push(new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString()));
+
+    if (this.hasPermission(Permission.RESERVATION_VIEW) || this.hasPermission(Permission.RESERVATION_VIEW_USER)){
+      this.reservationService.getReservations(filters, [new Sort('dateFrom', SortOrder.ASCEND)])
+        .toPromise().then(reservations => this.$reservations.next(reservations));
+    }
+  }
+
+  public toggleShowExpired(): void {
+    this.showExpired = !this.showExpired;
+    this.onFilterChanged();
+  }
+
+  private hasPermission(permission: Permission): boolean {
+    return this.currentUser.permissions.findIndex(userPermission => userPermission === permission) !== -1;
   }
 
 }

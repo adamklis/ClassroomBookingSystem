@@ -7,7 +7,7 @@ import { ReservationDashboardComponent } from './container/reservation-dashboard
 import { ReservationRoutingModule } from './reservation-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReservationListComponent } from './component/reservation-list/reservation-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReservationDetailsComponent } from './container/reservation-details/reservation-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,8 @@ import { ReservationRoomListComponent } from './component/reservation-room-list/
     SharedModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ]
 })
 export class ReservationModule { }

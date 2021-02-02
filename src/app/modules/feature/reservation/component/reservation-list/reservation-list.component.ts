@@ -5,6 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faPen, faPlus, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { AuthorizationService } from 'src/app/modules/core/authorization/service/authorization.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'cbs-reservation-list',
@@ -14,6 +15,8 @@ import { AuthorizationService } from 'src/app/modules/core/authorization/service
 export class ReservationListComponent implements OnInit {
 
   @Input()
+  public $reservations: Observable<IReservation[]>;
+
   public reservations: IReservation[];
 
   faPen = faPen;
@@ -27,6 +30,7 @@ export class ReservationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.activatedRoute.snapshot.data.user;
+    this.$reservations.subscribe(reservations => this.reservations = reservations);
   }
 
   public hasEditPermission(reservation: IReservation): boolean{

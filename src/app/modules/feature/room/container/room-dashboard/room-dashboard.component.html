@@ -1,2 +1,15 @@
 <h3>{{ 'ROOM.HEADER' | translate }}</h3>
-<cbs-room-list [rooms]="rooms"></cbs-room-list>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <cbs-tag-bar
+      [$tags]="$tags.asObservable()"
+      [searchPlaceholder]="'ROOM.FILTER.SEARCH_PLACEHOLDER' | translate"
+      [keywordCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+      [keywordIntCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+      [disabled]="false"
+      (tagsChangeEvent)="tagsChanged($event)"
+      (searchChangeEvent)="searchChanged($event)">
+    </cbs-tag-bar>
+  </div>
+</div>
+<cbs-room-list [$rooms]="$rooms.asObservable()"></cbs-room-list>

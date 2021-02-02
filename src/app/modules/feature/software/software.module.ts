@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { CoreModule } from './../../core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
     ReactiveFormsModule,
     NgbModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ]
 })
 export class SoftwareModule {

@@ -82,6 +82,13 @@
       "CONTACT": "Kontakt",
       "EMAIL": "Email"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj użytkownika...",
+      "SEARCH_KEYWORD_FORENAME_ALIAS": "Imię",
+      "SEARCH_KEYWORD_SURNAME_ALIAS": "Nazwisko",
+      "SEARCH_KEYWORD_CONTACT_ALIAS": "Kontakt",
+      "SEARCH_KEYWORD_EMAIL_ALIAS": "Email"
+    },
     "DETAILS": {
       "SURNAME": "Nazwisko",
       "FORENAME": "Imię",
@@ -129,6 +136,11 @@
       "VALID_TO": "Ważne do",
       "NEW": "Nowe oprogramowanie"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj oprogramowanie...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
+    },
     "MODAL": {
       "DELETE_SOFTWARE_TITLE": "Usuwanie oprogramowania",
       "DELETE_SOFTWARE_MESSAGE": "Czy na pewno chcesz usunąć oprogramowanie: {{name}}?",
@@ -152,6 +164,11 @@
       "NAME": "Nazwa",
       "QUANTITY": "Ilość",
       "NEW": "Nowy sprzęt"
+    },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj sprzęt...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
     },
     "MODAL": {
       "DELETE_APPLIANCE_TITLE": "Usuwanie sprzętu",
@@ -179,6 +196,13 @@
       "APPLIANCES": "Sprzęt",
       "NEW": "Nowy pokój"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
+      "SOFTWARE_ALIAS": "Oprogramowanie",
+      "APPLIANCE_ALIAS": "Sprzęt"
+    },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Usuwanie pokoju",
       "DELETE_ROOM_MESSAGE": "Czy na pewno chcesz usunąć pokój: {{name}}?",
@@ -201,7 +225,14 @@
       "USER": "Użytkownik",
       "CONTACT": "Kontakt",
       "MESSAGE": "Wiadomość"
-     },
+    },
+    "FILTER": {
+      "SHOW_EXPIRED": "Wyświetl zakończone",
+      "SEARCH_PLACEHOLDER": "Wyszukaj rezerwację...",
+      "SEARCH_KEYWORD_ALIAS": "Wiadomość",
+      "ROOM_ALIAS": "Pokój",
+      "USER_ALIAS": "Użytkownik"
+    },
     "DETAILS": {
       "NEW": "Nowa rezerwacja",
       "USER": "Użytkownik",

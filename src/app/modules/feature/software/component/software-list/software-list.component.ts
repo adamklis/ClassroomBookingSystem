@@ -3,6 +3,7 @@ import { ISoftware } from './../../interface/software.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { faPlus, faPen, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'cbs-software-list',
@@ -12,6 +13,8 @@ import { Permission } from 'src/app/modules/core/authorization/enum/permission.e
 export class SoftwareListComponent implements OnInit {
 
   @Input()
+  public $softwareList: Observable<ISoftware[]>;
+
   public softwareList: ISoftware[];
 
   faPen = faPen;
@@ -22,6 +25,7 @@ export class SoftwareListComponent implements OnInit {
   constructor(public authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
+    this.$softwareList.subscribe(software => this.softwareList = software);
   }
 
 }

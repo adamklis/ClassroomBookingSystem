@@ -81,6 +81,13 @@
       "CONTACT": "Contact",
       "EMAIL": "Email"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search users...",
+      "SEARCH_KEYWORD_FORENAME_ALIAS": "Forename",
+      "SEARCH_KEYWORD_SURNAME_ALIAS": "Surname",
+      "SEARCH_KEYWORD_CONTACT_ALIAS": "Contact",
+      "SEARCH_KEYWORD_EMAIL_ALIAS": "Email"
+    },
     "DETAILS": {
       "SURNAME": "Surname",
       "FORENAME": "Forename",
@@ -129,6 +136,11 @@
       "VALID_TO": "Valid to",
       "NEW": "New software"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search software...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
+    },
     "MODAL": {
       "DELETE_SOFTWARE_TITLE": "Delete software",
       "DELETE_SOFTWARE_MESSAGE": "Are you sure to delete software: {{name}}?",
@@ -152,6 +164,11 @@
       "NAME": "Name",
       "QUANTITY": "Quantity",
       "NEW": "New appliance"
+    },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search appliances...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
     },
     "MODAL": {
       "DELETE_APPLIANCE_TITLE": "Delete appliance",
@@ -179,6 +196,13 @@
       "APPLIANCES": "Appliances",
       "NEW": "New room"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search: software, appliance, classroom name...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Seats",
+      "SOFTWARE_ALIAS": "Software",
+      "APPLIANCE_ALIAS": "Appliance"
+    },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Delete room",
       "DELETE_ROOM_MESSAGE": "Are you sure to delete room: {{name}}?",
@@ -201,6 +225,13 @@
       "USER": "User",
       "CONTACT": "Contact",
       "MESSAGE": "Message"
+    },
+    "FILTER": {
+      "SHOW_EXPIRED": "Show expired",
+      "SEARCH_PLACEHOLDER": "Search reservations...",
+      "SEARCH_KEYWORD_ALIAS": "Message",
+      "ROOM_ALIAS": "Room",
+      "USER_ALIAS": "User"
     },
     "DETAILS": {
       "NEW": "New reservation",

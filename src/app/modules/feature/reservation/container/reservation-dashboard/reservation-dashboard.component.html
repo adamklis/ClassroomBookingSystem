@@ -1,2 +1,46 @@
 <h3>{{ 'RESERVATION.HEADER' | translate }}</h3>
-<cbs-reservation-list [reservations]="reservations"></cbs-reservation-list>
+<div class="form-row d-flex align-items-center reservation-period">
+  <div class="form-group col-md-4">
+    <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_FROM' | translate }}</label>
+    <div class="input-group">
+      <input class="form-control" id="dateFrom" ngbDatepicker [(ngModel)]="filterDateFrom" (dateSelect)="onFilterChanged()" #dValidFrom="ngbDatepicker" readonly>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="dValidFrom.toggle()" type="button">
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label class="reservation-period-label" for="dateFromControl">{{ 'RESERVATION.DETAILS.DATE_TO' | translate }}</label>
+    <div class="input-group">
+      <input class="form-control" id="dateTo" ngbDatepicker [(ngModel)]="filterDateTo" (dateSelect)="onFilterChanged()" #dValidTo="ngbDatepicker" readonly>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="dValidTo.toggle()" type="button">
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group mt-md-4 col-md-4">
+    <div class="input-group">
+      <button class="btn btn-sm icon mr-1" (click)="toggleShowExpired()" [ngClass]="{'border-dark bg-white': !showExpired, 'btn-primary': showExpired}" [disabled]="false">
+        <fa-icon *ngIf="showExpired" [icon]="faCheck"></fa-icon>
+      </button>
+      <span> {{ 'RESERVATION.FILTER.SHOW_EXPIRED' | translate }} </span>
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <cbs-tag-bar
+      [$tags]="$searchTags.asObservable()"
+      [searchPlaceholder]="'RESERVATION.FILTER.SEARCH_PLACEHOLDER' | translate"
+      [keywordCategoryAlias]="'RESERVATION.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
+      [disabled]="false"
+      (searchChangeEvent)="onSearchChanged($event)"
+      (tagsChangeEvent)="onFilterChanged($event)">
+    </cbs-tag-bar>
+  </div>
+</div>
+<cbs-reservation-list [$reservations]="$reservations.asObservable()"></cbs-reservation-list>
