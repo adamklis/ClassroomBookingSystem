@@ -179,6 +179,13 @@
       "APPLIANCES": "Sprzęt",
       "NEW": "Nowy pokój"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
+      "SEARCH_KEYWORD_ALIAS": "Nazwa",
+      "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
+      "SOFTWARE_ALIAS": "Oprogramowanie",
+      "APPLIANCE_ALIAS": "Sprzęt"
+    },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Usuwanie pokoju",
       "DELETE_ROOM_MESSAGE": "Czy na pewno chcesz usunąć pokój: {{name}}?",

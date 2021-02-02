@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { CoreModule } from './../../core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,7 +21,8 @@ import { UseListComponent } from './component/use-list/use-list.component';
     TranslateModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ]
 })
 export class RoomModule { }

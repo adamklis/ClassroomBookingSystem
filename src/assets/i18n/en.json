@@ -179,6 +179,13 @@
       "APPLIANCES": "Appliances",
       "NEW": "New room"
     },
+    "FILTER": {
+      "SEARCH_PLACEHOLDER": "Search: software, appliance, classroom name...",
+      "SEARCH_KEYWORD_ALIAS": "Name",
+      "SEARCH_KEYWORD_INT_ALIAS": "Seats",
+      "SOFTWARE_ALIAS": "Software",
+      "APPLIANCE_ALIAS": "Appliance"
+    },
     "MODAL": {
       "DELETE_ROOM_TITLE": "Delete room",
       "DELETE_ROOM_MESSAGE": "Are you sure to delete room: {{name}}?",
