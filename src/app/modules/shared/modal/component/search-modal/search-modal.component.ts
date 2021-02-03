@@ -1,3 +1,5 @@
+import { SortOrder } from './../../../enum/sort-order.enum';
+import { Filter } from 'src/app/modules/shared/model/filter';
 import { ISort } from './../../../interface/sort.interface';
 import { IFilter } from './../../../interface/filter.interface';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +8,10 @@ import { Observable, Subscription } from 'rxjs';
 import { IUse } from 'src/app/modules/feature/room/interface/use.interface';
 import { ButtonType } from '../../enum/button-type.enum';
 import * as uuidGen from 'uuid';
+import { IPageable } from '../../../interface/pageable.interface';
+import { Page } from '../../../model/page';
+import { IPage } from '../../../interface/page.interface';
+import { Sort } from '../../../model/sort';
 
 @Component({
   selector: 'cbs-search-modal',
@@ -20,7 +26,10 @@ export class SearchModalComponent implements OnInit {
   public buttons: ButtonType[] = [];
   public uses: IUse[];
   public searchText: string;
-  public searchFunction: (filter?: IFilter[], sort?: ISort[]) => Observable<IUse[]>;
+  public searchFunction: (filter?: IFilter[], sort?: ISort[], page?: IPage) => Observable<IPageable<IUse>>;
+
+  public currentPageNumber: number;
+  public currentPage: Page;
 
   public searchBusy = false;
   public displayedUses: IUse[] = [];
@@ -28,14 +37,23 @@ export class SearchModalComponent implements OnInit {
   private searchSubscription: Subscription;
 
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal) {
+    this.currentPage = new Page(5, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
+  }
 
   ngOnInit(): void {
     this.searchBusy = true;
-    this.searchSubscription = this.searchFunction([{key: 'uuid', value: this.searchText}]).subscribe(usesFound => {
-      this.mergeUses(this.uses, usesFound, false);
-      this.mergeUses(this.changedUses, usesFound, false);
-      this.displayedUses = usesFound;
+    this.searchSubscription = this.searchFunction(
+      [new Filter('uuid', this.searchText)],
+      [new Sort('name', SortOrder.ASCEND)],
+      this.currentPage.getPage(this.currentPageNumber)
+    ).subscribe(usesFound => {
+      this.mergeUses(this.uses, usesFound.results, false);
+      this.mergeUses(this.changedUses, usesFound.results, false);
+      this.displayedUses = usesFound.results;
+      this.currentPage = new Page(usesFound.page.limit, usesFound.page.size, usesFound.page.start);
+      this.currentPageNumber = this.currentPage.getPageNumber();
       this.searchBusy = false;
     });
   }
@@ -48,10 +66,16 @@ export class SearchModalComponent implements OnInit {
     this.searchBusy = true;
     this.searchText = inputText;
     if (this.searchSubscription) { this.searchSubscription.unsubscribe(); }
-    this.searchSubscription = this.searchFunction([{key: 'name', value: this.searchText}]).subscribe(usesFound => {
-      this.mergeUses(this.uses, usesFound, false);
-      this.mergeUses(this.changedUses, usesFound, false);
-      this.displayedUses = usesFound;
+    this.searchSubscription = this.searchFunction(
+      [new Filter('name', this.searchText)],
+      [new Sort('name', SortOrder.ASCEND)],
+      this.currentPage.getPage(this.currentPageNumber)
+    ).subscribe(usesFound => {
+      this.mergeUses(this.uses, usesFound.results, false);
+      this.mergeUses(this.changedUses, usesFound.results, false);
+      this.displayedUses = usesFound.results;
+      this.currentPage = new Page(usesFound.page.limit, usesFound.page.size, usesFound.page.start);
+      this.currentPageNumber = this.currentPage.getPageNumber();
       this.searchBusy = false;
     });
 

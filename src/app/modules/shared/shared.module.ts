@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
@@ -29,7 +30,8 @@ import { SearchInputListComponent } from './component/search-input/search-input-
     CommonModule,
     TranslateModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgbModule
   ],
   exports: [
     TagBarComponent,

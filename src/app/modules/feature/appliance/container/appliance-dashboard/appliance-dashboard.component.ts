@@ -6,6 +6,7 @@ import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
+import { Page } from 'src/app/modules/shared/model/page';
 
 @Component({
   selector: 'cbs-appliance-dashboard',
@@ -16,10 +17,15 @@ export class ApplianceDashboardComponent implements OnInit {
 
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $appliances: BehaviorSubject<IAppliance[]> = new BehaviorSubject<IAppliance[]>([]);
+  public currentPageNumber: number;
+  public currentPage: Page;
 
   constructor(
     private applianceService: ApplianceService
-  ) { }
+  ) {
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
+  }
 
   ngOnInit(): void {
     this.tagsChanged();
@@ -39,7 +45,12 @@ export class ApplianceDashboardComponent implements OnInit {
       }
     });
 
-    this.applianceService.getAppliances(filter, sort).toPromise().then(appliances => this.$appliances.next(appliances));
+    this.applianceService.getAppliances(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise()
+    .then(appliances => {
+      this.$appliances.next(appliances.results);
+      this.currentPage = new Page(appliances.page.limit, appliances.page.size, appliances.page.start);
+      this.currentPageNumber = this.currentPage.getPageNumber();
+    });
   }
 
   public searchChanged(searchText: string): void{

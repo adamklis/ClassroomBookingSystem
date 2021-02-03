@@ -17,6 +17,8 @@ import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
 
 @Component({
   selector: 'cbs-room-details',
@@ -33,8 +35,8 @@ export class RoomDetailsComponent implements OnInit {
 
   public room: IRoom;
 
-  public softwareUsesSearchFunction: (filter?: IFilter[], sort?: ISort[]) => Observable<IUse[]>;
-  public applianceUsesSearchFunction: (filter?: IFilter[], sort?: ISort[]) => Observable<IUse[]>;
+  public softwareUsesSearchFunction: (filter?: IFilter[], sort?: ISort[], page?: IPage) => IPageable<Observable<IUse>>;
+  public applianceUsesSearchFunction: (filter?: IFilter[], sort?: ISort[], page?: IPage) => IPageable<Observable<IUse>>;
 
   public nameControl = new FormControl('', [Validators.required]);
   public numberOfSeatsControl = new FormControl('', [Validators.required, Validators.min(1)]);

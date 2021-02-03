@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
-import { BehaviorSubject, forkJoin, Subscription } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
@@ -25,6 +25,7 @@ import { datetimePeriodValidator } from 'src/app/modules/shared/validator/dateti
 import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
 import { TimeAdapter } from 'src/app/modules/shared/adapter/time.adapter';
 import { IUser } from '../../../user/interface/user.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
 
 @Component({
   selector: 'cbs-reservation-details',
@@ -255,14 +256,14 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   public searchChanged(searchText: string){
     const filter = new Filter('name', searchText);
     const sort = new Sort('name', SortOrder.ASCEND);
-    const requests = [];
+    const requests: Observable<IPageable<any>>[] = [];
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.APPLIANCE_VIEW) !== -1) {
       requests.push(this.applianceService.getAppliances([filter], [sort]));
     }
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.SOFTWARE_VIEW) !== -1) {
       requests.push(this.softwareService.getSoftwareList([filter], [sort]));
     }
-    forkJoin(requests).toPromise().then((result: Array<ISoftware[] | IAppliance[]>) => {
+    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
       this.translateService.get([
         'RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS',
         'RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'
@@ -270,15 +271,10 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       .toPromise()
       .then(translation => {
         if (result){
-          const flattenResult: Array<any> = result.reduce((acc, val) => acc.concat(val), []);
+          const flattenResult: IPageable<any>[] = result.reduce((acc, val) => acc.concat(val), []);
           this.$tags.next([
-            ...flattenResult.map(el => {
-              if (el.validFrom || el.validFrom === null) {
-                return ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: el.name});
-              } else {
-                return ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: el.name});
-              }
-            })
+            ...flattenResult[0].results.map(appliance => ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: appliance.name})),
+            ...flattenResult[1].results.map(software => ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: software.name}))
           ]);
         }
       });

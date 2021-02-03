@@ -5,14 +5,13 @@ import { Permission } from './../../../../core/authorization/enum/permission.enu
 import { RoomService } from './../../service/room.service';
 import { IRoom } from './../../interface/room.interface';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { ActivatedRoute } from '@angular/router';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
-import { IAppliance } from '../../../appliance/interface/appliance.interface';
-import { ISoftware } from '../../../software/interface/software.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
 
 @Component({
   selector: 'cbs-room-dashboard',
@@ -53,14 +52,14 @@ export class RoomDashboardComponent implements OnInit {
   public searchChanged(searchText: string){
     const filter = new Filter('name', searchText);
     const sort = new Sort('name', SortOrder.ASCEND);
-    const requests = [];
+    const requests: Observable<IPageable<any>>[] = [];
     if (this.currentUser.permissions.findIndex(permission => permission === Permission.APPLIANCE_VIEW) !== -1) {
       requests.push(this.applianceService.getAppliances([filter], [sort]));
     }
     if (this.currentUser.permissions.findIndex(permission => permission === Permission.SOFTWARE_VIEW) !== -1) {
       requests.push(this.softwareService.getSoftwareList([filter], [sort]));
     }
-    forkJoin(requests).toPromise().then((result: Array<ISoftware[] | IAppliance[]>) => {
+    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
       this.translateService.get([
         'ROOM.FILTER.APPLIANCE_ALIAS',
         'ROOM.FILTER.SOFTWARE_ALIAS'
@@ -68,15 +67,14 @@ export class RoomDashboardComponent implements OnInit {
       .toPromise()
       .then(translation => {
         if (result){
-          const flattenResult: Array<any> = result.reduce((acc, val) => acc.concat(val), []);
+          const flattenResult: IPageable<any>[] = result.reduce((acc, val) => acc.concat(val), []);
           this.$tags.next([
-            ...flattenResult.map(el => {
-              if (el.validFrom || el.validFrom === null) {
-                return ({category: 'software', categoryAlias: translation['ROOM.FILTER.SOFTWARE_ALIAS'], value: el.name});
-              } else {
-                return ({category: 'appliance', categoryAlias: translation['ROOM.FILTER.APPLIANCE_ALIAS'], value: el.name});
-              }
-            })
+            ...flattenResult[0].results.map(appliance => (
+              {category: 'appliance', categoryAlias: translation['ROOM.FILTER.APPLIANCE_ALIAS'], value: appliance.name}
+            )),
+            ...flattenResult[1].results.map(software => (
+              {category: 'software', categoryAlias: translation['ROOM.FILTER.SOFTWARE_ALIAS'], value: software.name}
+            ))
           ]);
         }
       });

@@ -6,6 +6,7 @@ import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
+import { Page } from 'src/app/modules/shared/model/page';
 
 @Component({
   selector: 'cbs-software-dashboard',
@@ -16,10 +17,15 @@ export class SoftwareDashboardComponent implements OnInit {
 
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $software: BehaviorSubject<ISoftware[]> = new BehaviorSubject<ISoftware[]>([]);
+  public currentPageNumber: number;
+  public currentPage: Page;
 
   constructor(
     private softwareService: SoftwareService
-  ) { }
+  ) {
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
+   }
 
   ngOnInit(): void {
     this.tagsChanged();
@@ -39,7 +45,12 @@ export class SoftwareDashboardComponent implements OnInit {
       }
     });
 
-    this.softwareService.getSoftwareList(filter, sort).toPromise().then(software => this.$software.next(software));
+    this.softwareService.getSoftwareList(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise()
+    .then(software => {
+      this.$software.next(software.results);
+      this.currentPage = new Page(software.page.limit, software.page.size, software.page.start);
+      this.currentPageNumber = this.currentPage.getPageNumber();
+    });
   }
 
   public searchChanged(searchText: string): void{
