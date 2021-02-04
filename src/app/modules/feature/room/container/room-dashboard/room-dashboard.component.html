@@ -6,9 +6,12 @@
       [searchPlaceholder]="'ROOM.FILTER.SEARCH_PLACEHOLDER' | translate"
       [keywordCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
       [keywordIntCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+      [loadMore]="loadMoreFilter"
       [disabled]="false"
       (tagsChangeEvent)="tagsChanged($event)"
-      (searchChangeEvent)="searchChanged($event)">
+      (searchChangeEvent)="searchChanged($event)"
+      (loadMoreClickEvent)="loadMoreTags()"
+      (lostFocusEvent)="searchLostFocus()">
     </cbs-tag-bar>
   </div>
 </div>

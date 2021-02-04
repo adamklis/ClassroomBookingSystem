@@ -1,5 +1,3 @@
-import { IAppliance } from './../../../appliance/interface/appliance.interface';
-import { ISoftware } from './../../../software/interface/software.interface';
 import { UserService } from './../../../user/service/user.service';
 import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
@@ -26,6 +24,7 @@ import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
 import { TimeAdapter } from 'src/app/modules/shared/adapter/time.adapter';
 import { IUser } from '../../../user/interface/user.interface';
 import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
+import { Page } from 'src/app/modules/shared/model/page';
 
 @Component({
   selector: 'cbs-reservation-details',
@@ -69,7 +68,12 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
   public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
+  public applianceFilterPage: Page;
+  public softwareFilterPage: Page;
+  public loadMoreFilter = false;
+
   private currentUser = null;
+  private searchText = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -84,7 +88,10 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     private dateAdapter: DateAdapter,
     private timeAdapter: TimeAdapter,
     public authorizationService: AuthorizationService
-  ) { }
+  ) {
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
+  }
 
   ngOnInit(): void {
     this.currentUser = this.activatedRoute.snapshot.data.user;
@@ -242,6 +249,8 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   }
 
   public tagsChanged(tags: ITag[]){
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
     const filter = [];
     const sort = [];
     tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
@@ -254,14 +263,23 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   }
 
   public searchChanged(searchText: string){
+    if (searchText !== this.searchText){
+      this.applianceFilterPage = new Page(5, 0, 0);
+      this.softwareFilterPage = new Page(5, 0, 0);
+    }
+    this.searchText = searchText;
     const filter = new Filter('name', searchText);
     const sort = new Sort('name', SortOrder.ASCEND);
     const requests: Observable<IPageable<any>>[] = [];
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.APPLIANCE_VIEW) !== -1) {
-      requests.push(this.applianceService.getAppliances([filter], [sort]));
+      if (this.applianceFilterPage.size > this.applianceFilterPage.start || this.applianceFilterPage.start === 0 ){
+        requests.push(this.applianceService.getAppliances([filter], [sort], this.applianceFilterPage));
+      }
     }
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.SOFTWARE_VIEW) !== -1) {
-      requests.push(this.softwareService.getSoftwareList([filter], [sort]));
+      if (this.softwareFilterPage.size > this.softwareFilterPage.start || this.softwareFilterPage.start === 0 ){
+        requests.push(this.softwareService.getSoftwareList([filter], [sort], this.softwareFilterPage));
+      }
     }
     forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
       this.translateService.get([
@@ -272,13 +290,38 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       .then(translation => {
         if (result){
           const flattenResult: IPageable<any>[] = result.reduce((acc, val) => acc.concat(val), []);
+          if (flattenResult[0]){
+            this.applianceFilterPage = new Page(flattenResult[0].page.limit, flattenResult[0].page.size, flattenResult[0].page.start);
+          }
+          if (flattenResult[1]){
+            this.softwareFilterPage = new Page(flattenResult[1].page.limit, flattenResult[1].page.size, flattenResult[1].page.start);
+          }
           this.$tags.next([
-            ...flattenResult[0].results.map(appliance => ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: appliance.name})),
-            ...flattenResult[1].results.map(software => ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: software.name}))
+            ...flattenResult[0] ? flattenResult[0].results.map(appliance => (
+              {category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: appliance.name}
+            )) : [],
+            ...flattenResult[1] ? flattenResult[1].results.map(software => (
+              {category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: software.name}
+            )) : []
           ]);
+          this.loadMoreFilter = (
+            this.applianceFilterPage.size > this.applianceFilterPage.start + this.applianceFilterPage.limit ||
+            this.softwareFilterPage.size > this.softwareFilterPage.start + this.softwareFilterPage.limit
+          );
         }
       });
     });
+  }
+
+  public loadMoreTags(){
+    this.applianceFilterPage.start += this.applianceFilterPage.limit;
+    this.softwareFilterPage.start += this.softwareFilterPage.limit;
+    this.searchChanged(this.searchText);
+  }
+
+  public searchLostFocus(){
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
   }
 
   public roomSelected(room: IRoom){

@@ -8,5 +8,10 @@
       <div class="d-inline-block m-1 px-2 py-1 bg-primary text-white font-weight-bold rounded text-uppercase tag-category">{{tag.categoryAlias ? tag.categoryAlias : tag.category}}</div>
       <div class="d-inline-block m-1">{{tag.value}}</div>
     </li>
+    <li *ngIf="loadMore" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
+      <div class="d-flex justify-content-center" (click)="loadMoreClick()">
+        <span>{{'SHARED.PAGINATION.LOAD_MORE' | translate}}</span>
+      </div>
+    </li>
   </ul>
 </div>

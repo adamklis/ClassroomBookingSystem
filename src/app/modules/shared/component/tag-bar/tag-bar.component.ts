@@ -24,11 +24,20 @@ export class TagBarComponent implements OnInit, OnDestroy {
   @Input()
   public disabled = false;
 
+  @Input()
+  public loadMore = false;
+
   @Output()
   public tagsChangeEvent: EventEmitter<ITag[]> = new EventEmitter<ITag[]>();
 
   @Output()
   public searchChangeEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  public loadMoreClickEvent: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  public lostFocusEvent: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('search')
   public searchInputElement: ElementRef;
@@ -40,6 +49,7 @@ export class TagBarComponent implements OnInit, OnDestroy {
   public foundTags: ITag[] = [];
 
   private tagsSubscription: Subscription;
+  private resultHideTimeout: any;
 
   constructor() { }
 
@@ -115,6 +125,15 @@ export class TagBarComponent implements OnInit, OnDestroy {
   }
 
   public searchBlur(){
-    setTimeout(() => this.searchResultShow = false, 200);
+    this.resultHideTimeout = setTimeout(() => {
+      this.searchResultShow = false;
+      this.lostFocusEvent.emit();
+    }, 200);
+  }
+
+  public loadMoreClick(){
+    clearTimeout(this.resultHideTimeout);
+    this.searchInputElement.nativeElement.focus();
+    this.loadMoreClickEvent.emit();
   }
 }
