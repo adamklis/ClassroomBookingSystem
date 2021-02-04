@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
 import { map } from 'rxjs/operators';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
+import { Page } from 'src/app/modules/shared/model/page';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -18,9 +21,10 @@ export class ReservationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getReservations(filter?: IFilter[], sort?: ISort[]): Observable<IReservation[]>{
-    return this.httpClient
-      .get(APIEndpoint + '/reservation?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)) as Observable<IReservation[]>;
+  public getReservations(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<IReservation>> {
+    return this.httpClient.get(
+      APIEndpoint + '/reservation?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<IReservation>>;
   }
 
   public getReservation(uuid: string): Observable<IReservation>{

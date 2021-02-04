@@ -250,7 +250,7 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       const filters = [new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString())];
 
       this.reservationService.getReservations(filters).subscribe(
-        reservations => this.$reservations.next(reservations)
+        reservations => this.$reservations.next(reservations.results)
       );
     }
   }

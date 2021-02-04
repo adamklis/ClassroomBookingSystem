@@ -37,6 +37,9 @@ export class ReservationDashboardComponent implements OnInit {
   public $searchTags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $selectedTags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
 
+  public currentPageNumber: number;
+  public currentPage: Page;
+
   public userFilterPage: Page;
   public roomFilterPage: Page;
   public loadMoreFilter = false;
@@ -54,6 +57,8 @@ export class ReservationDashboardComponent implements OnInit {
   ) {
     this.userFilterPage = new Page(5, 0, 0);
     this.roomFilterPage = new Page(5, 0, 0);
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
   }
 
   ngOnInit(): void {
@@ -136,19 +141,30 @@ export class ReservationDashboardComponent implements OnInit {
     if (!this.hasPermission(Permission.RESERVATION_VIEW)){
       filters.push(new Filter('user.uuid', this.currentUser.uuid));
     }
-    let dateFrom: Date;
-    if (!this.showExpired) {
-      dateFrom = new Date();
-    } else {
-      dateFrom = this.dateAdapter.toModel(this.filterDateFrom);
+
+    let dateFrom = this.dateAdapter.toModel(this.filterDateFrom);
+    const now = new Date();
+    if (
+      !this.showExpired &&
+      dateFrom < now
+    ) {
+      dateFrom = now;
     }
     const dateTo = this.dateAdapter.toModel(this.filterDateTo);
     dateTo.setHours(23, 59, 59);
     filters.push(new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString()));
 
     if (this.hasPermission(Permission.RESERVATION_VIEW) || this.hasPermission(Permission.RESERVATION_VIEW_USER)){
-      this.reservationService.getReservations(filters, [new Sort('dateFrom', SortOrder.ASCEND)])
-        .toPromise().then(reservations => this.$reservations.next(reservations));
+      this.reservationService.getReservations(
+        filters,
+        [new Sort('dateFrom', SortOrder.ASCEND)],
+        this.currentPage.getPage(this.currentPageNumber)
+      )
+      .toPromise().then(reservations => {
+        this.$reservations.next(reservations.results);
+        this.currentPage = new Page(reservations.page.limit, reservations.page.size, reservations.page.start);
+        this.currentPageNumber = this.currentPage.getPageNumber();
+      });
     }
   }
 
