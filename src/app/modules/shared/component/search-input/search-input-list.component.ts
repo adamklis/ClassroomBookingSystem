@@ -22,8 +22,17 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
   @Input()
   public searchPlaceholder = 'Search...';
 
+  @Input()
+  public loadMore = false;
+
   @Output()
   public searchChangeEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  public loadMoreClickEvent: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  public lostFocusEvent: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('search')
   public searchInputElement: ElementRef;
@@ -33,6 +42,7 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
   public searchResultShow = false;
   public searchResults: {key: any, value: string}[];
   private searchResultsSubscription: Subscription;
+  private resultHideTimeout: any;
 
   public componentValue: {key: any, value: string};
 
@@ -91,8 +101,11 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
   }
 
   public blurInput(){
-    this.searchInputValue = this.componentValue.value;
-    setTimeout(() => this.searchResultShow = false, 200);
+    this.resultHideTimeout = setTimeout(() =>  {
+      this.searchInputValue = this.componentValue.value;
+      this.searchResultShow = false;
+      this.lostFocusEvent.emit();
+    }, 200);
   }
 
   // list events
@@ -101,6 +114,12 @@ export class SearchInputListComponent implements OnInit, OnDestroy, ControlValue
     this.componentValue = selectedResult;
     this.searchInputValue = selectedResult.value;
     this.onChange(this.componentValue);
+  }
+
+  public loadMoreClick(){
+    clearTimeout(this.resultHideTimeout);
+    this.searchInputElement.nativeElement.focus();
+    this.loadMoreClickEvent.emit();
   }
 
 }

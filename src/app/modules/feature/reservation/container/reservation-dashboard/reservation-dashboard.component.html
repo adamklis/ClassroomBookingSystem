@@ -38,8 +38,11 @@
       [searchPlaceholder]="'RESERVATION.FILTER.SEARCH_PLACEHOLDER' | translate"
       [keywordCategoryAlias]="'RESERVATION.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
       [disabled]="false"
+      [loadMore]="loadMoreFilter"
       (searchChangeEvent)="onSearchChanged($event)"
-      (tagsChangeEvent)="onFilterChanged($event)">
+      (tagsChangeEvent)="onFilterChanged($event)"
+      (loadMoreClickEvent)="loadMoreTags()"
+      (lostFocusEvent)="searchLostFocus()">
     </cbs-tag-bar>
   </div>
 </div>

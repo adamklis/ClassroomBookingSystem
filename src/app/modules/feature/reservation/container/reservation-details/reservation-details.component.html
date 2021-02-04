@@ -12,7 +12,10 @@
         formControlName="user"
         [searchPlaceholder]="'RESERVATION.DETAILS.USER_PLACEHOLDER' | translate"
         [$searchResults]="$users.asObservable()"
+        [loadMore]="loadMoreUsersFilter"
         (searchChangeEvent)="searchUserInputChanged($event)"
+        (loadMoreClickEvent)="loadMoreUsers()"
+        (lostFocusEvent)="userLostFocus()"
       >
       </cbs-search-input-list>
     </div>
@@ -98,6 +101,15 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [reservations]="$reservations.asObservable()" [disabled]="!hasEditPermission()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+      <ngb-pagination
+        class="d-flex justify-content-center"
+        [(page)]="currentPageNumber"
+        [collectionSize]="currentPage.size"
+        [pageSize]="currentPage.limit"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="tagsChanged()">
+      </ngb-pagination>
     </div>
   </div>
   <div class="form-row" cbsPermissions [permissions]="[permissions.RESERVATION_EDIT, permissions.RESERVATION_EDIT_USER]" [overridePermited]="hasEditPermission()">

@@ -68,12 +68,18 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
   public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
+  public currentPageNumber: number;
+  public currentPage: Page;
+
   public applianceFilterPage: Page;
   public softwareFilterPage: Page;
+  public userPage: Page;
   public loadMoreFilter = false;
+  public loadMoreUsersFilter = false;
 
   private currentUser = null;
   private searchText = '';
+  private searchUserText = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -91,6 +97,9 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   ) {
     this.applianceFilterPage = new Page(5, 0, 0);
     this.softwareFilterPage = new Page(5, 0, 0);
+    this.userPage = new Page(5, 0, 0);
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
   }
 
   ngOnInit(): void {
@@ -101,9 +110,7 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       this.userControl.disable();
     }
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
-      this.roomService.getRooms().toPromise().then(rooms => {
-        this.$rooms.next(rooms);
-      });
+      this.tagsChanged();
     } else {
       if (this.reservation){
         this.$rooms.next([this.reservation.room]);
@@ -248,16 +255,21 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public tagsChanged(tags: ITag[]){
+  public tagsChanged(tags?: ITag[]){
+    if (tags){
+      this.$tags.next(tags);
+    }
     this.applianceFilterPage = new Page(5, 0, 0);
     this.softwareFilterPage = new Page(5, 0, 0);
     const filter = [];
     const sort = [];
-    tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
+    this.$tags.value.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
     sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
-      this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
-        this.$rooms.next(rooms);
+      this.roomService.getRooms(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise().then(rooms => {
+        this.$rooms.next(rooms.results);
+        this.currentPage = new Page(rooms.page.limit, rooms.page.size, rooms.page.start);
+        this.currentPageNumber = this.currentPage.getPageNumber();
       });
     }
   }
@@ -324,17 +336,39 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     this.softwareFilterPage = new Page(5, 0, 0);
   }
 
+  public loadMoreUsers(){
+    this.userPage.start += this.userPage.limit;
+    this.searchUserInputChanged(this.searchUserText);
+  }
+
+  public userLostFocus(){
+    this.userPage = new Page(5, 0, 0);
+  }
+
   public roomSelected(room: IRoom){
     this.selectedRoom = room;
     this.reservationForm.markAsDirty();
   }
 
   public searchUserInputChanged(input: string){
+    if (this.searchUserText !== input){
+      this.userPage = new Page(5, 0, 0);
+      this.$users.next([]);
+      this.searchUserText = input;
+    }
     this.userControl.markAsDirty();
     const filter = new Filter('all', input);
     const sort = new Sort('all', SortOrder.ASCEND);
-    this.userService.getUsers([filter], [sort]).toPromise()
-      .then(users => this.$users.next(users.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))));
+
+    this.userService.getUsers([filter], [sort], this.userPage).toPromise()
+      .then(users => {
+        this.$users.next([
+          ...this.$users.value,
+          ...users.results.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))
+        ]);
+        this.userPage = new Page(users.page.limit, users.page.size, users.page.start);
+        this.loadMoreUsersFilter = this.userPage.size > this.userPage.start + this.userPage.limit;
+      });
   }
 
   public hasEditPermission(): boolean{

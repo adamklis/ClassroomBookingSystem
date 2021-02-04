@@ -16,3 +16,12 @@
   </div>
 </div>
 <cbs-room-list [$rooms]="$rooms.asObservable()"></cbs-room-list>
+<ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="currentPageNumber"
+  [collectionSize]="currentPage.size"
+  [pageSize]="currentPage.limit"
+  [rotate]="true"
+  [boundaryLinks]="true"
+  (pageChange)="tagsChanged()">
+</ngb-pagination>

@@ -6,6 +6,7 @@ import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
+import { Page } from 'src/app/modules/shared/model/page';
 
 @Component({
   selector: 'cbs-user-dashboard',
@@ -16,8 +17,13 @@ export class UserDashboardComponent implements OnInit {
 
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $users: BehaviorSubject<IUser[]> = new BehaviorSubject<IUser[]>([]);
+  public currentPageNumber: number;
+  public currentPage: Page;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
+  }
 
   ngOnInit(): void {
     this.tagsChanged();
@@ -38,7 +44,11 @@ export class UserDashboardComponent implements OnInit {
         default: return new Filter('all', tag.value);
       }
     });
-    this.userService.getUsers(filter, sort).toPromise().then(users => this.$users.next(users));
+    this.userService.getUsers(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise().then(users => {
+      this.$users.next(users.results);
+      this.currentPage = new Page(users.page.limit, users.page.size, users.page.start);
+      this.currentPageNumber = this.currentPage.getPageNumber();
+    });
   }
 
   public searchChanged(searchText: string): void{

@@ -8,6 +8,9 @@ import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
+import { Page } from 'src/app/modules/shared/model/page';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -18,10 +21,10 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getUsers(filter?: IFilter[], sort?: ISort[]): Observable<IUser[]> {
+  public getUsers(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<IUser>> {
     return this.httpClient.get(
-      APIEndpoint + '/user?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
-    ) as Observable<IUser[]>;
+      APIEndpoint + '/user?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<IUser>>;
   }
 
   public getUser(uuid: string): Observable<IUser> {

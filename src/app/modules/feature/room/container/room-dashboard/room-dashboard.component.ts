@@ -25,6 +25,8 @@ export class RoomDashboardComponent implements OnInit {
   private searchText = '';
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $rooms: BehaviorSubject<IRoom[]> = new BehaviorSubject<IRoom[]>([]);
+  public currentPageNumber: number;
+  public currentPage: Page;
 
   public applianceFilterPage: Page;
   public softwareFilterPage: Page;
@@ -39,23 +41,30 @@ export class RoomDashboardComponent implements OnInit {
   ) {
     this.applianceFilterPage = new Page(5, 0, 0);
     this.softwareFilterPage = new Page(5, 0, 0);
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
    }
 
   ngOnInit(): void {
     this.currentUser = this.activatedRoute.snapshot.data.user;
-    this.roomService.getRooms().toPromise().then(rooms => this.$rooms.next(rooms));
+    this.tagsChanged();
   }
 
-  public tagsChanged(tags: ITag[]){
+  public tagsChanged(tags?: ITag[]){
+    if (tags){
+      this.$tags.next(tags);
+    }
     this.applianceFilterPage = new Page(5, 0, 0);
     this.softwareFilterPage = new Page(5, 0, 0);
     const filter = [];
     const sort = [];
-    tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
+    this.$tags.value.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
     sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
     if (this.currentUser.permissions.findIndex(permission => permission === Permission.ROOM_VIEW) !== -1){
-      this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
-        this.$rooms.next(rooms);
+      this.roomService.getRooms(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise().then(rooms => {
+        this.$rooms.next(rooms.results);
+        this.currentPage = new Page(rooms.page.limit, rooms.page.size, rooms.page.start);
+        this.currentPageNumber = this.currentPage.getPageNumber();
       });
     }
   }

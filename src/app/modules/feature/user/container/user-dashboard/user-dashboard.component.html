@@ -17,3 +17,11 @@
   </div>
 </div>
 <cbs-user-list [$users]="$users.asObservable()"></cbs-user-list>
+<ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="currentPageNumber"
+  [collectionSize]="currentPage.size"
+  [pageSize]="currentPage.limit"
+  [rotate]="true" [boundaryLinks]="true"
+  (pageChange)="tagsChanged()">
+</ngb-pagination>

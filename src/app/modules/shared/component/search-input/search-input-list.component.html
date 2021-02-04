@@ -13,5 +13,10 @@
     <li *ngFor="let result of searchResults" (click)="selectSearchResult(result)" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
       {{result.value}}
     </li>
+    <li *ngIf="loadMore" class="dropdown-item list-group-item list-group-item-action list-group-item-light border-light p-1">
+      <div class="d-flex justify-content-center" (click)="loadMoreClick()">
+        <span>{{'SHARED.PAGINATION.LOAD_MORE' | translate}}</span>
+      </div>
+    </li>
   </ul>
 </div>
