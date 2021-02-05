@@ -6,10 +6,22 @@
       [searchPlaceholder]="'ROOM.FILTER.SEARCH_PLACEHOLDER' | translate"
       [keywordCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
       [keywordIntCategoryAlias]="'ROOM.FILTER.SEARCH_KEYWORD_INT_ALIAS' | translate"
+      [loadMore]="loadMoreFilter"
       [disabled]="false"
       (tagsChangeEvent)="tagsChanged($event)"
-      (searchChangeEvent)="searchChanged($event)">
+      (searchChangeEvent)="searchChanged($event)"
+      (loadMoreClickEvent)="loadMoreTags()"
+      (lostFocusEvent)="searchLostFocus()">
     </cbs-tag-bar>
   </div>
 </div>
 <cbs-room-list [$rooms]="$rooms.asObservable()"></cbs-room-list>
+<ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="currentPageNumber"
+  [collectionSize]="currentPage.size"
+  [pageSize]="currentPage.limit"
+  [rotate]="true"
+  [boundaryLinks]="true"
+  (pageChange)="tagsChanged()">
+</ngb-pagination>

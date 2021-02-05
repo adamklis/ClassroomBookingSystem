@@ -13,3 +13,11 @@
   </div>
 </div>
 <cbs-software-list [$softwareList]="$software.asObservable()"></cbs-software-list>
+<ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="currentPageNumber"
+  [collectionSize]="currentPage.size"
+  [pageSize]="currentPage.limit"
+  [rotate]="true" [boundaryLinks]="true"
+  (pageChange)="tagsChanged()">
+</ngb-pagination>

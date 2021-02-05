@@ -1,5 +1,3 @@
-import { IAppliance } from './../../../appliance/interface/appliance.interface';
-import { ISoftware } from './../../../software/interface/software.interface';
 import { UserService } from './../../../user/service/user.service';
 import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
@@ -13,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Permission } from 'src/app/modules/core/authorization/enum/permission.enum';
 import { PermissionsMode } from 'src/app/modules/core/authorization/enum/permissions-mode.enum';
 import { ModalService } from 'src/app/modules/shared/modal/service/modal.service';
-import { BehaviorSubject, forkJoin, Subscription } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
@@ -25,6 +23,8 @@ import { datetimePeriodValidator } from 'src/app/modules/shared/validator/dateti
 import { DateAdapter } from 'src/app/modules/shared/adapter/date.adapter';
 import { TimeAdapter } from 'src/app/modules/shared/adapter/time.adapter';
 import { IUser } from '../../../user/interface/user.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
+import { Page } from 'src/app/modules/shared/model/page';
 
 @Component({
   selector: 'cbs-reservation-details',
@@ -68,7 +68,18 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   public $reservations: BehaviorSubject<IReservation[]> = new BehaviorSubject<IReservation[]>([]);
   public $users: BehaviorSubject<{key: IUser, value: string}[]> = new BehaviorSubject<{key: IUser, value: string}[]>([]);
 
+  public currentPageNumber: number;
+  public currentPage: Page;
+
+  public applianceFilterPage: Page;
+  public softwareFilterPage: Page;
+  public userPage: Page;
+  public loadMoreFilter = false;
+  public loadMoreUsersFilter = false;
+
   private currentUser = null;
+  private searchText = '';
+  private searchUserText = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -83,7 +94,13 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     private dateAdapter: DateAdapter,
     private timeAdapter: TimeAdapter,
     public authorizationService: AuthorizationService
-  ) { }
+  ) {
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
+    this.userPage = new Page(5, 0, 0);
+    this.currentPage = new Page(10, 0, 0);
+    this.currentPageNumber = this.currentPage.getPageNumber();
+  }
 
   ngOnInit(): void {
     this.currentUser = this.activatedRoute.snapshot.data.user;
@@ -93,9 +110,7 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       this.userControl.disable();
     }
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
-      this.roomService.getRooms().toPromise().then(rooms => {
-        this.$rooms.next(rooms);
-      });
+      this.tagsChanged();
     } else {
       if (this.reservation){
         this.$rooms.next([this.reservation.room]);
@@ -221,48 +236,69 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
 
   public onDatesChanged(){
     this.selectedRoom = this.reservation?.room;
-    if (this.reservationForm.get('reservationPeriod').valid){
-      const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
-      const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
-      dateFrom.setHours(timeFrom.getHours());
-      dateFrom.setMinutes(timeFrom.getMinutes());
-
-      const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
-      const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
-      dateTo.setHours(timeTo.getHours());
-      dateTo.setMinutes(timeTo.getMinutes());
-
-      const filters = [new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString())];
-
-      this.reservationService.getReservations(filters).subscribe(
-        reservations => this.$reservations.next(reservations)
-      );
-    }
+    this.tagsChanged();
   }
 
-  public tagsChanged(tags: ITag[]){
-    const filter = [];
-    const sort = [];
-    tags.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
-    sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
-    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
-      this.roomService.getRooms(filter, sort).toPromise().then(rooms => {
-        this.$rooms.next(rooms);
-      });
+  public tagsChanged(tags?: ITag[]){
+    if (tags){
+      this.$tags.next(tags);
+    }
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1 && this.hasEditPermission()){
+      if (this.reservationForm.get('reservationPeriod').valid){
+        const filter = [];
+        const sort = [];
+        this.$tags.value.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
+        sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
+        const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
+        const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
+        dateFrom.setHours(timeFrom.getHours());
+        dateFrom.setMinutes(timeFrom.getMinutes());
+
+        const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
+        const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
+        dateTo.setHours(timeTo.getHours());
+        dateTo.setMinutes(timeTo.getMinutes());
+
+        filter.push(new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString()));
+
+        this.reservationService.getUnreservedRooms(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise()
+        .then(rooms => {
+          if (this.reservation && rooms.results.findIndex(room => this.reservation.room.uuid === room.uuid) === -1) {
+            rooms.results.unshift(this.reservation.room);
+          }
+          this.$rooms.next(rooms.results);
+          this.currentPage = new Page(rooms.page.limit, rooms.page.size, rooms.page.start);
+          this.currentPageNumber = this.currentPage.getPageNumber();
+        });
+      }
+    }
+    if (!this.hasEditPermission()){
+      this.$rooms.next([this.reservation.room]);
     }
   }
 
   public searchChanged(searchText: string){
+    if (searchText !== this.searchText){
+      this.applianceFilterPage = new Page(5, 0, 0);
+      this.softwareFilterPage = new Page(5, 0, 0);
+    }
+    this.searchText = searchText;
     const filter = new Filter('name', searchText);
     const sort = new Sort('name', SortOrder.ASCEND);
-    const requests = [];
+    const requests: Observable<IPageable<any>>[] = [];
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.APPLIANCE_VIEW) !== -1) {
-      requests.push(this.applianceService.getAppliances([filter], [sort]));
+      if (this.applianceFilterPage.size > this.applianceFilterPage.start || this.applianceFilterPage.start === 0 ){
+        requests.push(this.applianceService.getAppliances([filter], [sort], this.applianceFilterPage));
+      }
     }
     if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.SOFTWARE_VIEW) !== -1) {
-      requests.push(this.softwareService.getSoftwareList([filter], [sort]));
+      if (this.softwareFilterPage.size > this.softwareFilterPage.start || this.softwareFilterPage.start === 0 ){
+        requests.push(this.softwareService.getSoftwareList([filter], [sort], this.softwareFilterPage));
+      }
     }
-    forkJoin(requests).toPromise().then((result: Array<ISoftware[] | IAppliance[]>) => {
+    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
       this.translateService.get([
         'RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS',
         'RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'
@@ -270,19 +306,48 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
       .toPromise()
       .then(translation => {
         if (result){
-          const flattenResult: Array<any> = result.reduce((acc, val) => acc.concat(val), []);
+          const flattenResult: IPageable<any>[] = result.reduce((acc, val) => acc.concat(val), []);
+          if (flattenResult[0]){
+            this.applianceFilterPage = new Page(flattenResult[0].page.limit, flattenResult[0].page.size, flattenResult[0].page.start);
+          }
+          if (flattenResult[1]){
+            this.softwareFilterPage = new Page(flattenResult[1].page.limit, flattenResult[1].page.size, flattenResult[1].page.start);
+          }
           this.$tags.next([
-            ...flattenResult.map(el => {
-              if (el.validFrom || el.validFrom === null) {
-                return ({category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: el.name});
-              } else {
-                return ({category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: el.name});
-              }
-            })
+            ...flattenResult[0] ? flattenResult[0].results.map(appliance => (
+              {category: 'appliance', categoryAlias: translation['RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS'], value: appliance.name}
+            )) : [],
+            ...flattenResult[1] ? flattenResult[1].results.map(software => (
+              {category: 'software', categoryAlias: translation['RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'], value: software.name}
+            )) : []
           ]);
+          this.loadMoreFilter = (
+            this.applianceFilterPage.size > this.applianceFilterPage.start + this.applianceFilterPage.limit ||
+            this.softwareFilterPage.size > this.softwareFilterPage.start + this.softwareFilterPage.limit
+          );
         }
       });
     });
+  }
+
+  public loadMoreTags(){
+    this.applianceFilterPage.start += this.applianceFilterPage.limit;
+    this.softwareFilterPage.start += this.softwareFilterPage.limit;
+    this.searchChanged(this.searchText);
+  }
+
+  public searchLostFocus(){
+    this.applianceFilterPage = new Page(5, 0, 0);
+    this.softwareFilterPage = new Page(5, 0, 0);
+  }
+
+  public loadMoreUsers(){
+    this.userPage.start += this.userPage.limit;
+    this.searchUserInputChanged(this.searchUserText);
+  }
+
+  public userLostFocus(){
+    this.userPage = new Page(5, 0, 0);
   }
 
   public roomSelected(room: IRoom){
@@ -291,11 +356,24 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   }
 
   public searchUserInputChanged(input: string){
+    if (this.searchUserText !== input){
+      this.userPage = new Page(5, 0, 0);
+      this.$users.next([]);
+      this.searchUserText = input;
+    }
     this.userControl.markAsDirty();
     const filter = new Filter('all', input);
     const sort = new Sort('all', SortOrder.ASCEND);
-    this.userService.getUsers([filter], [sort]).toPromise()
-      .then(users => this.$users.next(users.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))));
+
+    this.userService.getUsers([filter], [sort], this.userPage).toPromise()
+      .then(users => {
+        this.$users.next([
+          ...this.$users.value,
+          ...users.results.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))
+        ]);
+        this.userPage = new Page(users.page.limit, users.page.size, users.page.start);
+        this.loadMoreUsersFilter = this.userPage.size > this.userPage.start + this.userPage.limit;
+      });
   }
 
   public hasEditPermission(): boolean{

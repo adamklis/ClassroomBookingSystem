@@ -7,6 +7,9 @@ import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
 import { Filter } from 'src/app/modules/shared/model/filter';
 import { Sort } from 'src/app/modules/shared/model/sort';
+import { Page } from 'src/app/modules/shared/model/page';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -17,10 +20,10 @@ export class RoomService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getRooms(filter?: IFilter[], sort?: ISort[]): Observable<IRoom[]> {
+  public getRooms(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<IRoom>> {
     return this.httpClient.get(
-      APIEndpoint + '/room?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
-    ) as Observable<IRoom[]>;
+      APIEndpoint + '/room?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<IRoom>>;
   }
 
   public getRoom(uuid: string): Observable<IRoom> {

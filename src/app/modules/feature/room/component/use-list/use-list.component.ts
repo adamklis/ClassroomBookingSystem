@@ -1,3 +1,4 @@
+import { IPageable } from './../../../../shared/interface/pageable.interface';
 import { Observable } from 'rxjs';
 import { ModalService } from './../../../../shared/modal/service/modal.service';
 import { IUse } from './../../interface/use.interface';
@@ -6,6 +7,7 @@ import { faPlus, faMinus, faTrash, faPen } from '@fortawesome/free-solid-svg-ico
 import { IFilter } from 'src/app/modules/shared/interface/filter.interface';
 import { ISort } from 'src/app/modules/shared/interface/sort.interface';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
 
 @Component({
   selector: 'cbs-use-list',
@@ -32,7 +34,7 @@ export class UseListComponent implements OnInit, ControlValueAccessor {
   public uses: IUse[];
 
   @Input()
-  public searchFunction: (filter?: IFilter[], sort?: ISort[]) => Observable<IUse[]>;
+  public searchFunction: (filter?: IFilter[], sort?: ISort[], page?: IPage) => Observable<IPageable<IUse>>;
 
   @Output()
   public usesChange: EventEmitter<IUse[]> = new EventEmitter<IUse[]>();

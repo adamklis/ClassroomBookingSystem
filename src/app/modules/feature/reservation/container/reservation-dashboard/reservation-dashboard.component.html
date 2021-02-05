@@ -38,9 +38,20 @@
       [searchPlaceholder]="'RESERVATION.FILTER.SEARCH_PLACEHOLDER' | translate"
       [keywordCategoryAlias]="'RESERVATION.FILTER.SEARCH_KEYWORD_ALIAS' | translate"
       [disabled]="false"
+      [loadMore]="loadMoreFilter"
       (searchChangeEvent)="onSearchChanged($event)"
-      (tagsChangeEvent)="onFilterChanged($event)">
+      (tagsChangeEvent)="onFilterChanged($event)"
+      (loadMoreClickEvent)="loadMoreTags()"
+      (lostFocusEvent)="searchLostFocus()">
     </cbs-tag-bar>
   </div>
 </div>
 <cbs-reservation-list [$reservations]="$reservations.asObservable()"></cbs-reservation-list>
+<ngb-pagination
+  class="d-flex justify-content-center"
+  [(page)]="currentPageNumber"
+  [collectionSize]="currentPage.size"
+  [pageSize]="currentPage.limit"
+  [rotate]="true" [boundaryLinks]="true"
+  (pageChange)="onFilterChanged()">
+</ngb-pagination>

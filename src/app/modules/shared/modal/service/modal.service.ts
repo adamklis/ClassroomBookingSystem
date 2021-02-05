@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core';
 import { IUse } from 'src/app/modules/feature/room/interface/use.interface';
 import { IFilter } from '../../interface/filter.interface';
 import { ISort } from '../../interface/sort.interface';
+import { IPageable } from '../../interface/pageable.interface';
+import { IPage } from '../../interface/page.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,11 @@ export class ModalService {
 
   constructor(private ngbModal: NgbModal) { }
 
-  public showSearchModal(searchFunction: (filter?: IFilter[], sort?: ISort[]) => Observable<IUse[]>, uses?: IUse[], searchText?: string){
+  public showSearchModal(
+    searchFunction: (filter?: IFilter[], sort?: ISort[], page?: IPage) => Observable<IPageable<IUse>>,
+    uses?: IUse[],
+    searchText?: string
+  ){
     const modal = this.ngbModal.open(SearchModalComponent);
     modal.componentInstance.title = 'Search';
     modal.componentInstance.buttons = [ButtonType.DISMISS, ButtonType.CONFIRM];

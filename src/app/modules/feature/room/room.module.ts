@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../../shared/shared.module';
 import { CoreModule } from './../../core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,7 +23,8 @@ import { UseListComponent } from './component/use-list/use-list.component';
     FontAwesomeModule,
     ReactiveFormsModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ]
 })
 export class RoomModule { }

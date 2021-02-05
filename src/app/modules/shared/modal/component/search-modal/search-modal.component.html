@@ -4,6 +4,14 @@
 <div class="modal-body">
   <cbs-search-input [busy]="searchBusy" (searchEvent)="inputChanged($event)"></cbs-search-input>
   <cbs-result-list [uses]="displayedUses" (quantityChanged)="quantityChanged($event)"></cbs-result-list>
+  <ngb-pagination
+    class="d-flex justify-content-center"
+    [(page)]="currentPageNumber"
+    [collectionSize]="currentPage.size"
+    [pageSize]="currentPage.limit"
+    [rotate]="true" [boundaryLinks]="true"
+    (pageChange)="inputChanged(searchText)">
+  </ngb-pagination>
 </div>
 <div class="modal-footer">
   <button *ngIf="isButtonTypeSelected(buttonTypes.DISMISS)" type="button" class="btn btn-outline-secondary" (click)="closeAction(buttonTypes.DISMISS)">{{ "SHARED.BUTTON.DISMISS" | translate }}</button>

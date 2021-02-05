@@ -24,6 +24,9 @@
       "DISMISS": "Dismiss",
       "CONFIRM": "Confirm",
       "OK": "OK"
+    },
+    "PAGINATION": {
+      "LOAD_MORE": "Load more..."
     }
   },
   "MENU": {

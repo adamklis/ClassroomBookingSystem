@@ -8,6 +8,9 @@ import { ISoftware, ISoftwareUse } from './../interface/software.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IPage } from 'src/app/modules/shared/interface/page.interface';
+import { IPageable } from 'src/app/modules/shared/interface/pageable.interface';
+import { Page } from 'src/app/modules/shared/model/page';
 
 const APIEndpoint = environment.APIEndpoint;
 
@@ -18,15 +21,16 @@ export class SoftwareService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getSoftwareUseList(filter?: IFilter[], sort?: ISort[]): Observable<ISoftwareUse[]> {
-    return this.httpClient
-      .get(APIEndpoint + '/software/use?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)) as Observable<ISoftwareUse[]>;
+  public getSoftwareUseList(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<ISoftwareUse>> {
+    return this.httpClient.get(
+      APIEndpoint + '/software/use?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<ISoftwareUse>>;
   }
 
-  public getSoftwareList(filter?: IFilter[], sort?: ISort[]): Observable<ISoftware[]> {
+  public getSoftwareList(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<ISoftware>> {
     return this.httpClient.get(
-      APIEndpoint + '/software?' + Filter.getQueryString(filter) + Sort.getQueryString(sort)
-    ) as Observable<ISoftware[]>;
+      APIEndpoint + '/software?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<ISoftware>>;
   }
 
   public getSoftware(uuid: string): Observable<ISoftware> {

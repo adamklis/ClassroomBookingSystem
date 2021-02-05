@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './../../shared/shared.module';
 import { CoreModule } from './../../core/core.module';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     FontAwesomeModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    NgbModule
   ]
 })
 export class ApplianceModule { }
