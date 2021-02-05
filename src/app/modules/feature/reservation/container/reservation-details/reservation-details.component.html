@@ -100,7 +100,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
-      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [reservations]="$reservations.asObservable()" [disabled]="!hasEditPermission()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
+      <cbs-reservation-room-list [rooms]="$rooms.asObservable()" [disabled]="!hasEditPermission()" [selectedRoom]="selectedRoom" (roomSelected)="roomSelected($event)"></cbs-reservation-room-list>
       <ngb-pagination
         class="d-flex justify-content-center"
         [(page)]="currentPageNumber"

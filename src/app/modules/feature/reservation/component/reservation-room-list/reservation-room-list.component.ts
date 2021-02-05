@@ -20,32 +20,19 @@ export class ReservationRoomListComponent implements OnInit, OnDestroy {
   public rooms: Observable<IRoom[]>;
 
   @Input()
-  public reservations: Observable<IReservation[]>;
-
-  @Input()
   public disabled = false;
 
   @Output()
   public roomSelected: EventEmitter<IRoom> = new EventEmitter<IRoom>();
 
   public list: IRoom[];
-  public reservationList: IReservation[];
-
   private subscription: Subscription;
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.subscription = combineLatest([
-      this.rooms,
-      this.reservations
-    ]).subscribe(result => {
-      this.list = result[0].filter(room =>
-        (result[1].findIndex(reservation => room.uuid === reservation.room.uuid) === -1 && !this.disabled) ||
-        room.uuid === this.selectedRoom?.uuid);
-    });
-
+    this.subscription = this.rooms.subscribe(rooms => this.list = rooms);
   }
 
   ngOnDestroy(): void {

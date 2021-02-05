@@ -236,23 +236,7 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
 
   public onDatesChanged(){
     this.selectedRoom = this.reservation?.room;
-    if (this.reservationForm.get('reservationPeriod').valid){
-      const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
-      const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
-      dateFrom.setHours(timeFrom.getHours());
-      dateFrom.setMinutes(timeFrom.getMinutes());
-
-      const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
-      const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
-      dateTo.setHours(timeTo.getHours());
-      dateTo.setMinutes(timeTo.getMinutes());
-
-      const filters = [new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString())];
-
-      this.reservationService.getReservations(filters).subscribe(
-        reservations => this.$reservations.next(reservations.results)
-      );
-    }
+    this.tagsChanged();
   }
 
   public tagsChanged(tags?: ITag[]){
@@ -261,16 +245,37 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     }
     this.applianceFilterPage = new Page(5, 0, 0);
     this.softwareFilterPage = new Page(5, 0, 0);
-    const filter = [];
-    const sort = [];
-    this.$tags.value.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
-    sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
-    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1){
-      this.roomService.getRooms(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise().then(rooms => {
-        this.$rooms.next(rooms.results);
-        this.currentPage = new Page(rooms.page.limit, rooms.page.size, rooms.page.start);
-        this.currentPageNumber = this.currentPage.getPageNumber();
-      });
+    if (this.currentUser.permissions.findIndex(permission => permission === this.permissions.ROOM_VIEW) !== -1 && this.hasEditPermission()){
+      if (this.reservationForm.get('reservationPeriod').valid){
+        const filter = [];
+        const sort = [];
+        this.$tags.value.forEach(tag => filter.push(new Filter(tag.category, tag.value)));
+        sort.push(new Sort('numberOfSeats', SortOrder.ASCEND));
+        const dateFrom = this.dateAdapter.toModel(this.dateFromControl.value);
+        const timeFrom = this.timeAdapter.toModel(this.timeFromControl.value);
+        dateFrom.setHours(timeFrom.getHours());
+        dateFrom.setMinutes(timeFrom.getMinutes());
+
+        const dateTo = this.dateAdapter.toModel(this.dateToControl.value);
+        const timeTo = this.timeAdapter.toModel(this.timeToControl.value);
+        dateTo.setHours(timeTo.getHours());
+        dateTo.setMinutes(timeTo.getMinutes());
+
+        filter.push(new Filter('dateFrom', dateFrom.toISOString()), new Filter('dateTo', dateTo.toISOString()));
+
+        this.reservationService.getUnreservedRooms(filter, sort, this.currentPage.getPage(this.currentPageNumber)).toPromise()
+        .then(rooms => {
+          if (this.reservation && rooms.results.findIndex(room => this.reservation.room.uuid === room.uuid) === -1) {
+            rooms.results.unshift(this.reservation.room);
+          }
+          this.$rooms.next(rooms.results);
+          this.currentPage = new Page(rooms.page.limit, rooms.page.size, rooms.page.start);
+          this.currentPageNumber = this.currentPage.getPageNumber();
+        });
+      }
+    }
+    if (!this.hasEditPermission()){
+      this.$rooms.next([this.reservation.room]);
     }
   }
 

@@ -1,3 +1,4 @@
+import { IRoom } from './../../room/interface/room.interface';
 import { IReservation } from './../interface/reservation.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -20,6 +21,12 @@ const APIEndpoint = environment.APIEndpoint;
 export class ReservationService {
 
   constructor(private httpClient: HttpClient) { }
+
+  public getUnreservedRooms(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<IRoom>> {
+    return this.httpClient.get(
+      APIEndpoint + '/reservation/unreservedRooms?' + Filter.getQueryString(filter) + Sort.getQueryString(sort) + Page.getQueryString(page)
+    ) as Observable<IPageable<IRoom>>;
+  }
 
   public getReservations(filter?: IFilter[], sort?: ISort[], page?: IPage): Observable<IPageable<IReservation>> {
     return this.httpClient.get(
