@@ -1,6 +1,10 @@
+import { of } from 'rxjs';
+import { UserService } from './../../service/user.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDetailsComponent } from './user-details.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent;
@@ -8,7 +12,13 @@ describe('UserDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserDetailsComponent ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ UserDetailsComponent ],
+      providers: [
+        {provide: ActivatedRoute, useValue: {snapshot: {paramMap: {get: () => {}}}}},
+        {provide: UserService, useValue: {getUser: () => of({})}},
+        {provide: Router, useValue: null},
+      ],
     })
     .compileComponents();
   }));

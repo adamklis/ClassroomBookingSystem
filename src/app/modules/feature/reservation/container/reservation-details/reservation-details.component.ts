@@ -1,7 +1,6 @@
 import { UserService } from './../../../user/service/user.service';
 import { ReservationService } from './../../service/reservation.service';
 import { IRoom } from './../../../room/interface/room.interface';
-import { RoomService } from './../../../room/service/room.service';
 import { IReservation } from './../../interface/reservation.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -89,7 +88,6 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     private softwareService: SoftwareService,
     private applianceService: ApplianceService,
     private userService: UserService,
-    private roomService: RoomService,
     private reservationService: ReservationService,
     private dateAdapter: DateAdapter,
     private timeAdapter: TimeAdapter,

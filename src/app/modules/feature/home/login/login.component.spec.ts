@@ -1,4 +1,7 @@
+import { AuthenticationService } from './../../../core/authentication/service/authentication.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginComponent } from './login.component';
 
@@ -8,7 +11,12 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ LoginComponent ],
+      providers: [
+        {provide: Router, useValue: null},
+        {provide: AuthenticationService, useValue: null}
+      ]
     })
     .compileComponents();
   }));

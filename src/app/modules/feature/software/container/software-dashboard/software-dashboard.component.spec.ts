@@ -1,6 +1,9 @@
+import { SoftwareService } from './../../service/software.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SoftwareDashboardComponent } from './software-dashboard.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 describe('SoftwareDashboardComponent', () => {
   let component: SoftwareDashboardComponent;
@@ -8,7 +11,10 @@ describe('SoftwareDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SoftwareDashboardComponent ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ SoftwareDashboardComponent ],
+      providers: [
+        {provide: SoftwareService, useValue: {getSoftwareList: () => of({page: {limit: 0, size: 0, start: 0}, results: []})}}]
     })
     .compileComponents();
   }));

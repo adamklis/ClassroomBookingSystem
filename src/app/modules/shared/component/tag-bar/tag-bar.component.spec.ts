@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagBarComponent } from './tag-bar.component';
@@ -16,6 +17,7 @@ describe('TagBarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TagBarComponent);
     component = fixture.componentInstance;
+    component.$tags = of([]);
     fixture.detectChanges();
   });
 
