@@ -85,7 +85,7 @@
       "EMAIL": "Email"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Search users...",
+      "SEARCH_PLACEHOLDER": "Search users by surname, forename, contact or email...",
       "SEARCH_KEYWORD_FORENAME_ALIAS": "Forename",
       "SEARCH_KEYWORD_SURNAME_ALIAS": "Surname",
       "SEARCH_KEYWORD_CONTACT_ALIAS": "Contact",
@@ -140,7 +140,7 @@
       "NEW": "New software"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Search software...",
+      "SEARCH_PLACEHOLDER": "Search software by name or quantity...",
       "SEARCH_KEYWORD_ALIAS": "Name",
       "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
     },
@@ -169,7 +169,7 @@
       "NEW": "New appliance"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Search appliances...",
+      "SEARCH_PLACEHOLDER": "Search appliances by name or quantity...",
       "SEARCH_KEYWORD_ALIAS": "Name",
       "SEARCH_KEYWORD_INT_ALIAS": "Quantity"
     },
@@ -200,7 +200,7 @@
       "NEW": "New room"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Search: software, appliance, classroom name...",
+      "SEARCH_PLACEHOLDER": "Search room by classroom name, number of seats, appliance or software...",
       "SEARCH_KEYWORD_ALIAS": "Name",
       "SEARCH_KEYWORD_INT_ALIAS": "Seats",
       "SOFTWARE_ALIAS": "Software",
@@ -231,7 +231,7 @@
     },
     "FILTER": {
       "SHOW_EXPIRED": "Show expired",
-      "SEARCH_PLACEHOLDER": "Search reservations...",
+      "SEARCH_PLACEHOLDER": "Search reservations by classroom name, user or message...",
       "SEARCH_KEYWORD_ALIAS": "Message",
       "ROOM_ALIAS": "Room",
       "USER_ALIAS": "User"
@@ -244,7 +244,7 @@
       "DATE_FROM": "Date from",
       "DATE_TO": "Date to",
       "FILTER": {
-        "SEARCH_PLACEHOLDER": "Search: software, appliance, classroom name...",
+        "SEARCH_PLACEHOLDER": "Search room by classroom name, number of seats, appliance or software...",
         "SEARCH_KEYWORD_ALIAS": "Name",
         "SEARCH_KEYWORD_INT_ALIAS": "Seats",
         "SOFTWARE_ALIAS": "Software",

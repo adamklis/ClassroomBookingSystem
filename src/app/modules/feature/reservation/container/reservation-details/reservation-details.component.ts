@@ -80,6 +80,8 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
   private currentUser = null;
   private searchText = '';
   private searchUserText = '';
+  private filterRequest: Subscription;
+  private userFilterRequest: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -89,7 +91,6 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     private softwareService: SoftwareService,
     private applianceService: ApplianceService,
     private userService: UserService,
-    private roomService: RoomService,
     private reservationService: ReservationService,
     private dateAdapter: DateAdapter,
     private timeAdapter: TimeAdapter,
@@ -298,7 +299,12 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
         requests.push(this.softwareService.getSoftwareList([filter], [sort], this.softwareFilterPage));
       }
     }
-    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
+
+    if (this.filterRequest){
+      this.filterRequest.unsubscribe();
+    }
+
+    this.filterRequest = forkJoin(requests).subscribe((result: IPageable<any>[]) => {
       this.translateService.get([
         'RESERVATION.DETAILS.FILTER.APPLIANCE_ALIAS',
         'RESERVATION.DETAILS.FILTER.SOFTWARE_ALIAS'
@@ -365,8 +371,11 @@ export class ReservationDetailsComponent implements OnInit, OnDestroy {
     const filter = new Filter('all', input);
     const sort = new Sort('all', SortOrder.ASCEND);
 
-    this.userService.getUsers([filter], [sort], this.userPage).toPromise()
-      .then(users => {
+    if (this.userFilterRequest){
+      this.userFilterRequest.unsubscribe();
+    }
+
+    this.userFilterRequest = this.userService.getUsers([filter], [sort], this.userPage).subscribe(users => {
         this.$users.next([
           ...this.$users.value,
           ...users.results.map(user => ({key: user, value: `${user.forename} ${user.surname} <${user.email}>`}))

@@ -86,7 +86,7 @@
       "EMAIL": "Email"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Wyszukaj użytkownika...",
+      "SEARCH_PLACEHOLDER": "Wyszukaj użytkownika po nazwisku, imieniu, kontakcie lub emailu...",
       "SEARCH_KEYWORD_FORENAME_ALIAS": "Imię",
       "SEARCH_KEYWORD_SURNAME_ALIAS": "Nazwisko",
       "SEARCH_KEYWORD_CONTACT_ALIAS": "Kontakt",
@@ -140,7 +140,7 @@
       "NEW": "Nowe oprogramowanie"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Wyszukaj oprogramowanie...",
+      "SEARCH_PLACEHOLDER": "Wyszukaj oprogramowanie po nazwie lub ilości...",
       "SEARCH_KEYWORD_ALIAS": "Nazwa",
       "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
     },
@@ -169,7 +169,7 @@
       "NEW": "Nowy sprzęt"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Wyszukaj sprzęt...",
+      "SEARCH_PLACEHOLDER": "Wyszukaj sprzęt po nazwie lub ilości...",
       "SEARCH_KEYWORD_ALIAS": "Nazwa",
       "SEARCH_KEYWORD_INT_ALIAS": "Ilość"
     },
@@ -200,7 +200,7 @@
       "NEW": "Nowy pokój"
     },
     "FILTER": {
-      "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
+      "SEARCH_PLACEHOLDER": "Wyszukaj pokój po nazwie, liczbie miejsc, oprogramowaniu lub sprzęcie...",
       "SEARCH_KEYWORD_ALIAS": "Nazwa",
       "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
       "SOFTWARE_ALIAS": "Oprogramowanie",
@@ -231,7 +231,7 @@
     },
     "FILTER": {
       "SHOW_EXPIRED": "Wyświetl zakończone",
-      "SEARCH_PLACEHOLDER": "Wyszukaj rezerwację...",
+      "SEARCH_PLACEHOLDER": "Wyszukaj rezerwację po nazwie pokoju, użytkowniku lub wiadomości...",
       "SEARCH_KEYWORD_ALIAS": "Wiadomość",
       "ROOM_ALIAS": "Pokój",
       "USER_ALIAS": "Użytkownik"
@@ -244,7 +244,7 @@
       "DATE_FROM": "Data od",
       "DATE_TO": "Data do",
       "FILTER": {
-        "SEARCH_PLACEHOLDER": "Wyszukaj: oprogramowanie, sprzęt, nazwę sali...",
+        "SEARCH_PLACEHOLDER": "Wyszukaj pokój po nazwie, liczbie miejsc, oprogramowaniu lub sprzęcie...",
         "SEARCH_KEYWORD_ALIAS": "Nazwa",
         "SEARCH_KEYWORD_INT_ALIAS": "Miejsca",
         "SOFTWARE_ALIAS": "Oprogramowanie",

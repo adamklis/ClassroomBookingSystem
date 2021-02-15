@@ -5,7 +5,7 @@ import { Permission } from './../../../../core/authorization/enum/permission.enu
 import { RoomService } from './../../service/room.service';
 import { IRoom } from './../../interface/room.interface';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { ActivatedRoute } from '@angular/router';
 import { SortOrder } from 'src/app/modules/shared/enum/sort-order.enum';
@@ -23,6 +23,7 @@ export class RoomDashboardComponent implements OnInit {
 
   private currentUser = null;
   private searchText = '';
+  private filterRequest: Subscription;
   public $tags: BehaviorSubject<ITag[]> = new BehaviorSubject<ITag[]>([]);
   public $rooms: BehaviorSubject<IRoom[]> = new BehaviorSubject<IRoom[]>([]);
   public currentPageNumber: number;
@@ -88,7 +89,12 @@ export class RoomDashboardComponent implements OnInit {
         requests.push(this.softwareService.getSoftwareList([filter], [sort], this.softwareFilterPage));
       }
     }
-    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
+
+    if (this.filterRequest){
+      this.filterRequest.unsubscribe();
+    }
+
+    this.filterRequest = forkJoin(requests).subscribe((result: IPageable<any>[]) => {
       this.translateService.get([
         'ROOM.FILTER.APPLIANCE_ALIAS',
         'ROOM.FILTER.SOFTWARE_ALIAS'
