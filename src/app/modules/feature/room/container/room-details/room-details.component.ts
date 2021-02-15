@@ -116,7 +116,8 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   public onSaveClick(){
-    this.roomService.saveRoom(this.getFormRoomObject())
+    this.room = this.getFormRoomObject();
+    this.roomService.saveRoom(this.room)
     .then(() => {
       this.translateService.get([
         'ROOM.MODAL.SAVE_ROOM_SUCCESS_TITLE',
@@ -142,32 +143,30 @@ export class RoomDetailsComponent implements OnInit {
     .then(translation => {
       this.modalService.showConfirmModal({title: translation['ROOM.MODAL.RESTORE_ROOM_TITLE'], message: translation['ROOM.MODAL.RESTORE_ROOM_MESSAGE']})
       .then(() => {
-        this.roomForm.reset();
+        this.resetForm();
       })
       .catch(error => {});
     });
   }
 
   public onAddClick(){
-    this.room = this.getFormRoomObject();
-    this.roomService.addRoom(this.room)
+    const newRoom = this.getFormRoomObject();
+    this.roomService.addRoom(newRoom)
       .then(() => {
       this.translateService.get([
         'ROOM.MODAL.ADD_ROOM_SUCCESS_TITLE',
         'ROOM.MODAL.ADD_ROOM_SUCCESS_MESSAGE'
       ],
-      {name: this.room.name})
+      {name: newRoom.name})
       .toPromise()
       .then(translation => {
         this.modalService.showInfoModal({title: translation['ROOM.MODAL.ADD_ROOM_SUCCESS_TITLE'], message: translation['ROOM.MODAL.ADD_ROOM_SUCCESS_MESSAGE']})
         .then(() => {
-          this.room = null;
           this.resetForm();
         });
       });
     })
     .catch(err => {
-      this.room = null;
       this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
         this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
@@ -184,6 +183,8 @@ export class RoomDetailsComponent implements OnInit {
         this.applianceUsesList = this.room.appliances;
       });
     } else {
+      this.softwareUsesList = [];
+      this.applianceUsesList = [];
       this.roomForm.reset();
     }
     this.roomForm.markAsUntouched();

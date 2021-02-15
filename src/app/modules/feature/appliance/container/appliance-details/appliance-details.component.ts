@@ -90,7 +90,8 @@ export class ApplianceDetailsComponent implements OnInit {
   }
 
   public onSaveClick(){
-    this.applianceService.saveAppliance(this.getFormApplianceObject())
+    this.appliance = this.getFormApplianceObject();
+    this.applianceService.saveAppliance(this.appliance)
     .then(() => {
       this.translateService.get([
         'APPLIANCE.MODAL.SAVE_APPLIANCE_SUCCESS_TITLE',
@@ -123,25 +124,23 @@ export class ApplianceDetailsComponent implements OnInit {
   }
 
   public onAddClick(){
-    this.appliance = this.getFormApplianceObject();
-    this.applianceService.addAppliance(this.appliance)
+    const newAppliance = this.getFormApplianceObject();
+    this.applianceService.addAppliance(newAppliance)
     .then(() => {
       this.translateService.get([
         'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE',
         'APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE'
       ],
-      {name: this.appliance.name})
+      {name: newAppliance.name})
       .toPromise()
       .then(translation => {
         this.modalService.showInfoModal({title: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_TITLE'], message: translation['APPLIANCE.MODAL.ADD_APPLIANCE_SUCCESS_MESSAGE']})
         .then(() => {
-          this.appliance = null;
           this.resetForm();
         });
       });
     })
     .catch(err => {
-      this.appliance = null;
       this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
         this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });

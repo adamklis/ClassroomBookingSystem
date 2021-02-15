@@ -100,7 +100,8 @@ export class SoftwareDetailsComponent implements OnInit {
   }
 
   public onSaveClick(){
-    this.softwareService.saveSoftware(this.getFormSoftwareObject())
+    this.software = this.getFormSoftwareObject();
+    this.softwareService.saveSoftware(this.software)
     .then(() => {
       this.translateService.get([
         'SOFTWARE.MODAL.SAVE_SOFTWARE_SUCCESS_TITLE',
@@ -133,25 +134,23 @@ export class SoftwareDetailsComponent implements OnInit {
   }
 
   public onAddClick(){
-    this.software = this.getFormSoftwareObject();
-    this.softwareService.addSoftware(this.software)
+    const newSoftware = this.getFormSoftwareObject();
+    this.softwareService.addSoftware(newSoftware)
     .then(() => {
       this.translateService.get([
         'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE',
         'SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE'
       ],
-      {name: this.software.name})
+      {name: newSoftware.name})
       .toPromise()
       .then(translation => {
         this.modalService.showInfoModal({title: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_TITLE'], message: translation['SOFTWARE.MODAL.ADD_SOFTWARE_SUCCESS_MESSAGE']})
         .then(() => {
-          this.software = null;
           this.resetForm();
         });
       });
     })
     .catch(err => {
-      this.software = null;
       this.translateService.get(['SHARED.VALIDATION.ERROR']).toPromise().then(translation =>
         this.modalService.showInfoModal({title: translation['SHARED.VALIDATION.ERROR'], message: err.error}).then());
     });
