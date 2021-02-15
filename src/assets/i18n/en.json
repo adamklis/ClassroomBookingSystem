@@ -251,7 +251,7 @@
         "APPLIANCE_ALIAS": "Appliance"
       },
       "TABLE": {
-        "NAME": "Name",
+        "NAME": "Room",
         "NUMBER_OF_SEATS": "Number of seats",
         "APPLIANCES": "Appliances",
         "SOFTWARE": "Software"
