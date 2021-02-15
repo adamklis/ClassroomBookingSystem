@@ -13,7 +13,7 @@ import { ReservationService } from './../../service/reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../user/interface/user.interface';
 import { IReservation } from '../../interface/reservation.interface';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ITag } from 'src/app/modules/shared/component/tag-bar/tag.interface';
 import { faCalendar, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
@@ -46,6 +46,7 @@ export class ReservationDashboardComponent implements OnInit {
 
   private currentUser: IUser;
   private searchText = '';
+  private filterRequest: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -92,7 +93,11 @@ export class ReservationDashboardComponent implements OnInit {
       }
     }
 
-    forkJoin(requests).toPromise().then((result: IPageable<any>[]) => {
+    if (this.filterRequest){
+      this.filterRequest.unsubscribe();
+    }
+
+    this.filterRequest = forkJoin(requests).subscribe((result: IPageable<any>[]) => {
       this.translateService.get([
         'RESERVATION.FILTER.ROOM_ALIAS',
         'RESERVATION.FILTER.USER_ALIAS',

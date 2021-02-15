@@ -251,7 +251,7 @@
         "APPLIANCE_ALIAS": "Sprzęt"
       },
       "TABLE": {
-        "NAME": "Nazwa",
+        "NAME": "Pokój",
         "NUMBER_OF_SEATS": "Liczba miejsc",
         "APPLIANCES": "Wyposażenie",
         "SOFTWARE": "Oprogramowanie"
