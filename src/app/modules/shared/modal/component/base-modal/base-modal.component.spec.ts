@@ -2,6 +2,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseModalComponent } from './base-modal.component';
+import { ButtonType } from '../../enum/button-type.enum';
 
 describe('BaseModalComponent', () => {
   let component: BaseModalComponent;
@@ -25,5 +26,11 @@ describe('BaseModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('return true if button is on list else return false', () => {
+    component.buttons = [ButtonType.CONFIRM, ButtonType.DELETE];
+    expect(component.isButtonTypeSelected(ButtonType.CONFIRM)).toEqual(true);
+    expect(component.isButtonTypeSelected(ButtonType.OK)).toEqual(false);
   });
 });

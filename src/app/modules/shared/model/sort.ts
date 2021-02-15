@@ -14,7 +14,7 @@ export class Sort implements ISort {
     if (Array.isArray(sort)) {
       return sort.reduce((result, next) => {
         return result.concat('sort_', next.key, '=', next.order, '&');
-      }, '')
+      }, '');
     } else {
       return ''.concat('sort_', sort.key, '=', sort.order, '&');
     }

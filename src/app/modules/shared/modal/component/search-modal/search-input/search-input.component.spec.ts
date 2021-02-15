@@ -16,10 +16,17 @@ describe('SearchInputComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchInputComponent);
     component = fixture.componentInstance;
+    spyOn(component.searchEvent, 'emit');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit event with text payload when input detected', () => {
+    component.searchTextValue = 'abc';
+    component.inputEvent('a');
+    expect(component.searchEvent.emit).toHaveBeenCalledWith('abc');
   });
 });
