@@ -47,17 +47,8 @@ export class UserDetailsComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const userUuid = this.activatedRoute.snapshot.paramMap.get('uuid');
-    if (userUuid !== '0') {
-      this.userService.getUser(userUuid).subscribe(user => {
-        this.user = user;
-        if (this.isProtected()) {
-          this.emailControl.disable();
-          this.passwordControl.disable();
-        }
-        this.resetForm();
-      });
-    }
+    this.user = this.activatedRoute.snapshot.data.user;
+    this.resetForm();
   }
 
   public onPermissionsClick(){
@@ -85,7 +76,10 @@ export class UserDetailsComponent implements OnInit {
     .then(translation => {
       this.modalService.showConfirmModal({title: translation['USER.MODAL.RESTORE_USER_TITLE'], message: translation['USER.MODAL.RESTORE_USER_MESSAGE']})
       .then(() => {
-        this.resetForm();
+        this.userService.getUser(this.user.uuid).toPromise().then(user => {
+          this.user = user;
+          this.resetForm();
+        });
       })
       .catch(error => {});
     });
@@ -128,6 +122,8 @@ export class UserDetailsComponent implements OnInit {
       .toPromise()
       .then(translation => {
         this.modalService.showInfoModal({title: translation['USER.MODAL.SAVE_USER_SUCCESS_TITLE'], message: translation['USER.MODAL.SAVE_USER_SUCCESS_MESSAGE']});
+        this.userForm.markAsPristine();
+        this.userForm.markAsUntouched();
       });
     })
     .catch(err => {
@@ -196,7 +192,8 @@ export class UserDetailsComponent implements OnInit {
   }
 
   public isProtected(): boolean{
-    return this.user && this.user.permissions?.findIndex(permission => permission === Permission.PROTECTED_USER) !== -1;
+    return this.user && this.user.permissions &&
+    this.user.permissions.findIndex(permission => permission === Permission.PROTECTED_USER) !== -1;
   }
 
   private resetForm(): void{
@@ -206,6 +203,10 @@ export class UserDetailsComponent implements OnInit {
       this.forenameControl.setValue(this.user.forename);
       this.surnameControl.setValue(this.user.surname);
       this.contactControl.setValue(this.user.contact);
+      if (this.isProtected()) {
+        this.emailControl.disable();
+        this.passwordControl.disable();
+      }
     } else {
       this.userForm.reset();
     }

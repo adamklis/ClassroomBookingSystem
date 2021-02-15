@@ -6,10 +6,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserDashboardComponent } from './container/user-dashboard/user-dashboard.component';
 import { Permission } from '../../core/authorization/enum/permission.enum';
 import { AuthorizationGuard } from '../../core/guard/authorization/authorization.guard';
+import { UserResolver } from './service/user.resolver';
 
 const routes: Routes = [
   { path: '', component: UserDashboardComponent },
-  { path: ':uuid', component: UserDetailsComponent },
+  { path: ':uuid', component: UserDetailsComponent, resolve: {user: UserResolver} },
   {
     path: ':uuid/permissions',
     component: UserPermissionsComponent,
@@ -21,6 +22,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserResolver]
 })
 export class UserRoutingModule { }
