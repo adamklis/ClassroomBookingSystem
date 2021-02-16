@@ -1,4 +1,8 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { SoftwareService } from '../../service/software.service';
 
 import { SoftwareDetailsComponent } from './software-details.component';
 
@@ -8,7 +12,13 @@ describe('SoftwareDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SoftwareDetailsComponent ]
+      imports: [NgbModule, TranslateModule.forRoot()],
+      declarations: [ SoftwareDetailsComponent ],
+      providers: [
+        {provide: ActivatedRoute, useValue: {snapshot: {paramMap: {get: () => {}}}}},
+        {provide: SoftwareService, useValue: null},
+        {provide: Router, useValue: null},
+      ],
     })
     .compileComponents();
   }));

@@ -16,10 +16,17 @@ describe('TagComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TagComponent);
     component = fixture.componentInstance;
+    component.tag = {category: 'category', value: 'value'};
+    spyOn(component.removeEvent, 'emit');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit remove event', () => {
+    component.onRemove();
+    expect(component.removeEvent.emit).toHaveBeenCalledWith({category: 'category', value: 'value'});
   });
 });

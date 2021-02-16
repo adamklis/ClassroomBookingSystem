@@ -12,6 +12,16 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+    browsers: [
+      'ChromeDebugging'
+    ],
+
+    customLaunchers: {
+      ChromeDebugging: {
+        base: 'Chrome',
+        flags: [ '--remote-debugging-port=9333' ]
+      }
+    },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },

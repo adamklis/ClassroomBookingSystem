@@ -1,7 +1,7 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '../../service/user.service';
 
 import { UserPermissionsComponent } from './user-permissions.component';
 
@@ -11,7 +11,12 @@ describe('UserPermissionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserPermissionsComponent ]
+      imports: [TranslateModule.forRoot()],
+      declarations: [ UserPermissionsComponent ],
+      providers: [
+        {provide: UserService, useValue: null},
+        {provide: Router, useValue: {getCurrentNavigation: () => ({extras: {state: {user: {permissions: []}}}})}}
+      ],
     })
     .compileComponents();
   }));

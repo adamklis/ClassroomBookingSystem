@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ResultListComponent } from './result-list.component';
 
@@ -8,6 +9,7 @@ describe('ResultListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ ResultListComponent ]
     })
     .compileComponents();

@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UnathorizedComponent } from './unathorized.component';
@@ -8,6 +9,7 @@ describe('UnathorizedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ UnathorizedComponent ]
     })
     .compileComponents();

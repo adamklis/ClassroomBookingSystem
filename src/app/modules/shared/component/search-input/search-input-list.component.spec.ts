@@ -1,8 +1,9 @@
+import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchInputListComponent } from './search-input-list.component';
 
-describe('SearchInputComponent', () => {
+describe('SearchInputListComponent', () => {
   let component: SearchInputListComponent;
   let fixture: ComponentFixture<SearchInputListComponent>;
 
@@ -16,6 +17,7 @@ describe('SearchInputComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchInputListComponent);
     component = fixture.componentInstance;
+    component.$searchResults = of([]);
     fixture.detectChanges();
   });
 
