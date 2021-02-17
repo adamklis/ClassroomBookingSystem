@@ -15,7 +15,7 @@ describe('UserDetailsComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ UserDetailsComponent ],
       providers: [
-        {provide: ActivatedRoute, useValue: {snapshot: {paramMap: {get: () => {}}}}},
+        {provide: ActivatedRoute, useValue: {snapshot: {data: {user: null}}}},
         {provide: UserService, useValue: {getUser: () => of({})}},
         {provide: Router, useValue: null},
       ],

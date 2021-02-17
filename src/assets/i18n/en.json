@@ -39,7 +39,8 @@
       "ROOMS": "Rooms",
       "APPLIANCES": "Appliances",
       "SOFTWARE": "Software",
-      "USERS": "Users"
+      "USERS": "Users",
+      "ABOUT": "About"
   },
   "HOME": {
       "WELCOME": "Welcome to Classroom booking system",
@@ -60,7 +61,7 @@
 
   },
   "REGISTER": {
-      "HEADER": "Sign Up",
+
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "FORENAME": "Forename",
@@ -75,6 +76,12 @@
   "UNATHORIZED": {
     "HEADER": "Unathorized",
     "MESSAGE": "You have no permissions to see this page."
+  },
+  "ABOUT": {
+    "HEADER": "About",
+    "REPORTED": "Reported bugs and changes",
+    "REPORTED_PROMISE": "If you see a bug or you have a suggestion of changes please report it on: klis.adam.0807@gmail.com.",
+    "CHANGELOG": "Changelog"
   },
   "USER": {
     "HEADER": "Users",

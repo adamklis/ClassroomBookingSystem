@@ -1,0 +1,12 @@
+<h3>{{'ABOUT.HEADER' | translate }}</h3>
+
+<h4>{{'ABOUT.REPORTED' | translate }}</h4>
+<p>{{'ABOUT.REPORTED_PROMISE' | translate }}</p>
+<ul *ngIf="reported && reported.length > 0">
+  <li *ngFor="let item of reported">{{ item.value }}</li>
+</ul>
+
+<h4 *ngIf="changelog && changelog.length > 0">{{'ABOUT.CHANGELOG' | translate }}</h4>
+<ul *ngIf="changelog && changelog.length > 0">
+  <li *ngFor="let item of changelog">{{ item.value }}</li>
+</ul>

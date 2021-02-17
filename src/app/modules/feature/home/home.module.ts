@@ -7,6 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UnathorizedComponent } from './unathorized/unathorized.component';
 import { RegisterSuccessComponent } from './register/register-success/register-success.component';
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -16,7 +17,8 @@ import { RegisterSuccessComponent } from './register/register-success/register-s
     LoginComponent,
     RegisterComponent,
     UnathorizedComponent,
-    RegisterSuccessComponent
+    RegisterSuccessComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
