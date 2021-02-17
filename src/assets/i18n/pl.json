@@ -39,7 +39,8 @@
       "ROOMS": "Pokoje",
       "APPLIANCES": "Sprzęt",
       "SOFTWARE": "Oprogramowanie",
-      "USERS": "Użytkownicy"
+      "USERS": "Użytkownicy",
+      "ABOUT": "O aplikacji"
   },
   "HOME": {
       "WELCOME": "Witamy w Systemie Rezerwacji Sal Lekcyjnych",
@@ -76,6 +77,12 @@
   "UNATHORIZED": {
     "HEADER": "Brak uprawnień",
     "MESSAGE": "Nie masz uprawnień do oglądania tej strony."
+  },
+  "ABOUT": {
+    "HEADER": "O aplikacji",
+    "REPORTED": "Zgłoszone błędy i zmiany",
+    "REPORTED_PROMISE": "Jeżeli widzisz błąd lub masz propozycję zmian zgłoś to proszę na adres: klis.adam.0807@gmail.com.",
+    "CHANGELOG": "Ostatnie zmiany"
   },
   "USER": {
     "HEADER": "Użytkownicy",

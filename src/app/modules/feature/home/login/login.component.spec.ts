@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginComponent } from './login.component';
-import { doesNotReject } from 'assert';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -44,6 +43,5 @@ describe('LoginComponent', () => {
     spyOn(authService, 'login').and.callThrough();
     component.onSubmit();
     expect(authService.login).toHaveBeenCalled();
-    expectAsync(component.loginError).toBeRejected({error: 'error'});
   });
 });

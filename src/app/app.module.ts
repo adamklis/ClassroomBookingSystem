@@ -1,3 +1,4 @@
+import { AboutComponent } from './modules/feature/home/about/about.component';
 import { HealthCheckService } from './modules/core/health-check/health-check.service';
 import { RegisterSuccessComponent } from './modules/feature/home/register/register-success/register-success.component';
 import { Permission } from './modules/core/authorization/enum/permission.enum';
@@ -23,6 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationGuard } from './modules/core/guard/authentication/authentication.guard';
 import { AuthorizationGuard } from './modules/core/guard/authorization/authorization.guard';
 import { HttpAuthorizedInterceptor } from './modules/core/interceptoprs/http-authorized-interceptor';
+import { DictionaryResolver } from './modules/core/dictionary/service/dictionary.resolver';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule.forRoot([
       { path: 'home', canActivate: [AuthorizationGuard], component: StartComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'about', component: AboutComponent, resolve: {dictionaries: DictionaryResolver}, data: {keys: ['REPORTED', 'CHANGELOG']}},
       { path: 'register', component: RegisterComponent },
       { path: 'register/success', component: RegisterSuccessComponent },
       { path: 'unathorized', component: UnathorizedComponent },
