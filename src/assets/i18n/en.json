@@ -61,7 +61,7 @@
 
   },
   "REGISTER": {
-
+      "HEADER": "Sign Up",
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "FORENAME": "Forename",
